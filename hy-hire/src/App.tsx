@@ -1,10 +1,14 @@
-import React from 'react'
+
+import HomePage from './components/user/HomePage'
+
 
 function App() {
   return (
-    <div>
-      <h1>hia</h1>
-    </div>
+    <>
+
+    <HomePage/>
+    
+    </>
   )
 }
 
