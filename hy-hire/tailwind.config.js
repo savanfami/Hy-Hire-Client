@@ -18,7 +18,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-       ff:['Metal']
+       ff:['Metal'],
+       gg:["Merriweather", 'serif']
       },
       colors: {
         maincolr:'#309689',
