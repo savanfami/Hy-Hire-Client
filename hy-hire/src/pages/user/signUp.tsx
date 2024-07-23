@@ -1,9 +1,12 @@
+import { FaDove } from 'react-icons/fa'
 import signUpimage from '../../assets/images/3e69ae84db376080609de0a95f97995d.jpg'
 import logo from '../../assets/images/Group_1172__1_-removebg-preview.png'
 import googleicon from '../../assets/images/icons8-google-144.png'
+import { Link } from 'react-router-dom'
 const SignUp = () => {
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 h-screen'>
+        <div className='h-1'>
+<div className='grid grid-cols-1 md:grid-cols-2 h-screen'>
         <div className='relative'>
           <img src={signUpimage} className='h-screen w-screen object-cover' alt="Sign Up Background" />
           <img src={logo}  className='absolute top-6 left-5 w-24 h-auto' alt="Logo" />
@@ -12,7 +15,7 @@ const SignUp = () => {
           <div className='w-full max-w-md p-8 bg-white '>
             <h2 className='text-3xl font-bold font-gg mb-6 text-center'>Sign Up</h2>
             <p className='font-semibold'>if you already have an account </p>
-            <span className='font-semibold'>you can </span> <span className='font-semibold text-maincolr font-gg'>Login here !</span>
+            <span className='font-semibold'>you can </span><Link to='/login'><span className='font-semibold text-maincolr font-gg'>Login here !</span> </Link>
             <form className='space-y-4'>
               <div>
                 <label htmlFor="email" className='block mt-10 mb-1 font-medium'>Email</label>
@@ -42,6 +45,8 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+        </div>
+        
     )
 }
 

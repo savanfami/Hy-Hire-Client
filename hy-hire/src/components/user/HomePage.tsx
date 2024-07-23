@@ -1,10 +1,13 @@
 import image from '../../assets/images/Remote vs On-site Staff Augmentationn.webp';
 import { FaBriefcase, FaBuilding, FaSearch, FaUsers } from 'react-icons/fa';
 import workerimage from '../../assets/images/Banner.png'
+import Navbar from '../common/Navbar';
+import Footer from '../common/Footer';
 
-const Homepage = () => {
+export const Homepage = () => {
   return (
     <div className="overflow-x-hidden">
+      {/* <Navbar /> */}
       <div className='relative w-full'>
         <img src={image} className='w-full max-w-full object-cover h-[600px] xl:h-screen lg:h-screen  sm:h-screen 2xl:h-screen md:h-[680px]' alt="Remote vs On-site Staff Augmentation" />
         <div className="absolute inset-0 bg-black h-[600px] bg-opacity-60 sm:h-screen lg:h-screen 2xl:h-screen xl:h-screen md:h-[680px]"></div>
@@ -376,365 +379,365 @@ const Homepage = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center px-16  bg-white max-md:px-5">
-      <div className="self-center mt-3 text-2xl font-semibold font-sans text-center text-teal-600 leading-[52.8px] max-md:text-4xl">
-        <span className="text-maincolr ">How HyHire</span>{" "}
-        <span className="text-black ">Work</span>
-      </div>
-      <div className="mt-14 max-md:mt-10 max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow justify-center items-center px-9 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/fbcb510b63933f010cc4a0c6c499b1e6296764c936652f7bb4c652cfb5157f27?"
-                className="aspect-square w-[72px]"
-              />
-              <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                Create account
+        <div className="self-center mt-3 text-2xl font-semibold font-sans text-center text-teal-600 leading-[52.8px] max-md:text-4xl">
+          <span className="text-maincolr ">How HyHire</span>{" "}
+          <span className="text-black ">Work</span>
+        </div>
+        <div className="mt-14 max-md:mt-10 max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+            <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow justify-center items-center px-9 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/fbcb510b63933f010cc4a0c6c499b1e6296764c936652f7bb4c652cfb5157f27?"
+                  className="aspect-square w-[72px]"
+                />
+                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
+                  Create account
+                </div>
+
               </div>
-              
             </div>
-          </div>
-          <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow justify-center items-center px-7 py-7 w-full text-center bg-white rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/66addd84685eace00e556fb605dff727bb6176520586a5aa4cd0efa63f9d9458?"
-                className="aspect-square w-[72px]"
-              />
-              <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                Upload CV/Resume
+            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow justify-center items-center px-7 py-7 w-full text-center bg-white rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/66addd84685eace00e556fb605dff727bb6176520586a5aa4cd0efa63f9d9458?"
+                  className="aspect-square w-[72px]"
+                />
+                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
+                  Upload CV/Resume
+                </div>
+
               </div>
-              
             </div>
-          </div>
-          <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow justify-center items-center px-9 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f2e83618ab83abd9a531d81bb01bad4e0602150b10d5edc9203e8eed3c7efa4?"
-                className="aspect-square w-[72px]"
-              />
-              <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                Find suitable job
+            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow justify-center items-center px-9 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f2e83618ab83abd9a531d81bb01bad4e0602150b10d5edc9203e8eed3c7efa4?"
+                  className="aspect-square w-[72px]"
+                />
+                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
+                  Find suitable job
+                </div>
+
               </div>
-             
             </div>
-          </div>
-          <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow justify-center items-center px-7 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/d8e93b3adbcfa6e0f7c2dffd0f9a6fdf02512fd1f66dbe71ec3b35067e798b25?"
-                className="aspect-square w-[72px]"
-              />
-              <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                Apply job
+            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow justify-center items-center px-7 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/d8e93b3adbcfa6e0f7c2dffd0f9a6fdf02512fd1f66dbe71ec3b35067e798b25?"
+                  className="aspect-square w-[72px]"
+                />
+                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
+                  Apply job
+                </div>
+
               </div>
-              
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div className="flex flex-col px-16 pt-3 my-5 pb-20 max-md:px-5">
- <div className="flex flex-col sm:flex-row justify-center items-center max-w-full w-full px-4 text-teal-600">
-  <div className="flex text-2xl font-semibold  font-sans text-center mb-4 sm:mb-0">
-    <span className="">Featured </span>
-    <span className="text-black pl-2">jobs</span>
-  </div>
-</div>
-  <div className="flex 2xl:justify-end gap-2 px-2 justify-center md:justify-end sm:justify-end xl:justify-end  text-base font-semibold md:-mt-7 sm:-mt-7 lg:-mt-7 xl:-mt-7 2xl:-mt-7  ">
-    <div className=" cursor-pointer text-maincolr">View All</div>
-    <img
-      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f31d052956a032d9ec68bf0a0d33782d175bf0182a4ad2db4a522ef9d6f3bca1?apiKey=8f24705e21204f2584dbbee4857097d3&"
-      className="shrink-0 w-6 aspect-square"
-    />
-</div>
-    <div className="mt-11 max-md:mt-10 max-md:max-w-full">
-      <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-        <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-          <div className="flex grow gap-5 justify-center px-6 py-7 w-full rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
-            <div className="flex flex-col grow shrink-0 basis-0 w-fit">
-              <div className="text-lg font-medium leading-7 text-zinc-900">
-                Techical Support Specialist
-              </div>
-              <div className="flex gap-2 mt-2.5">
-                <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
-                  Part-time
-                </div>
-                <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
-                  Salary: $20,000 - $25,000
-                </div>
-              </div>
-              <div className="flex gap-3 mt-5">
-                <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/658d3db143a8f3e3b6b49f78a072a3d297b0563ed2700c85559ee196aaa14a9f?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                    className="w-6 aspect-square"
-                  />
-                </div>
-                <div className="flex flex-col self-start mt-1.5">
-                  <div className="text-base font-medium leading-6 text-zinc-900">
-                    Google Inc.
-                  </div>
-                  <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                      className="shrink-0 aspect-square w-[18px]"
-                    />
-                    <div className="flex-auto">Dhaka, Bangladesh</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
-              className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
-            />
+      <div className="flex flex-col px-16 pt-3 my-5 pb-20 max-md:px-5">
+        <div className="flex flex-col sm:flex-row justify-center items-center max-w-full w-full px-4 text-teal-600">
+          <div className="flex text-2xl font-semibold  font-sans text-center mb-4 sm:mb-0">
+            <span className="">Featured </span>
+            <span className="text-black pl-2">jobs</span>
           </div>
         </div>
-        <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-          <div className="flex grow gap-5 justify-center px-6 py-7 w-full rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
-            <div className="flex flex-col grow shrink-0 basis-0 w-fit">
-              <div className="text-lg font-medium leading-7 text-zinc-900">
-                Senior UX Designer
-              </div>
-              <div className="flex gap-2 mt-2.5">
-                <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
-                  Full-Time
-                </div>
-                <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
-                  Salary: $20,000 - $25,000
-                </div>
-              </div>
-              <div className="flex gap-3 mt-5">
-                <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/657a483ce04c952041e46b3f5dca5de432d2b5bc561ac21687888f7eeff78a0d?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                    className="w-6 aspect-square"
-                  />
-                </div>
-                <div className="flex flex-col self-start mt-1.5">
-                  <div className="text-base font-medium leading-6 text-zinc-900">
-                    Google Inc.
+        <div className="flex 2xl:justify-end gap-2 px-2 justify-center md:justify-end sm:justify-end xl:justify-end  text-base font-semibold md:-mt-7 sm:-mt-7 lg:-mt-7 xl:-mt-7 2xl:-mt-7  ">
+          <div className=" cursor-pointer text-maincolr">View All</div>
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/f31d052956a032d9ec68bf0a0d33782d175bf0182a4ad2db4a522ef9d6f3bca1?apiKey=8f24705e21204f2584dbbee4857097d3&"
+            className="shrink-0 w-6 aspect-square"
+          />
+        </div>
+        <div className="mt-11 max-md:mt-10 max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+            <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+              <div className="flex grow gap-5 justify-center px-6 py-7 w-full rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex flex-col grow shrink-0 basis-0 w-fit">
+                  <div className="text-lg font-medium leading-7 text-zinc-900">
+                    Techical Support Specialist
                   </div>
-                  <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                      className="shrink-0 aspect-square w-[18px]"
-                    />
-                    <div className="flex-auto">Dhaka, Bangladesh</div>
+                  <div className="flex gap-2 mt-2.5">
+                    <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
+                      Part-time
+                    </div>
+                    <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
+                      Salary: $20,000 - $25,000
+                    </div>
+                  </div>
+                  <div className="flex gap-3 mt-5">
+                    <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/658d3db143a8f3e3b6b49f78a072a3d297b0563ed2700c85559ee196aaa14a9f?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                        className="w-6 aspect-square"
+                      />
+                    </div>
+                    <div className="flex flex-col self-start mt-1.5">
+                      <div className="text-base font-medium leading-6 text-zinc-900">
+                        Google Inc.
+                      </div>
+                      <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                          className="shrink-0 aspect-square w-[18px]"
+                        />
+                        <div className="flex-auto">Dhaka, Bangladesh</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                  className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
+                />
               </div>
             </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
-              className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
-            />
+            <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+              <div className="flex grow gap-5 justify-center px-6 py-7 w-full rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex flex-col grow shrink-0 basis-0 w-fit">
+                  <div className="text-lg font-medium leading-7 text-zinc-900">
+                    Senior UX Designer
+                  </div>
+                  <div className="flex gap-2 mt-2.5">
+                    <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
+                      Full-Time
+                    </div>
+                    <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
+                      Salary: $20,000 - $25,000
+                    </div>
+                  </div>
+                  <div className="flex gap-3 mt-5">
+                    <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/657a483ce04c952041e46b3f5dca5de432d2b5bc561ac21687888f7eeff78a0d?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                        className="w-6 aspect-square"
+                      />
+                    </div>
+                    <div className="flex flex-col self-start mt-1.5">
+                      <div className="text-base font-medium leading-6 text-zinc-900">
+                        Google Inc.
+                      </div>
+                      <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                          className="shrink-0 aspect-square w-[18px]"
+                        />
+                        <div className="flex-auto">Dhaka, Bangladesh</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                  className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+              <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex flex-col grow shrink-0 basis-0 w-fit">
+                  <div className="text-lg font-medium leading-7 text-zinc-900">
+                    Marketing Officer
+                  </div>
+                  <div className="flex gap-2 mt-2.5">
+                    <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
+                      Internship
+                    </div>
+                    <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
+                      Salary: $20,000 - $25,000
+                    </div>
+                  </div>
+                  <div className="flex gap-3 mt-5">
+                    <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ecd024587a6b72d1c6c47c085ea580683fac06b3f4cb5815cec9a481fbdb8a1?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                        className="w-6 aspect-square"
+                      />
+                    </div>
+                    <div className="flex flex-col self-start mt-1.5">
+                      <div className="text-base font-medium leading-6 text-zinc-900">
+                        Google Inc.
+                      </div>
+                      <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                          className="shrink-0 aspect-square w-[18px]"
+                        />
+                        <div className="flex-auto">Dhaka, Bangladesh</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                  className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-          <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
-            <div className="flex flex-col grow shrink-0 basis-0 w-fit">
-              <div className="text-lg font-medium leading-7 text-zinc-900">
-                Marketing Officer
-              </div>
-              <div className="flex gap-2 mt-2.5">
-                <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
-                  Internship
-                </div>
-                <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
-                  Salary: $20,000 - $25,000
-                </div>
-              </div>
-              <div className="flex gap-3 mt-5">
-                <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ecd024587a6b72d1c6c47c085ea580683fac06b3f4cb5815cec9a481fbdb8a1?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                    className="w-6 aspect-square"
-                  />
-                </div>
-                <div className="flex flex-col self-start mt-1.5">
-                  <div className="text-base font-medium leading-6 text-zinc-900">
-                    Google Inc.
+        <div className="mt-6 max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+            <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+              <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex flex-col grow shrink-0 basis-0 w-fit">
+                  <div className="text-lg font-medium leading-7 text-zinc-900">
+                    Junior Graphic Designer
                   </div>
-                  <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                      className="shrink-0 aspect-square w-[18px]"
-                    />
-                    <div className="flex-auto">Dhaka, Bangladesh</div>
+                  <div className="flex gap-2 mt-2.5">
+                    <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
+                      Internship
+                    </div>
+                    <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
+                      Salary: $20,000 - $25,000
+                    </div>
+                  </div>
+                  <div className="flex gap-3 mt-5">
+                    <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/cae43cf95192d2bcaeb9e2d0b0143fddbf335ed4f79ba360f7c2d8e683f3785c?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                        className="w-6 aspect-square"
+                      />
+                    </div>
+                    <div className="flex flex-col self-start mt-1.5">
+                      <div className="text-base font-medium leading-6 text-zinc-900">
+                        Google Inc.
+                      </div>
+                      <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                          className="shrink-0 aspect-square w-[18px]"
+                        />
+                        <div className="flex-auto">Dhaka, Bangladesh</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                  className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
+                />
               </div>
             </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
-              className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
-            />
+            <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+              <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex flex-col grow shrink-0 basis-0 w-fit">
+                  <div className="text-lg font-medium leading-7 text-zinc-900">
+                    Interaction Designer
+                  </div>
+                  <div className="flex gap-2 mt-2.5">
+                    <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
+                      Part-time
+                    </div>
+                    <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
+                      Salary: $20,000 - $25,000
+                    </div>
+                  </div>
+                  <div className="flex gap-3 mt-5">
+                    <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/265771c61a7ebc186cdf2d6b70ff3a8535cd95b835cbbefac74c63e92715ed54?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                        className="w-6 aspect-square"
+                      />
+                    </div>
+                    <div className="flex flex-col self-start mt-1.5">
+                      <div className="text-base font-medium leading-6 text-zinc-900">
+                        Google Inc.
+                      </div>
+                      <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                          className="shrink-0 aspect-square w-[18px]"
+                        />
+                        <div className="flex-auto">Dhaka, Bangladesh</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                  className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+              <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex flex-col grow shrink-0 basis-0 w-fit">
+                  <div className="text-lg font-medium leading-7 text-zinc-900">
+                    Project Manager
+                  </div>
+                  <div className="flex gap-2 mt-2.5">
+                    <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
+                      Full-Time
+                    </div>
+                    <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
+                      Salary: $20,000 - $25,000
+                    </div>
+                  </div>
+                  <div className="flex gap-3 mt-5">
+                    <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/33ef82ab85def0488a4ee71c81a545a3ad397dfca2bec4551ccd8ec68a2af430?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                        className="w-6 aspect-square"
+                      />
+                    </div>
+                    <div className="flex flex-col self-start mt-1.5">
+                      <div className="text-base font-medium leading-6 text-zinc-900">
+                        Google Inc.
+                      </div>
+                      <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                          className="shrink-0 aspect-square w-[18px]"
+                        />
+                        <div className="flex-auto">Dhaka, Bangladesh</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
+                  className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div className="mt-6 max-md:max-w-full">
-      <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-        <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-          <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
-            <div className="flex flex-col grow shrink-0 basis-0 w-fit">
-              <div className="text-lg font-medium leading-7 text-zinc-900">
-                Junior Graphic Designer
-              </div>
-              <div className="flex gap-2 mt-2.5">
-                <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
-                  Internship
-                </div>
-                <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
-                  Salary: $20,000 - $25,000
-                </div>
-              </div>
-              <div className="flex gap-3 mt-5">
-                <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/cae43cf95192d2bcaeb9e2d0b0143fddbf335ed4f79ba360f7c2d8e683f3785c?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                    className="w-6 aspect-square"
-                  />
-                </div>
-                <div className="flex flex-col self-start mt-1.5">
-                  <div className="text-base font-medium leading-6 text-zinc-900">
-                    Google Inc.
-                  </div>
-                  <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                      className="shrink-0 aspect-square w-[18px]"
-                    />
-                    <div className="flex-auto">Dhaka, Bangladesh</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
-              className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-          <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
-            <div className="flex flex-col grow shrink-0 basis-0 w-fit">
-              <div className="text-lg font-medium leading-7 text-zinc-900">
-                Interaction Designer
-              </div>
-              <div className="flex gap-2 mt-2.5">
-                <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
-                  Part-time
-                </div>
-                <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
-                  Salary: $20,000 - $25,000
-                </div>
-              </div>
-              <div className="flex gap-3 mt-5">
-                <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/265771c61a7ebc186cdf2d6b70ff3a8535cd95b835cbbefac74c63e92715ed54?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                    className="w-6 aspect-square"
-                  />
-                </div>
-                <div className="flex flex-col self-start mt-1.5">
-                  <div className="text-base font-medium leading-6 text-zinc-900">
-                    Google Inc.
-                  </div>
-                  <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                      className="shrink-0 aspect-square w-[18px]"
-                    />
-                    <div className="flex-auto">Dhaka, Bangladesh</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
-              className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-          <div className="flex grow gap-5 justify-center px-6 py-7 w-full bg-white rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
-            <div className="flex flex-col grow shrink-0 basis-0 w-fit">
-              <div className="text-lg font-medium leading-7 text-zinc-900">
-                Project Manager
-              </div>
-              <div className="flex gap-2 mt-2.5">
-                <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
-                  Full-Time
-                </div>
-                <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
-                  Salary: $20,000 - $25,000
-                </div>
-              </div>
-              <div className="flex gap-3 mt-5">
-                <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/33ef82ab85def0488a4ee71c81a545a3ad397dfca2bec4551ccd8ec68a2af430?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                    className="w-6 aspect-square"
-                  />
-                </div>
-                <div className="flex flex-col self-start mt-1.5">
-                  <div className="text-base font-medium leading-6 text-zinc-900">
-                    Google Inc.
-                  </div>
-                  <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                      className="shrink-0 aspect-square w-[18px]"
-                    />
-                    <div className="flex-auto">Dhaka, Bangladesh</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a8fc9698fb77925ffcafb57a0256d3b02a3789871e877c671653a101a2d8f30?apiKey=8f24705e21204f2584dbbee4857097d3&"
-              className="shrink-0 self-end mt-20 w-6 aspect-square max-md:mt-10"
-            />
-          </div>
-        </div>
+      <div className='2xl:px-52  pb-10 px-10 sm:px-15 md:px-36 '>
+        <img
+          className='w-full '
+          style={{ borderRadius: '1rem' }}
+          src={workerimage}
+          alt="worker image"
+        />
       </div>
-    </div>
-  </div>
-  <div className='2xl:px-52  pb-10 px-10 sm:px-15 md:px-36 '>
-  <img 
-    className='w-full ' 
-    style={{borderRadius: '1rem'}} 
-    src={workerimage} 
-    alt="worker image" 
-  />
-</div>
+      {/* <Footer />    */}
     </div>
 
   );
 };
 
-export default Homepage;
