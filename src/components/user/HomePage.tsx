@@ -5,6 +5,7 @@ import { RootState } from '../../redux/store';
 import toast,{ Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import React from "react"
 
 // import Navbar from '../common/Navbar';
 // import Footer from '../common/Footer';

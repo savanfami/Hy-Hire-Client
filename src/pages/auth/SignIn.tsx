@@ -11,8 +11,7 @@ import { AppDispatch } from '../../redux/store'
 import { loginPayload } from '../../types/Alltypes'
 import { useState } from 'react'
 import toast,{Toaster} from 'react-hot-toast'
-
-
+import React from 'react'
 
 const SignIn = () => {
   const [passwordVisible, setpasswordVisible] = useState(false)
@@ -42,7 +41,7 @@ const SignIn = () => {
       setLoading(false)
       if(data){
         if (data?.role==="user") {
-          navigate('/homepage');
+          navigate('/',{replace:true});
           // toast.success('Signup successful');
         }else if(data?.role==='company'){
           navigate('/reqaccept')
@@ -70,6 +69,7 @@ const SignIn = () => {
 
   return (
     <div className='h-1'>
+
       <Toaster
         position="top-right"
         reverseOrder={false}

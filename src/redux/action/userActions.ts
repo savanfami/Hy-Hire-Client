@@ -23,7 +23,7 @@ export const signupUser = createAsyncThunk<User, FormikValues>(
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`${URL}/auth/signup`, userData,config);
-      console.log(data,'dattatatatatattattattat')
+      // console.log(data,'dattatatatatattattattat')
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -43,7 +43,7 @@ export const verifyOtp = createAsyncThunk<verifyOtpResponse, verifyOtpPayload>("
       return data
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error)
+        // console.log(error)
         return rejectWithValue(error.response?.data)
       }
 
@@ -60,7 +60,7 @@ export const login = createAsyncThunk<loginResponse, loginPayload>(
       console.log(data,'from login')
       return data;
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       if (error instanceof AxiosError) {
         return rejectWithValue(error.response?.data);
       }
@@ -81,5 +81,26 @@ export const getUserData=createAsyncThunk('user/getData',async(_,{rejectWithValu
     }
     return rejectWithValue({message:'unknown error occured'})
 
+  }
+})
+
+
+export const logOut=createAsyncThunk('auth/logout',async(_,{rejectWithValue})=>{
+  try{
+ const {data}=await axios.get(`${URL}/auth/logout`,config)
+ try {
+  localStorage.removeItem('persist:root');
+  // console.log('Item removed successfully');
+  return data
+} catch (error) {
+  console.error('Error removing item:', error);
+}
+ return data
+
+  }catch(error){
+    if(error instanceof AxiosError){
+      return rejectWithValue(error.response?.data)
+    }
+    return rejectWithValue({message:'unknown error occured'})
   }
 })

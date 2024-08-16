@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { FormikValues } from "formik";
+import { ReactNode } from "react";
 
 export interface formValues {
   name: string;
@@ -73,4 +74,9 @@ export type loginResponse = {
 export interface loginPayload extends FormikValues {
   email: string;
   password: string
+}
+
+
+export interface Children {
+  children: ReactNode;
 }

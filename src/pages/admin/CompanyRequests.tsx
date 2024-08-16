@@ -3,7 +3,7 @@ import React from 'react'
 function Request() {
   return (
     <div>
-      COMPANY REQUEST PAGE
+      COMPANY REQUST PAGE
     </div>
   )
 }

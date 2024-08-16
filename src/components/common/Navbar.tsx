@@ -4,10 +4,11 @@ import { FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import React from 'react';
+
 
 const Navbar = () => {
   const [isHoveredLogin, setIsHoveredLogin] = useState(false);
-  const [isHoverDashboard,setHoverDashboard]=useState(false)
   const [isHoveredRegister, setIsHoveredRegister] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -15,8 +16,8 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const { user } = useSelector((state: RootState) => state.user)
-  console.log(user)
+  const state = useSelector((state: RootState) => state.user)
+  console.log(state)
 
   const NavButton = ({ text, isHovered, setIsHovered }: any) => (
     <button
@@ -47,12 +48,12 @@ const Navbar = () => {
           </div>
 
           <div className='hidden md:flex font-serif'>
-            {user ? (
+            {state&&state?.role==='user' ? (
               <>
               <Link to='/TryPremium'>
                 <NavButton text="TryPremium" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
               </Link>
-              <Link to='/dashboard'>
+              <Link to='profile'>
                 <NavButton text="Dashboard" isHovered={isHoveredLogin} setIsHovered={setIsHoveredLogin} />
               </Link>
               </>
@@ -85,10 +86,15 @@ const Navbar = () => {
             <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Contact Us</a>
           </div>
           <div className='pt-4 pb-3 border-t border-gray-200 font-serif'>
-            {user ? (
-              <Link to='/dashboard'>
+            {state && state?.role==='user' ? (
+              <>
+               <Link to='/TryPremium'>
+               <NavButton text="TryPremium" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
+             </Link>
+              <Link to='profile'>
                 <NavButton text="Dashboard" isHovered={false} setIsHovered={() => {}} />
               </Link>
+              </>
             ) : (
               <>
                 <Link to='/login'>
