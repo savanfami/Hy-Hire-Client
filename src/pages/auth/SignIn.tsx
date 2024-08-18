@@ -69,7 +69,6 @@ const SignIn = () => {
 
   return (
     <div className='h-1'>
-
       <Toaster
         position="top-right"
         reverseOrder={false}
@@ -113,7 +112,7 @@ const SignIn = () => {
 
                       <div >
 
-                        <span className='text-black  2xl:ml-64 cursor-pointer'>Forgot Password?</span>
+                      <Link to ='/forgetPassword'>  <span className='text-black  2xl:ml-64 cursor-pointer'>Forgot Password?</span></Link>
                       </div>
 
 

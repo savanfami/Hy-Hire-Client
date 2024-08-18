@@ -63,7 +63,7 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
       console.log(data, 'verify otp data..............');
       if(data){
         if (data?.role==="user") {
-          navigate('/homepage');
+          navigate('/');
           // toast.success('Signup successful');
         }else if(data?.role==='company'){
           navigate('/reqaccept')

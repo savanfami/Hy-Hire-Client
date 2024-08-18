@@ -18,8 +18,9 @@ import { Dashboard } from './pages/user/Dashboard'
 import React from 'react'
 // import UserListing from './pages/admin/UserListing''
 import UserListing from './pages/admin/UserListing'
-import { useSelector } from 'react-redux'
-import { RootState } from './redux/store'
+
+import { ForgetPassword } from './pages/auth/ForgetPassword'
+import { ResetPassword } from './pages/auth/ResetPassword'
 
 function App() {
 
@@ -29,8 +30,10 @@ function App() {
       <Route path='login' element={<SignIn />} />
       <Route path='signup' element={<SignUp />} />
       <Route path='companysignup' element={<SingupCompany />} />
-      <Route path='/reqaccept' element={<ReqVerification />} />
+      <Route path='reqaccept' element={<ReqVerification />} />
       <Route path='joinas' element={<RoutePage />} />
+      <Route path='forgetPassword' element={<ForgetPassword/>}/>
+      <Route path='resetPassword' element={<ResetPassword/>}/>
       <Route path='/' element={<UserLayout />} >
         <Route path='' element={<Homepage />} />
         {/* <Route path='/homepage' element={<Homepage />} /> */}
