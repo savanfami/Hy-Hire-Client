@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { errorPayload, userReducer } from "../../types/Alltypes";
-import { getUserData, login, logOut, signupUser, verifyOtp } from "../action/userActions";
+import { googleSignup, login, logOut, signupUser, verifyOtp } from "../action/userActions";
 
 
 const initialState: userReducer = {
@@ -25,13 +25,13 @@ const userSlice = createSlice({
             .addCase(signupUser.pending, (state) => {
                 (state.loading = true),
                     (state.err = false),
-                    state.role=null,
+                    state.role = null,
                     (state.user = null);
             })
             .addCase(signupUser.fulfilled, (state, action) => {
                 state.loading = false,
                     state.err = false,
-                    state.role=action.payload.role,
+                    state.role = action.payload.role,
                     state.user = action.payload.data
             })
             .addCase(signupUser.rejected, (state, action) => {
@@ -41,8 +41,8 @@ const userSlice = createSlice({
                 } else {
                     state.err = action.error.message || "unknown error occured";
                 }
-                state.role=null,
-                state.user = null;
+                state.role = null,
+                    state.user = null;
             })
             .addCase(verifyOtp.pending, (state) => {
                 (state.loading = true), (state.err = false), (state.role = null);
@@ -69,41 +69,52 @@ const userSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
-                state.role=null
+                state.role = null
                 if (action.payload) {
                     state.err = (action.payload as errorPayload).message
                 } else {
                     state.err = action.error.message || "An unknown error occured";
                 }
             })
-            .addCase(getUserData.fulfilled, (state, { payload }) => {
-                state.user = payload
-                state.err = false
+            .addCase(googleSignup.pending, (state) => {
+                    state.loading = true,
+                    state.err = false,
+                    state.role = null,
+                    state.user = null;
             })
-            .addCase(getUserData.rejected, (state, action) => {
-                if (action.payload) {
-                    state.err = (action.payload as errorPayload).message
-                } else {
-                    state.err = action.error.message || "unknown error occured"
+            .addCase(googleSignup.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.user = payload;
+                state.err = false;
+                state.role = payload?.data.role as 'user' | 'company' | 'admin'
+            })
+            .addCase(googleSignup.rejected, (state, action) => {
+                state.loading = false;
+                if(action.payload) {
+                    state.err = (action.payload as errorPayload).message;
+                }else {
+                    state.err = action.error.message || "unknown error occured";
                 }
+                state.role = null,
+                state.user = null;
             })
-            .addCase(logOut.pending,(state)=>{
-                  state.loading=true
-                  state.role=null
+            .addCase(logOut.pending, (state) => {
+                state.loading = true
+                state.role = null
             })
-            .addCase(logOut.fulfilled,(state)=>{
-                state.loading=false,
-                state.user=null,
-                state.role=null,
-                state.err=false
+            .addCase(logOut.fulfilled, (state) => {
+                state.loading = false,
+                    state.user = null,
+                    state.role = null,
+                    state.err = false
             })
-            .addCase(logOut.rejected,(state,action)=>{
+            .addCase(logOut.rejected, (state, action) => {
                 if (action.payload) {
                     state.err = (action.payload as errorPayload).message
-                    state.loading=false
+                    state.loading = false
                 } else {
                     state.err = action.error.message || "unknown error occured"
-                    state.loading=false
+                    state.loading = false
                 }
             })
 

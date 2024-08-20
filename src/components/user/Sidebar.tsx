@@ -105,7 +105,7 @@ export default function Sidebar() {
         await dispatch(logOut()).unwrap()
         // console.log(data, 'data logout successfull')
             navigate('/')
-        // Add your logout functionality here
+       
     };
 
     const handleLogoutCancel = () => {

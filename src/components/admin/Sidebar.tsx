@@ -17,7 +17,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import GroupIcon from '@mui/icons-material/Group';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -26,6 +26,10 @@ import WorkIcon from '@mui/icons-material/Work';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AdminNavbar } from './Navbar';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { logOut } from '../../redux/action/userActions';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -90,7 +94,26 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
 
+  const navigate = useNavigate()
+
+  const handleLogoutClick = () => {
+      setLogoutDialogOpen(true);
+  };
+  const dispatch: AppDispatch = useDispatch()
+
+  const handleLogoutConfirm = async () => {
+      setLogoutDialogOpen(false);
+      await dispatch(logOut()).unwrap()
+      // console.log(data, 'data logout successfull')
+          navigate('/')
+     
+  };
+
+  const handleLogoutCancel = () => {
+      setLogoutDialogOpen(false);
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -151,7 +174,7 @@ export default function Sidebar() {
         
         </List>
         <Divider />
-        <List>
+        {/* <List>
           {['settings','logout'].map((text, index) => (
         <Link to={text} key={text} style={{ textDecoration: 'none', color: 'inherit' }}>
             <ListItem key={text} disablePadding  className='capitalize' >
@@ -164,7 +187,48 @@ export default function Sidebar() {
             </ListItem>
           </Link>
           ))}
-        </List>
+        </List> */}
+        <List>
+                    <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <ListItem disablePadding className='capitalize'>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <SettingsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="settings" className='text-maincolr ' />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <ListItem disablePadding className='capitalize' onClick={handleLogoutClick}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="logout" className='text-maincolr ' />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+                <Dialog
+                    open={logoutDialogOpen}
+                    onClose={handleLogoutCancel}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Confirm Logout"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Are you sure you want to logout?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleLogoutCancel}>Cancel</Button>
+                        <Button onClick={handleLogoutConfirm} autoFocus>
+                            Logout
+                        </Button>
+                    </DialogActions>
+                </Dialog>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

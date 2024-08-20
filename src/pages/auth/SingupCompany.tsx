@@ -2,22 +2,25 @@
 import signUpimage from '../../assets/images/3e69ae84db376080609de0a95f97995d.jpg'
 import logo from '../../assets/images/Group_1172__1_-removebg-preview.png'
 import googleicon from '../../assets/images/icons8-google-144.png'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { CompanySignupValidationSchema } from '../../schemas/companySignupSchema'
 import { Field, Formik, Form, ErrorMessage, FormikValues } from 'formik'
 import { useDispatch } from 'react-redux'
-import { signupUser } from '../../redux/action/userActions'
+import { googleSignup, signupUser } from '../../redux/action/userActions'
 import { AppDispatch, } from '../../redux/store'
 import OtpPage from './OtpPage'
 import toast, { Toaster } from 'react-hot-toast'
 import React from 'react'
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 
 
 export const SingupCompany = () => {
   const location = useLocation()
   const dispatch: AppDispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [passwordVisible, setpasswordVisible] = useState(false)
   const [confirmpasswordVisible, confirmsetpasswordVisible] = useState(false)
@@ -84,6 +87,22 @@ console.log(location.state,'locaton')
 
 
 
+  const signupWithGoogle = async (value: any, userType: string | undefined) => {
+    const {data} = await dispatch(googleSignup({ ...value, userType })).unwrap()
+    setLoading(false);
+    console.log('daat', data)
+    if(data){
+      if (data?.role==="user") {
+        navigate('/');
+        // toast.success('Signup successful');
+      }else if(data?.role==='company'){
+        navigate('/reqaccept')
+
+      }else{
+        navigate('/admin')
+      }
+    }
+  }
   return (
 
     <div className='h-1'>
@@ -154,11 +173,29 @@ console.log(location.state,'locaton')
                       </button>
                     </Form>
                     <div className='mt-4'>
-                      <p className='text-center'>Or</p>
-                      <button className='w-full mt-2 py-2 px-4 bg-white border border-gray-300 rounded-lg text-gray-700   flex items-center justify-center'>
+                      <p className='text-center mb-2'>Or</p>
+                      <div className='flex justify-center'>
+
+                        <GoogleLogin
+                          onSuccess={(credentialResponse: CredentialResponse) => {
+                            if (credentialResponse?.credential) {
+                              const data = jwtDecode(credentialResponse?.credential);
+                              signupWithGoogle(data, userType);
+                              console.log(data, 'google auth data');
+                            } else {
+                              console.log('No credential received');
+                            }
+                          }}
+                          onError={() => {
+                            console.log('login failed');
+                          }}
+                        >
+                        </GoogleLogin>
+                      </div>
+                      {/* <button className='w-full mt-2 py-2 px-4 bg-white border border-gray-300 rounded-lg text-gray-700   flex items-center justify-center'>
                         <img src={googleicon} alt="Google" className='w-5 h-5 mr-2' />
                         Sign up with Google
-                      </button>
+                      </button> */}
                     </div>
                   </>
               </Formik>

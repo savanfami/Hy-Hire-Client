@@ -80,3 +80,28 @@ export interface loginPayload extends FormikValues {
 export interface Children {
   children: ReactNode;
 }
+
+
+export interface GoogleCredential {
+  credentials: any;
+  email: string;
+  name: string;
+  picture?: string;
+}
+
+export interface GoogleSignupData extends GoogleCredential {
+  role: string;
+}
+
+export interface GoogleSignupResponse {
+  data?: any;
+  email: string;
+  password?: string;
+  name: string;
+  role: string;
+  message: string
+}
+
+export interface GoogleSignupAction {
+  (userData: GoogleSignupData): Promise<GoogleSignupResponse>;
+}
