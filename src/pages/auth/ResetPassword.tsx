@@ -72,7 +72,7 @@ export const ResetPassword = () => {
   
 
     const handleSubmit=async(values:FormikValues)=>{
-      console.log(values)
+    
         setLoading(true)
 
         try{

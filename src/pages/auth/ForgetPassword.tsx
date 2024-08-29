@@ -34,11 +34,12 @@ export const ForgetPassword = () => {
     const handleSubmit = async (values: forgetPassword) => {
         setLoading(true)
         try {
-       
+
             const data = await axios.post(`${URL}/auth/forgotPassword`, { values })
             setLoading(false)
             toast.success(data.data.message)
         } catch (error: any) {
+            setLoading(false)
             if (axios.isAxiosError(error) && error.response) {
                 const message = error.response.data.message;
                 toast.error(message);
@@ -65,9 +66,9 @@ export const ForgetPassword = () => {
                     </div>
                     <div className='flex items-center justify-center font-sans '>
                         <div className='w-full max-w-md p-8 bg-white '>
-                         <Link to='/login'>  <p className='text-md font-gg mb-6 text-start'>
+                            <Link to='/login'>  <p className='text-md font-gg mb-6 text-start'>
                                 <ArrowBackIcon />
-                                Back to Login</p></Link> 
+                                Back to Login</p></Link>
                             <h1 className='font-bold font-gg text-2xl'>Forgot Your Password ?</h1>
                             <p className='mt-4 font-gg font-normal'>Don't worry it happen to all of us.Enter your email below to recover your password </p>
                             <Formik initialValues={initialValues} validationSchema={forgePasswordSchema} onSubmit={handleSubmit} >

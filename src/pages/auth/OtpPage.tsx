@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { verifyOtp } from '../../redux/action/userActions';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { URL } from '../../common/axiosInstance';
 
 
 interface OtpPageProps {
@@ -17,12 +19,11 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
   const [loading, setLoading] = useState(false)
   // const [error, setError] = useState('')
-  const [timer, setTimer] = useState(60)
+  const [timer, setTimer] = useState(30)
   const [resendEnabled, setresendEnabled] = useState(false)
   const navigate = useNavigate()
 
   const { user } = useSelector((state: RootState) => state.user)
-  console.log(user, 'userData')
   const dispatch: AppDispatch = useDispatch()
 
 
@@ -37,6 +38,22 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
       inputRefs.current[index + 1]?.focus();
     }
   };
+
+  const handleResendOtp = async () => {
+    try {
+
+      setresendEnabled(false)
+      setTimer(30)
+
+      await axios.post(`${URL}/auth/resendOtp`, {
+        email: user.email,
+        name: user.name
+      })
+
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
 
   const handleBackspace = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === 'Backspace' && index > 0 && otp[index] === '') {
@@ -58,17 +75,16 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
         role: user.role,
         password: user.password,
       };
-      const {data} = await dispatch(verifyOtp(payload)).unwrap();
+      const { data } = await dispatch(verifyOtp(payload)).unwrap();
       setLoading(false);
-      console.log(data, 'verify otp data..............');
-      if(data){
-        if (data?.role==="user") {
+      // console.log(data, 'verify otp data..............');
+      if (data) {
+        if (data?.role === "user") {
           navigate('/');
-          // toast.success('Signup successful');
-        }else if(data?.role==='company'){
-          navigate('/reqaccept')
+        } else if (data?.role === 'company') {
+          navigate('/company')
 
-        }else{
+        } else {
           navigate('/admin')
         }
       }
@@ -88,7 +104,19 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
+
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (timer === 0) {
+      setresendEnabled(true);
+    }
+  }, [timer]);
 
   const isOtpComplete = otp.every((digit) => digit !== '');
   return (
@@ -101,7 +129,7 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
               <h1 onClick={onBackToSignup}>Back to Signup</h1>
             </div>
           </Link>
-          <h1 className="text-2xl font-serif font-bold">Verify Code</h1>
+          <h1 className="text-2xl font-serif font-bold">Verify <span className='text-maincolr'>Code</span> </h1>
           <span className="block font-serif text-gray-600 text-sm">An authentication code has been sent to your email</span>
           <div className="flex justify-center space-x-2 mt-4" >
             {otp.map((data, index) => (
@@ -118,8 +146,20 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
             ))}
           </div>
           <div className="text-center mt-2">
-            <span className="text-gray-600 text-sm">Didn't receive the code?</span>
-            <span className="text-red-600 cursor-pointer ml-1 text-sm">Resend</span>
+            <span className="text-sm font-semibold">Didn't receive the code?</span>
+            {resendEnabled ? (
+              <span className="text-maincolr cursor-pointer  font-semibold ml-1 text-sm" onClick={handleResendOtp}>
+                Resend OTP
+              </span>) :
+              (
+                <span
+                  className={`text-sm ${timer < 10 ? 'text-red-600 font-semibold' : 'text-gray-600 font-semibold'}`}
+                >
+                  (  {timer} seconds )
+                </span>)}
+
+
+            {/* <span className="text-red-600 cursor-pointer ml-1 text-sm">Resend</span> */}
           </div>
           <button
             className={`mt-6 px-6 py-2 w-full text-white font-semibold  rounded-2xl ${isOtpComplete ? 'bg-maincolr' : 'bg-gray-300 cursor-pointer rounded-md'

@@ -1,6 +1,5 @@
 import signIn from '../../assets/images/signin.jpg'
 import logo from '../../assets/images/Group_1172__1_-removebg-preview.png'
-import googleicon from '../../assets/images/icons8-google-144.png'
 import { Link } from 'react-router-dom'
 import { Field, Formik, Form, ErrorMessage } from 'formik'
 import { loginSchema } from '../../schemas/loginSchema'
@@ -9,13 +8,13 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AppDispatch } from '../../redux/store'
 import { loginPayload } from '../../types/Alltypes'
-import { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import React from 'react'
+import React, { useState } from 'react'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 
 const SignIn = () => {
+
   const [passwordVisible, setpasswordVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const userType = 'default'
@@ -38,15 +37,13 @@ const SignIn = () => {
   const signInWithGoogle = async (value: any, userType: string | undefined) => {
     try {
       const { data } = await dispatch(googleSignup({ ...value, userType })).unwrap()
-      console.log(data, 'daatata')
       setLoading(false);
-      console.log('daat', data)
       if (data) {
         if (data?.role === "user") {
           navigate('/');
           // toast.success('Signup successful');
         } else if (data?.role === 'company') {
-          navigate('/reqaccept')
+          navigate('/company')
 
         } else {
           navigate('/admin')
@@ -75,10 +72,10 @@ const SignIn = () => {
           navigate('/', { replace: true });
           // toast.success('Signup successful');
         } else if (data?.role === 'company') {
-          navigate('/reqaccept')
+          navigate('/company',{replace:true})
 
         } else {
-          navigate('/admin')
+          navigate('/admin',{replace:true})
         }
       } else {
         toast.error('login failed')

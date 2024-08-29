@@ -54,13 +54,13 @@ const SignUp = () => {
     try {
       const { data } = await dispatch(googleSignup({ ...value, userType })).unwrap()
       setLoading(false);
-      console.log('daat', data)
+     
       if (data) {
         if (data?.role === "user") {
           navigate('/');
           // toast.success('Signup successful');
         } else if (data?.role === 'company') {
-          navigate('/reqaccept')
+          navigate('/company')
 
         } else {
           navigate('/admin')

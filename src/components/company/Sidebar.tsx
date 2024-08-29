@@ -19,11 +19,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import ApartmentIcon from '@mui/icons-material/Apartment';
-import WorkIcon from '@mui/icons-material/Work';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import PersonIcon from '@mui/icons-material/Person';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import ListIcon from '@mui/icons-material/List';
 import logo from '../../assets/images/logo.jpg'
 
 
@@ -61,10 +61,10 @@ interface AppBarProps extends MuiAppBarProps {
 const menuItems = [
     { text: 'dashboard', icon: <DashboardIcon /> },
     { text: 'messages', icon: <MailIcon /> },
-    { text: 'my applications', icon: <ApartmentIcon /> },
-    { text: 'find jobs', icon: <WorkIcon /> },
-    { text: 'browse companies', icon: <TravelExploreIcon /> },
-    { text: 'my public profile', icon: <PersonIcon /> },
+    { text: 'All Applicants', icon: <ApartmentIcon /> },
+    { text: 'job listing', icon: <ListIcon /> },
+    { text: 'schedule', icon: <ScheduleIcon /> },
+    { text: 'company profile', icon: <PersonIcon /> },
     //   { text: 'jobs', icon: <WorkIcon /> },
 ]
 
@@ -131,21 +131,22 @@ export default function Sidebar() {
 
     return (
         <Box sx={{ display: 'flex' }}>
+                    
             <CssBaseline />
-            <AppBar position="fixed" open={open} sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
-                <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{ mr: 2, ...(open && { display: 'none' }), color: 'black' }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Navbar />
-                </Toolbar>
-            </AppBar>
+            <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white', boxShadow: 1 }}>
+    <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }), color: 'black' }}
+        >
+            <MenuIcon />
+        </IconButton>
+        <Navbar />
+    </Toolbar>
+</AppBar>
             <Drawer
                 sx={{
                     width: drawerWidth,
@@ -160,10 +161,10 @@ export default function Sidebar() {
                 open={open}
             >
                 <DrawerHeader>
-                <div >
+                    <div >
 
-<img className='p-3 w-40' src={logo} alt="" />
-          </div>
+          <img className='p-3 w-40' src={logo} alt="" />
+                    </div>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
@@ -200,7 +201,7 @@ export default function Sidebar() {
           ))}
         </List> */}
                 <List>
-                    <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="settings" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <ListItem disablePadding className='capitalize'>
                             <ListItemButton>
                                 <ListItemIcon>

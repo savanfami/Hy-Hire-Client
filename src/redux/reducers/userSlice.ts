@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { errorPayload, userReducer } from "../../types/Alltypes";
 import { googleSignup, login, logOut, signupUser, verifyOtp } from "../action/userActions";
+import { updateCompany, updateSocialLinks } from "../action/companyAction";
+import { getCompany } from "../action/companyAction";
 
 
 const initialState: userReducer = {
@@ -77,7 +79,7 @@ const userSlice = createSlice({
                 }
             })
             .addCase(googleSignup.pending, (state) => {
-                    state.loading = true,
+                state.loading = true,
                     state.err = false,
                     state.role = null,
                     state.user = null;
@@ -90,13 +92,13 @@ const userSlice = createSlice({
             })
             .addCase(googleSignup.rejected, (state, action) => {
                 state.loading = false;
-                if(action.payload) {
+                if (action.payload) {
                     state.err = (action.payload as errorPayload).message;
-                }else {
+                } else {
                     state.err = action.error.message || "unknown error occured";
                 }
                 state.role = null,
-                state.user = null;
+                    state.user = null;
             })
             .addCase(logOut.pending, (state) => {
                 state.loading = true
@@ -111,12 +113,55 @@ const userSlice = createSlice({
             .addCase(logOut.rejected, (state, action) => {
                 if (action.payload) {
                     state.err = (action.payload as errorPayload).message
-                    state.loading = false
+                    state.loading = false;
                 } else {
                     state.err = action.error.message || "unknown error occured"
-                    state.loading = false
+                    state.loading = false;
                 }
             })
+            .addCase(updateCompany.pending, (state) => {
+                state.loading = true;
+                state.err = false;
+            })
+            .addCase(updateCompany.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.err = false;
+                state.user = payload;
+            })
+            .addCase(updateCompany.rejected, (state) => {
+                state.loading = false;
+                state.err = false;
+                state.user = null;
+            })
+            .addCase(getCompany.pending, (state) => {
+                state.loading = true;
+                state.err = false
+            })
+            .addCase(getCompany.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.err = false;
+                state.user = payload
+            })
+            .addCase(getCompany.rejected, (state) => {
+                state.loading = false;
+                state.err = false;
+                state.user = null
+            })
+            .addCase(updateSocialLinks.pending,(state)=>{
+                state.loading=true;
+                state.err=false;
+            })
+            .addCase(updateSocialLinks.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.err = false;
+                state.user = payload;
+            })
+            .addCase(updateSocialLinks.rejected, (state) => {
+                state.loading = false;
+                state.err = false;
+                state.user = null;
+            })
+
 
 
     },

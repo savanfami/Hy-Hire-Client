@@ -1,0 +1,267 @@
+{
+    "industries": [
+      {
+        "sector": "Information Technology",
+        "subIndustries": [
+          "Software Development",
+          "Web Development",
+          "IT Support",
+          "Data Science",
+          "Cybersecurity",
+          "Network Administration",
+          "Artificial Intelligence",
+          "Cloud Computing",
+          "DevOps"
+        ]
+      },
+      {
+        "sector": "Healthcare",
+        "subIndustries": [
+          "Nursing",
+          "Pharmacy",
+          "Medical Practice",
+          "Dentistry",
+          "Physical Therapy",
+          "Healthcare Administration",
+          "Public Health",
+          "Medical Research",
+          "Veterinary Services"
+        ]
+      },
+      {
+        "sector": "Finance and Banking",
+        "subIndustries": [
+          "Investment Banking",
+          "Financial Planning",
+          "Insurance",
+          "Accounting",
+          "Auditing",
+          "Risk Management",
+          "Corporate Finance",
+          "Wealth Management"
+        ]
+      },
+      {
+        "sector": "Engineering",
+        "subIndustries": [
+          "Mechanical Engineering",
+          "Civil Engineering",
+          "Electrical Engineering",
+          "Software Engineering",
+          "Chemical Engineering",
+          "Aerospace Engineering",
+          "Environmental Engineering",
+          "Biomedical Engineering"
+        ]
+      },
+      {
+        "sector": "Education",
+        "subIndustries": [
+          "Primary Education",
+          "Secondary Education",
+          "Higher Education",
+          "Vocational Training",
+          "Special Education",
+          "Educational Administration",
+          "Online Learning",
+          "Curriculum Development"
+        ]
+      },
+      {
+        "sector": "Manufacturing",
+        "subIndustries": [
+          "Automotive Manufacturing",
+          "Electronics Manufacturing",
+          "Food Production",
+          "Textile Manufacturing",
+          "Pharmaceutical Manufacturing",
+          "Chemical Manufacturing",
+          "Machinery Manufacturing",
+          "Metal Fabrication"
+        ]
+      },
+      {
+        "sector": "Marketing and Advertising",
+        "subIndustries": [
+          "Digital Marketing",
+          "Content Marketing",
+          "Social Media Marketing",
+          "Market Research",
+          "Public Relations",
+          "Brand Management",
+          "Advertising Campaigns",
+          "Search Engine Optimization (SEO)"
+        ]
+      },
+      {
+        "sector": "Sales and Retail",
+        "subIndustries": [
+          "Retail Sales",
+          "B2B Sales",
+          "E-commerce",
+          "Real Estate Sales",
+          "Wholesale",
+          "Customer Service",
+          "Account Management",
+          "Sales Management"
+        ]
+      },
+      {
+        "sector": "Construction",
+        "subIndustries": [
+          "Residential Construction",
+          "Commercial Construction",
+          "Civil Engineering Construction",
+          "Project Management",
+          "Architecture",
+          "Urban Planning",
+          "Surveying",
+          "Interior Design"
+        ]
+      },
+      {
+        "sector": "Transportation and Logistics",
+        "subIndustries": [
+          "Supply Chain Management",
+          "Logistics Coordination",
+          "Warehousing",
+          "Freight and Shipping",
+          "Public Transportation",
+          "Fleet Management",
+          "Aviation",
+          "Maritime Transportation"
+        ]
+      },
+      {
+        "sector": "Energy and Utilities",
+        "subIndustries": [
+          "Renewable Energy",
+          "Oil and Gas",
+          "Electric Power Generation",
+          "Water Utilities",
+          "Waste Management",
+          "Environmental Consulting",
+          "Energy Trading",
+          "Nuclear Energy"
+        ]
+      },
+      {
+        "sector": "Hospitality and Tourism",
+        "subIndustries": [
+          "Hotel Management",
+          "Travel Agencies",
+          "Event Planning",
+          "Restaurant Management",
+          "Catering Services",
+          "Tour Operators",
+          "Cruise Lines",
+          "Theme Parks"
+        ]
+      },
+      {
+        "sector": "Arts, Entertainment, and Media",
+        "subIndustries": [
+          "Film and Television",
+          "Music Production",
+          "Publishing",
+          "Graphic Design",
+          "Photography",
+          "Broadcasting",
+          "Performing Arts",
+          "Journalism"
+        ]
+      },
+      {
+        "sector": "Legal Services",
+        "subIndustries": [
+          "Corporate Law",
+          "Criminal Law",
+          "Intellectual Property",
+          "Family Law",
+          "Legal Consulting",
+          "Compliance",
+          "Litigation",
+          "Paralegal Services"
+        ]
+      },
+      {
+        "sector": "Human Resources",
+        "subIndustries": [
+          "Recruitment",
+          "Employee Relations",
+          "Compensation and Benefits",
+          "Talent Management",
+          "Training and Development",
+          "HR Consulting",
+          "Labor Relations",
+          "Performance Management"
+        ]
+      },
+      {
+        "sector": "Nonprofit and Social Services",
+        "subIndustries": [
+          "Charitable Organizations",
+          "Social Work",
+          "Community Outreach",
+          "Nonprofit Management",
+          "Fundraising",
+          "Volunteer Coordination",
+          "Grant Writing",
+          "Advocacy"
+        ]
+      },
+      {
+        "sector": "Government and Public Administration",
+        "subIndustries": [
+          "Public Policy",
+          "Civil Service",
+          "Urban Planning",
+          "Law Enforcement",
+          "Emergency Management",
+          "Regulatory Affairs",
+          "Public Health Administration",
+          "Diplomatic Services"
+        ]
+      },
+      {
+        "sector": "Agriculture and Food Production",
+        "subIndustries": [
+          "Crop Production",
+          "Livestock Farming",
+          "Agricultural Equipment",
+          "Food Processing",
+          "Agri-Tech",
+          "Fisheries",
+          "Forestry",
+          "Agribusiness"
+        ]
+      },
+      {
+        "sector": "Telecommunications",
+        "subIndustries": [
+          "Mobile Network Operations",
+          "Internet Service Providers",
+          "Satellite Communications",
+          "Telecom Equipment Manufacturing",
+          "VoIP Services",
+          "Fiber Optics",
+          "Telecom Consulting",
+          "Telecom Infrastructure"
+        ]
+      },
+      {
+        "sector": "Real Estate",
+        "subIndustries": [
+          "Residential Real Estate",
+          "Commercial Real Estate",
+          "Property Management",
+          "Real Estate Development",
+          "Real Estate Investment",
+          "Real Estate Appraisal",
+          "Real Estate Consulting",
+          "Real Estate Brokerage"
+        ]
+      }
+    ]
+  }
+  

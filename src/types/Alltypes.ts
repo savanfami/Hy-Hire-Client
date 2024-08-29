@@ -105,3 +105,25 @@ export interface GoogleSignupResponse {
 export interface GoogleSignupAction {
   (userData: GoogleSignupData): Promise<GoogleSignupResponse>;
 }
+
+
+export interface FormDatas {
+  message?: string
+  name: string;
+  website: string;
+  location: string;
+  foundedDate: string;
+  sector: string;
+  subIndustry: string;
+  companyDescription: string;
+  profileCompleted?:boolean
+}
+
+export interface SocialLinks{
+  message?: string;
+  instagram:string;
+  facebook:string;
+  linkedin:string;
+  twitter:string
+}
+

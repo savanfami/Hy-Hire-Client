@@ -1,0 +1,16 @@
+.card{
+    padding: 10px;
+    box-shadow: 0 0 5ps #ffdfdf;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card .top{
+    text-align:center
+}
+
+.card p{
+    font-weight: bold;
+    color:blue ;
+}
+

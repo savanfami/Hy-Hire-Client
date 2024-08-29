@@ -29,6 +29,8 @@ import { AdminNavbar } from './Navbar';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { logOut } from '../../redux/action/userActions';
+import logo from '../../assets/images/logo.jpg'
+
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 const drawerWidth = 240;
 
@@ -153,6 +155,10 @@ export default function Sidebar() {
         open={open}
       >
         <DrawerHeader>
+        <div >
+
+<img className='p-3 w-40' src={logo} alt="" />
+          </div>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
