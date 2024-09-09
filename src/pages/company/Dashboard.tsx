@@ -22,6 +22,7 @@ const Dashboard = () => {
   return (
     <div>
       <h1>dashborad</h1>
+     
     </div>
   )
 }

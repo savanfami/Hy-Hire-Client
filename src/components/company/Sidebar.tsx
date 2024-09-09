@@ -62,7 +62,7 @@ const menuItems = [
     { text: 'dashboard', icon: <DashboardIcon /> },
     { text: 'messages', icon: <MailIcon /> },
     { text: 'All Applicants', icon: <ApartmentIcon /> },
-    { text: 'job listing', icon: <ListIcon /> },
+    { text: 'jobs', icon: <ListIcon /> },
     { text: 'schedule', icon: <ScheduleIcon /> },
     { text: 'company profile', icon: <PersonIcon /> },
     //   { text: 'jobs', icon: <WorkIcon /> },

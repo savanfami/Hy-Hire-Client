@@ -15,13 +15,12 @@ interface User {
     isBlocked: Boolean
 }
 
-const formatDate = (dateString: string): string => {
-    return moment(dateString).format('MMMM Do, YYYY, h:mm A');
+ export const formatDate = (dateString: string): string => {
+    return moment(dateString).format('MMMM Do, YYYY');
   };
 
 const UserListing = () => {
     const [users, setUsers] = useState<User[]>([]);
-
     const fetchUsers = async () => {
         try {
             const { data } = await axios.get(`${URL}/user/get-alluser`, config);
@@ -59,7 +58,6 @@ const UserListing = () => {
                 setUsers(prevUsers => prevUsers.map(user => 
                     user._id === userId ? { ...user, isBlocked: !user.isBlocked } : user
                 ));
-
 
                 Swal.fire(
                     'Success!',
@@ -117,9 +115,7 @@ const UserListing = () => {
                     ))}
                 </tbody>
             </table>
-            <div className='h-96'>
-
-            </div>
+          
 
 
         </>

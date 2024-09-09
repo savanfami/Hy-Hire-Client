@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
-interface SearchBarProps{
-  value:string
+import React, { useEffect, useState } from 'react';
+import { useDebounce } from '../../hooks/debouncer';
+interface SearchBarProps {
+  values: string
+  onSearch: (searchQuery: string) => void
 }
 
-export const SearchBar :React.FC<SearchBarProps>=(props) => {
-  const [search, setSearch] = useState<string>('');
+export const SearchBar: React.FC<SearchBarProps> = ({ values, onSearch }) => {
+  const [search, setSearch] = useState<string>('')
+  const debounceSearch = useDebounce(search)
+  useEffect(() => {
+    onSearch(debounceSearch);
+  }, [debounceSearch]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Search Query:', search);
+  const handleSubmit = (e: any) => {
+    setSearch(e.target.value)
+
 
   };
 
@@ -16,10 +22,10 @@ export const SearchBar :React.FC<SearchBarProps>=(props) => {
     <>
       <div className="border border-gray-400 h-16 rounded-md flex items-center justify-between px-4">
         <div>
-          <h1 className="text-black text-lg font-serif">{props.value} </h1>
+          <h1 className="text-black text-lg font-serif">{values} </h1>
         </div>
         <div className="flex-grow">
-          <form className="max-w-md ml-auto " onSubmit={handleSubmit}>
+          <form className="max-w-md ml-auto " onChange={handleSubmit}>
             <label
               htmlFor="default-search"
               className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -51,14 +57,13 @@ export const SearchBar :React.FC<SearchBarProps>=(props) => {
                 placeholder="Search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                required
               />
-              <button
+              {/* <button
                 type="submit"
                 className="text-white absolute right-2.5 bottom-2.5 bg-maincolr focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
               >
                 Search
-              </button>
+              </button> */}
             </div>
           </form>
         </div>

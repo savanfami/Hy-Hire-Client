@@ -77,7 +77,7 @@ const OtpPage: React.FC<OtpPageProps> = ({ onBackToSignup }) => {
       };
       const { data } = await dispatch(verifyOtp(payload)).unwrap();
       setLoading(false);
-      // console.log(data, 'verify otp data..............');
+      console.log(data, 'verify otp data..............');
       if (data) {
         if (data?.role === "user") {
           navigate('/');

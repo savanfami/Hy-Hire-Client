@@ -5,10 +5,14 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers } from "redux";
 import {  FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
+import AdminSlice from "./reducers/AdminSlice";
+import jobSlice from "./reducers/jobSlice";
 
 
 const rootReducer = combineReducers({
   user: userSlice,
+  admin:AdminSlice,
+  job:jobSlice
 });
 
 const persistConfig = {

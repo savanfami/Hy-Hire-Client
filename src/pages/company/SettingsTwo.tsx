@@ -61,8 +61,6 @@ export const SettingsTwo = () => {
         toast.error('some error occured')
       }
     } catch (error) {
-      console.error('Error updating social links:', error);
-    
       if (error instanceof Error) {
         toast.error(`Error: ${error.message}`);
       } else {

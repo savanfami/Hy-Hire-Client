@@ -63,7 +63,7 @@ const menuItems=[
   { text: 'company', icon: <ApartmentIcon /> },
   { text: 'user', icon: <GroupIcon /> },
   { text: 'reviews', icon: <ReviewsIcon /> },
-  { text: 'category', icon: <CategoryIcon /> },
+  { text: 'skills', icon: <CategoryIcon /> },
   { text: 'jobs', icon: <WorkIcon /> },
 ]
 
@@ -127,7 +127,7 @@ export default function Sidebar() {
   return (
     <Box sx={{ display: 'flex'  }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white', boxShadow: 1 }}>
   <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
     <IconButton
       color="inherit"

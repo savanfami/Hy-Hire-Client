@@ -96,7 +96,7 @@ console.log(location.state,'locaton')
         navigate('/');
         // toast.success('Signup successful');
       }else if(data?.role==='company'){
-        navigate('/reqaccept')
+        navigate('/company')
 
       }else{
         navigate('/admin')

@@ -53,6 +53,7 @@ const SignUp = () => {
 
     try {
       const { data } = await dispatch(googleSignup({ ...value, userType })).unwrap()
+      console.log(data,'data')
       setLoading(false);
      
       if (data) {

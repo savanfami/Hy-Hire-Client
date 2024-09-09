@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { errorPayload, userReducer } from "../../types/Alltypes";
 import { googleSignup, login, logOut, signupUser, verifyOtp } from "../action/userActions";
-import { updateCompany, updateSocialLinks } from "../action/companyAction";
+import { sendRequest, updateCompany, updateSocialLinks } from "../action/companyAction";
 import { getCompany } from "../action/companyAction";
 
 
@@ -161,6 +161,19 @@ const userSlice = createSlice({
                 state.err = false;
                 state.user = null;
             })
+            .addCase(sendRequest.pending,(state)=>{
+                state.loading=true;
+                state.err=false;
+            })
+            .addCase(sendRequest.fulfilled,(state)=>{
+                state.loading=false;
+                state.err=false;
+            })
+            .addCase(sendRequest.rejected,(state)=>{
+                state.loading=false;
+                state.err = false;
+            })
+            
 
 
 
