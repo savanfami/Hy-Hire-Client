@@ -212,7 +212,7 @@ export const Homepage = () => {
           <span className="text-maincolr pr-2">Explore by</span>    <span className="text-black ">       Category</span>
         </div>
         <div className="flex md:-mt-6 mt-2  gap-2.5 my-auto text-base font-semibold leading-6  mr-44 md:mr-44 justify-end">
-          <div className="my-auto  cursor-pointer">Show all jobs</div>
+          <div className="my-auto  cursor-pointer">Show all jobs</div>  
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/c51a738af9200d73eeb5bf69e0c9fd1e8e4b33a3ad95b27a9a9a9348ba14dbdc?"

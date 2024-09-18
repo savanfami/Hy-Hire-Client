@@ -26,9 +26,8 @@ import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from '../../assets/images/logo.jpg'
 
-
 import { Navbar } from './Navbar';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery } from '@mui/material';
 import { logOut } from '../../redux/action/userActions';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
@@ -52,6 +51,10 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
         }),
         marginLeft: 0,
     }),
+    [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
+        width:'100%'
+    },
 }));
 
 interface AppBarProps extends MuiAppBarProps {
@@ -64,8 +67,7 @@ const menuItems = [
     { text: 'my applications', icon: <ApartmentIcon /> },
     { text: 'find jobs', icon: <WorkIcon /> },
     { text: 'browse companies', icon: <TravelExploreIcon /> },
-    { text: 'my public profile', icon: <PersonIcon /> },
-    //   { text: 'jobs', icon: <WorkIcon /> },
+    { text: 'profile', icon: <PersonIcon /> },
 ]
 
 const AppBar = styled(MuiAppBar, {
@@ -83,43 +85,27 @@ const AppBar = styled(MuiAppBar, {
             duration: theme.transitions.duration.enteringScreen,
         }),
     }),
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+        marginLeft: 0,
+    },
 }));
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
 }));
 
 export default function Sidebar() {
-    const navigate = useNavigate()
-
-    const handleLogoutClick = () => {
-        setLogoutDialogOpen(true);
-    };
-    const dispatch: AppDispatch = useDispatch()
-
-    const handleLogoutConfirm = async () => {
-        setLogoutDialogOpen(false);
-        await dispatch(logOut()).unwrap()
-        // console.log(data, 'data logout successfull')
-            navigate('/')
-       
-    };
-
-    const handleLogoutCancel = () => {
-        setLogoutDialogOpen(false);
-    };
-
-
-
+    const navigate = useNavigate();
     const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [open, setOpen] = React.useState(false);
     const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
-
+    const dispatch: AppDispatch = useDispatch();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -129,10 +115,24 @@ export default function Sidebar() {
         setOpen(false);
     };
 
+    const handleLogoutClick = () => {
+        setLogoutDialogOpen(true);
+    };
+
+    const handleLogoutConfirm = async () => {
+        setLogoutDialogOpen(false);
+        await dispatch(logOut()).unwrap();
+        navigate('/');
+    };
+
+    const handleLogoutCancel = () => {
+        setLogoutDialogOpen(false);
+    };
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
+            <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white', boxShadow: 1 }}>
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                     <IconButton
                         color="inherit"
@@ -148,22 +148,22 @@ export default function Sidebar() {
             </AppBar>
             <Drawer
                 sx={{
-                    width: drawerWidth,
+                    width: isSmallScreen ? '100%' : drawerWidth,
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
-                        width: drawerWidth,
+                        width: isSmallScreen ? '100%' : drawerWidth,
                         boxSizing: 'border-box',
                     },
                 }}
-                variant="persistent"
+                variant={isSmallScreen ? "temporary" : "persistent"}
                 anchor="left"
                 open={open}
+                onClose={handleDrawerClose}
             >
                 <DrawerHeader>
-                <div >
-
-<img className='p-3 w-40' src={logo} alt="" />
-          </div>
+                    <div >
+                        <img className=' md:w-40 md:h-10 p-0 h-10 max-sm:mr-64' src={logo} alt="" />
+                    </div>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
@@ -182,23 +182,8 @@ export default function Sidebar() {
                             </ListItem>
                         </Link>
                     ))}
-
                 </List>
                 <Divider />
-                {/* <List>
-          {['settings','logout'].map((text, index) => (
-        <Link to={text} key={text} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <ListItem key={text} disablePadding  className='capitalize' >
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <SettingsIcon /> : <LogoutIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} className='text-maincolr ' />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          ))}
-        </List> */}
                 <List>
                     <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <ListItem disablePadding className='capitalize'>
@@ -219,34 +204,32 @@ export default function Sidebar() {
                         </ListItemButton>
                     </ListItem>
                 </List>
-                <Dialog
-                    open={logoutDialogOpen}
-                    onClose={handleLogoutCancel}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">
-                        {"Confirm Logout"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Are you sure you want to logout?
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleLogoutCancel}>Cancel</Button>
-                        <Button onClick={handleLogoutConfirm} autoFocus>
-                            Logout
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
                 <Outlet />
             </Main>
+            <Dialog
+                open={logoutDialogOpen}
+                onClose={handleLogoutCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Confirm Logout"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Are you sure you want to logout?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleLogoutCancel}>Cancel</Button>
+                    <Button onClick={handleLogoutConfirm} autoFocus>
+                        Logout
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
-
     );
 }

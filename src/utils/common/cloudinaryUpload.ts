@@ -1,17 +1,20 @@
 import axios from "axios";
 
-export const uploadToCloudinary = async (file: File): Promise<string> => {
+const CLOUDINARY_URL=import.meta.env.VITE_CLOUDINARY_URL as string
+// console.log(CLOUDINARY_URL)
+export const uploadToCloudinary = async (file: any): Promise<string> => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'hy-hire');
+   
 
 
     try {
         const response = await axios.post(
-            `https://api.cloudinary.com/v1_1/dbfpk9qoh/image/upload`,
+            CLOUDINARY_URL,
             formData
         );
-        console.log(response.data)
+        // console.log(response.data)
         return response.data.secure_url;
     } catch (error) {
         console.error('Error uploading to Cloudinary:', error);

@@ -1,16 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { AxiosRequestConfig } from "axios";
+import  {commonrequest}  from "../types/Common";
 
-export const URL="http://localhost:4000/api"
+export const URL=process.env.URL
 
-type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
-type commonRequest = {
-  method: HTTPMethod;
-  route: string;
-  body?: any;
-  config: AxiosRequestConfig;
-};
 
 export const apiInstance = axios.create({ baseURL: URL });
 
@@ -19,7 +12,7 @@ export const commonRequest = async ({
   route,
   body,
   config,
-}: commonRequest): Promise<AxiosResponse<any> | undefined> => {
+}: commonrequest): Promise<AxiosResponse<any> | undefined> => {
   let requestConfig = {
     method,
     url: route,

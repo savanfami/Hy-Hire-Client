@@ -127,7 +127,7 @@ const SignIn = () => {
                     <div>
                       <label htmlFor="password" className='block mb-1  font-medium'>Password</label>
                       <Field type={passwordVisible ? 'text' : 'password'} id="password" name='password' className='w-full px-3 py-2 mb-2 border rounded-md' placeholder='Enter your  password' />
-                      <span className="absolute inset-y-0 xl:mr-[300px] right-0 md:mr-52 mt-toggleheight mr-togglewidth  md:mt-20 flex items-center cursor-pointer" onClick={() => passwordVisibiltiy("password")}>
+                      <span className="absolute inset-y-0 right-0 mt-[1039px] mr-10 md:mt-20 md:mr-52 flex items-center cursor-pointer" onClick={() => passwordVisibiltiy("password")}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 md:-mt-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6a7.5 7.5 0 00-7.5 7.5M12 6a7.5 7.5 0 017.5 7.5" />

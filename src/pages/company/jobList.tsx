@@ -22,7 +22,6 @@ export const JobList = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
     const lastItemIndex = currentPage * itemPerPage
-
     const firstItemIndex = lastItemIndex - itemPerPage
     const currentItems = jobs.slice(firstItemIndex, lastItemIndex)
 

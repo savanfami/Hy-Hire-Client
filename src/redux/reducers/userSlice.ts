@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { errorPayload, userReducer } from "../../types/Alltypes";
-import { googleSignup, login, logOut, signupUser, verifyOtp } from "../action/userActions";
+import { googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
 import { sendRequest, updateCompany, updateSocialLinks } from "../action/companyAction";
 import { getCompany } from "../action/companyAction";
 
@@ -172,6 +172,15 @@ const userSlice = createSlice({
             .addCase(sendRequest.rejected,(state)=>{
                 state.loading=false;
                 state.err = false;
+            })
+            .addCase(updateProfile.pending,(state)=>{
+                state.loading=true;
+                state.err=false;
+            })
+            .addCase(updateProfile.fulfilled,(state,{payload})=>{
+                state.loading=false;
+                state.err=false;
+                state.user=payload
             })
             
 

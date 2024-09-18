@@ -27,7 +27,10 @@ import { JobPost } from './pages/company/JobPost'
 import CompanyListing from './pages/admin/CompanyListing'
 import { JobList } from './pages/company/jobList'
 import { ErrorBoundary } from './components/common/ErrroBoundary'
-
+import { CompanyDetail } from './pages/user/CompanyDetails'
+import { UserSideJobListing } from './pages/user/UserSideJobListing'
+import JobDetailsPage from './pages/user/JobDetailsPage'
+import { UserProfile } from './pages/user/UserProfile'
 function App() {
 
 
@@ -48,11 +51,12 @@ function App() {
         <Route path='forgetPassword' element={<ForgetPassword />} />
         <Route path='resetPassword' element={<ResetPassword />} />
 
-
         <Route path='/' element={<UserLayout />} >
           <Route path='' element={<Homepage />} />
+          <Route path='companydetails' element={<CompanyDetail/>}/>
+          <Route path='joblisting' element={<UserSideJobListing/>}/>
+          <Route path='/jobdetails/:id' element={<JobDetailsPage/>}/>
         </Route>
-
 
         {/* User Routes */}
         <Route path='profile' element={
@@ -63,6 +67,7 @@ function App() {
           <Route path='' element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='messages' element={<Messages />} />
+          <Route path='profile' element={<UserProfile/>}/>
         </Route>
 
 

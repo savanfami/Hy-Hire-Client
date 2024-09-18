@@ -31,7 +31,7 @@ import { AppDispatch } from '../../redux/store';
 import { logOut } from '../../redux/action/userActions';
 import logo from '../../assets/images/logo.jpg'
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery } from '@mui/material';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -51,13 +51,17 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     }),
     marginLeft: 0,
   }),
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    marginLeft: 0,
+  },
 }));
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const menuItems=[
+const menuItems = [
   { text: 'dashboard', icon: <DashboardIcon /> },
   { text: 'request', icon: <MailIcon /> },
   { text: 'company', icon: <ApartmentIcon /> },
@@ -81,6 +85,10 @@ const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginLeft: 0,
+  },
   }),
 }));
 
@@ -97,24 +105,24 @@ export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate()
 
   const handleLogoutClick = () => {
-      setLogoutDialogOpen(true);
+    setLogoutDialogOpen(true);
   };
   const dispatch: AppDispatch = useDispatch()
 
   const handleLogoutConfirm = async () => {
-      setLogoutDialogOpen(false);
-      await dispatch(logOut()).unwrap()
-      // console.log(data, 'data logout successfull')
-          navigate('/')
-     
+    setLogoutDialogOpen(false);
+    await dispatch(logOut()).unwrap()
+    // console.log(data, 'data logout successfull')
+    navigate('/')
+
   };
 
   const handleLogoutCancel = () => {
-      setLogoutDialogOpen(false);
+    setLogoutDialogOpen(false);
   };
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -125,39 +133,39 @@ export default function Sidebar() {
   };
 
   return (
-    <Box sx={{ display: 'flex'  }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white', boxShadow: 1 }}>
-  <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-    <IconButton
-      color="inherit"
-      aria-label="open drawer"
-      onClick={handleDrawerOpen}
-      edge="start"
-      sx={{ mr: 2, ...(open && { display: 'none' }), color: 'black' }}
-    >
-      <MenuIcon />
-    </IconButton>
-    <AdminNavbar />
-  </Toolbar>
-</AppBar>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }), color: 'black' }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <AdminNavbar />
+        </Toolbar>
+      </AppBar>
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: isSmallScreen ? '100%' : drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: drawerWidth,
+            width: isSmallScreen ? '100%' : drawerWidth,
             boxSizing: 'border-box',
           },
         }}
-        variant="persistent"
+        variant={isSmallScreen ? "temporary" : "persistent"}
         anchor="left"
         open={open}
+        onClose={handleDrawerClose}
       >
         <DrawerHeader>
-        <div >
-
-<img className='p-3 w-40' src={logo} alt="" />
+          <div >
+            <img className=' md:w-40 md:h-10 p-0 h-10 max-sm:mr-64' src={logo} alt="" />
           </div>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -165,19 +173,19 @@ export default function Sidebar() {
         </DrawerHeader>
         <Divider />
         <List>
-        {menuItems.map(({ text, icon }) => (
-          <Link to={text} key={text} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <ListItem disablePadding className='capitalize'>
-              <ListItemButton>
-                <ListItemIcon>
-                  {icon}
-                </ListItemIcon>
-                <ListItemText primary={text} className='text-maincolr ' />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
-        
+          {menuItems.map(({ text, icon }) => (
+            <Link to={text} key={text} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <ListItem disablePadding className='capitalize'>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText primary={text} className='text-maincolr ' />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+
         </List>
         <Divider />
         {/* <List>
@@ -195,52 +203,52 @@ export default function Sidebar() {
           ))}
         </List> */}
         <List>
-                    <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <ListItem disablePadding className='capitalize'>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <SettingsIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="settings" className='text-maincolr ' />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
-                    <ListItem disablePadding className='capitalize' onClick={handleLogoutClick}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <LogoutIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="logout" className='text-maincolr ' />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-                <Dialog
-                    open={logoutDialogOpen}
-                    onClose={handleLogoutCancel}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">
-                        {"Confirm Logout"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Are you sure you want to logout?
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleLogoutCancel}>Cancel</Button>
-                        <Button onClick={handleLogoutConfirm} autoFocus>
-                            Logout
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+          <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ListItem disablePadding className='capitalize'>
+              <ListItemButton>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="settings" className='text-maincolr ' />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <ListItem disablePadding className='capitalize' onClick={handleLogoutClick}>
+            <ListItemButton>
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="logout" className='text-maincolr ' />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Dialog
+          open={logoutDialogOpen}
+          onClose={handleLogoutCancel}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Confirm Logout"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure you want to logout?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleLogoutCancel}>Cancel</Button>
+            <Button onClick={handleLogoutConfirm} autoFocus>
+              Logout
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
         <Outlet />
       </Main>
     </Box>
-      
+
   );
 }

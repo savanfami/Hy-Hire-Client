@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { postJob } from '../../redux/action/jobAction';
 import { useNavigate } from 'react-router-dom';
+import { PlacesAutocomplete } from '../../components/common/LocationFetch';
 
 export const JobPost = () => {
 
@@ -25,7 +26,7 @@ export const JobPost = () => {
     const initialValues = {
         jobTitle: '',
         employmentType: '',
-        location: '',
+        joblocation: '',
         salaryMin: '',
         salaryMax: '',
         skillInput: [''],
@@ -104,10 +105,11 @@ export const JobPost = () => {
                         </div>
 
                         <div className='grid grid-cols-2 gap-4'>
-                            <label htmlFor="location" className="text-lg pl-3 font-gg mb-4">Location</label>
+                            <label htmlFor="joblocation" className="text-lg pl-3 font-gg mb-4">joblocation</label>
                             <div>
-                                <Field name="location" type="text" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 " placeholder="Enter job location" />
-                                <ErrorMessage name="location" component="div" className="text-red-600 text-sm" />
+                            <PlacesAutocomplete  onSelect={(location)=>setFieldValue('joblocation',location)} componentType='postjob' />
+                                {/* <Field name="joblocation" type="text" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 " placeholder="Enter job joblocation" /> */}
+                                <ErrorMessage name="joblocation" component="div" className="text-red-600 text-sm " />
                             </div>
                         </div>
 

@@ -88,6 +88,7 @@ console.log(location.state,'locaton')
 
 
   const signupWithGoogle = async (value: any, userType: string | undefined) => {
+    setLoading(true)
     const {data} = await dispatch(googleSignup({ ...value, userType })).unwrap()
     setLoading(false);
     console.log('daat', data)

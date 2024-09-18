@@ -1,7 +1,7 @@
 import logo from '../../assets/images/logo.jpg'
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import React from 'react';
@@ -31,40 +31,40 @@ const Navbar = () => {
   );
 
   return (
-    <nav className='bg-white overflow-x-hidden '>
+    <nav className='bg-white head overflow-x-hidden '>
       <div className=' mx-auto px-4 ms-2'>
         <div className='flex justify-between items-center h-16'>
           <div className='flex-shrink-0'>
-            <Link to='/'>
+            <NavLink to='/'>
               <img src={logo} className='max-w-full' style={{ width: '155px' }} alt="logo hihyre" />
-            </Link>
+            </NavLink>
           </div>
 
           <div className='hidden md:flex md:items-center md:space-x-4 font-serif'>
-            <Link to='' className='block px-3 py-2 text-gray-500 hover:text-black'>Home</Link>
-            <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Find jobs</a>
-            <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Browse Companies</a>
-            <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Contact Us</a>
+            <NavLink to='' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Home</NavLink>
+            <NavLink to="joblisting" className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Find jobs</NavLink>
+            <NavLink to='haha' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Browse Companies</NavLink>
+            <NavLink to='hehe' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Contact Us</NavLink>
           </div>
 
           <div className='hidden md:flex font-serif'>
             {state&&state?.role==='user' ? (
               <>
-              <Link to='/TryPremium'>
+              <NavLink to='/TryPremium'>
                 <NavButton text="TryPremium" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
-              </Link>
-              <Link to='profile'>
+              </NavLink>
+              <NavLink to='profile'>
                 <NavButton text="Dashboard" isHovered={isHoveredLogin} setIsHovered={setIsHoveredLogin} />
-              </Link>
+              </NavLink>
               </>
             ) : (
               <>
-                <Link to='login'>
+                <NavLink to='login'>
                   <NavButton text="Login" isHovered={isHoveredLogin} setIsHovered={setIsHoveredLogin} />
-                </Link>
-                <Link to="joinas">
+                </NavLink>
+                <NavLink to="joinas">
                   <NavButton text="Register" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
-                </Link>
+                </NavLink>
               </>
             )}
           </div>
@@ -80,7 +80,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className='md:hidden'>
           <div className=' text-center px-2 pt-2 pb-3 space-y-1 sm:px-3 font-serif'>
-            <Link to='' className='block px-3 py-2 text-gray-500 hover:text-black'>Home</Link>
+            <NavLink to='' className='block px-3 py-2 text-gray-500 hover:text-black'>Home</NavLink>
             <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Find jobs</a>
             <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Browse Companies</a>
             <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Contact Us</a>

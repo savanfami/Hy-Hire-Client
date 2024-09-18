@@ -109,8 +109,8 @@ export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValu
 export const googleSignup = createAsyncThunk<GoogleSignupResponse, GoogleCredential>('auth/googlesingup', async (userCredentials, { rejectWithValue }) => {
   try {
     console.log('req to back end')
-    const { data } = await axios.post(`${URL}/auth/googleauth`, userCredentials,config);
-   console.log(data,'afldsfasdfldsfsdafdsf')
+    const { data } = await axios.post(`${URL}/auth/googleauth`, userCredentials, config);
+    console.log(data, 'afldsfasdfldsfsdafdsf')
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -121,3 +121,18 @@ export const googleSignup = createAsyncThunk<GoogleSignupResponse, GoogleCredent
 }
 )
 
+export const updateProfile = createAsyncThunk<any, any>(
+  'update/profile',
+  async (profileData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(`${URL}/user/profile`, profileData, config);
+      return data;
+    } catch (error) {
+      // console.log(error)
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.data);
+      }
+      return rejectWithValue({ message: 'An unknown error occurred' });
+    }
+  }
+);

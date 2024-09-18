@@ -77,10 +77,14 @@ const UserListing = () => {
         }
     };
 
+    const handleSearch=()=>{
+        
+    }
+
     return (
         <>
 
-            <SearchBar value={`Total Users: ${users.length}`} />
+            <SearchBar onSearch={handleSearch}  values={`Total Users: ${users.length}`} />
 
             <table className="min-w-full bg-white border border-gray-300 shadow-sm rounded-lg overflow-hidden font-serif font-medium">
                 <thead className="bg-gray-50">

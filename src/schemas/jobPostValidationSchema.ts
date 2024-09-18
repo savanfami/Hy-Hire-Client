@@ -12,7 +12,7 @@ export const jobPostingValidationSchema = () =>
       .string()
       .min(3, "min 3 characters required !")
       .required("employmentType is required"),
-    location: yup
+    joblocation: yup
       .string()
       .required("location is required")
       .test('not-only-spaces', 'Title cannot be only spaces', (value) => {

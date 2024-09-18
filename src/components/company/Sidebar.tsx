@@ -28,7 +28,7 @@ import logo from '../../assets/images/logo.jpg'
 
 
 import { Navbar } from './Navbar';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery } from '@mui/material';
 import { logOut } from '../../redux/action/userActions';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
@@ -52,6 +52,10 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
         }),
         marginLeft: 0,
     }),
+    [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
+        width: '100%'
+    },
 }));
 
 interface AppBarProps extends MuiAppBarProps {
@@ -83,6 +87,10 @@ const AppBar = styled(MuiAppBar, {
             duration: theme.transitions.duration.enteringScreen,
         }),
     }),
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+        marginLeft: 0,
+    },
 }));
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -96,7 +104,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function Sidebar() {
     const navigate = useNavigate()
-
+    const theme = useTheme()
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const handleLogoutClick = () => {
         setLogoutDialogOpen(true);
     };
@@ -106,8 +115,8 @@ export default function Sidebar() {
         setLogoutDialogOpen(false);
         await dispatch(logOut()).unwrap()
         // console.log(data, 'data logout successfull')
-            navigate('/')
-       
+        navigate('/')
+
     };
 
     const handleLogoutCancel = () => {
@@ -116,7 +125,6 @@ export default function Sidebar() {
 
 
 
-    const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [logoutDialogOpen, setLogoutDialogOpen] = React.useState(false);
 
@@ -131,39 +139,39 @@ export default function Sidebar() {
 
     return (
         <Box sx={{ display: 'flex' }}>
-                    
+
             <CssBaseline />
             <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white', boxShadow: 1 }}>
-    <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-        <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }), color: 'black' }}
-        >
-            <MenuIcon />
-        </IconButton>
-        <Navbar />
-    </Toolbar>
-</AppBar>
+                <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        edge="start"
+                        sx={{ mr: 2, ...(open && { display: 'none' }), color: 'black' }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Navbar />
+                </Toolbar>
+            </AppBar>
             <Drawer
                 sx={{
-                    width: drawerWidth,
+                    width: isSmallScreen ? '100%' : drawerWidth,
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
-                        width: drawerWidth,
+                        width: isSmallScreen ? '100%' : drawerWidth,
                         boxSizing: 'border-box',
                     },
                 }}
-                variant="persistent"
+                variant={isSmallScreen ? "temporary" : "persistent"}
                 anchor="left"
                 open={open}
+                onClose={handleDrawerClose}
             >
                 <DrawerHeader>
                     <div >
-
-          <img className='p-3 w-40' src={logo} alt="" />
+                        <img className=' md:w-40 md:h-10 p-0 h-10 max-sm:mr-64' src={logo} alt="" />
                     </div>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
