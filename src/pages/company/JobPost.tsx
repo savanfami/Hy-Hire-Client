@@ -72,7 +72,6 @@ export const JobPost = () => {
     }
 
     const handlesubmit = async (values: FormikValues) => {
-      
         const data = await dispatch(postJob(values)).unwrap()
         if(data){
             navigate('/company/jobs')

@@ -9,8 +9,6 @@ const initialState: adminReducer = {
     request: [],
     err: null,
     role: null,
-
-
 }
 
 

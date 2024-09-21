@@ -37,7 +37,6 @@ export const ProfilePicSection: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const { user: { data } } = useSelector((state: RootState) => state?.user);
-    console.log(data)
     const fileInputRef = useRef<HTMLInputElement>(null);
     const dispatch: AppDispatch = useDispatch()
 
@@ -97,6 +96,8 @@ export const ProfilePicSection: React.FC = () => {
             {({ values, errors, touched, isSubmitting, setFieldValue, resetForm, setFieldTouched, setErrors }) => (
                 <Form>
                     {/* Cover Image */}
+                   
+
                     <img
                         src="https://img.freepik.com/free-photo/plain-smooth-green-wall-texture_53876-129746.jpg"
                         className="object-cover h-40 w-full"
@@ -108,7 +109,7 @@ export const ProfilePicSection: React.FC = () => {
                         <div className="">
                             <img
                                 src={values.image instanceof File ? URL.createObjectURL(values.image) : values.image}
-                                className="w-32 h-32 rounded-full border-4 border-white absolute ml-20 max-sm:ml-20 md:ml-0 md:-top-16 -top-32 left-4 cursor-pointer"
+                                className="w-36 h-36 rounded-full border-4 border-white absolute ml-20 max-sm:ml-20 md:ml-0 md:-top-16 -top-32 left-4 cursor-pointer"
                                 alt="Profile"
                                 onClick={() => isEditing && fileInputRef.current?.click()}
                             />
@@ -136,7 +137,7 @@ export const ProfilePicSection: React.FC = () => {
                                 )}
                             </div>
                             {errors.name && touched.name && <div className="text-red-500">{typeof errors.name === 'string' ? errors.name : 'Error occurred'}</div>}
-
+                            {/* <div className=" text-slate-500 font-semibold mt-2 font-sans flex items-center">{data?.email}</div> */}
                             <div className="flex items-center mt-2 md:-ml-6 text-slate-500">
                                 {isEditing ? (
                                     <PlacesAutocomplete
@@ -154,8 +155,8 @@ export const ProfilePicSection: React.FC = () => {
                     </div>
 
                     {/* About Me Section */}
-                    <div className="mt-10 ml-5 px-4">
-                        <h2 className="text-xl font-semibold mb-4">About Me</h2>
+                    <div className="mt-10  ml-5 px-4">
+                        <h2 className="text-xl font-semibold mb-4 underline">About Me</h2>
                         {isEditing ? (
                             <Field
                                 as={Textarea}
@@ -184,6 +185,7 @@ export const ProfilePicSection: React.FC = () => {
                             </Button>
                         )}
                     </div>
+                   
                 </Form>
             )}
         </Formik>

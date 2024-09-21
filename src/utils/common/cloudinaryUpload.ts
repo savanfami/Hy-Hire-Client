@@ -14,10 +14,12 @@ export const uploadToCloudinary = async (file: any): Promise<string> => {
             CLOUDINARY_URL,
             formData
         );
-        // console.log(response.data)
-        return response.data.secure_url;
+        return response.data.url;
     } catch (error) {
         console.error('Error uploading to Cloudinary:', error);
         throw new Error('Failed to upload image');
     }
 };
+
+
+

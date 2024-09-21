@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { errorPayload, userReducer } from "../../types/Alltypes";
-import { googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
+import { getUserData, googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
 import { sendRequest, updateCompany, updateSocialLinks } from "../action/companyAction";
 import { getCompany } from "../action/companyAction";
 
@@ -10,6 +10,7 @@ const initialState: userReducer = {
     user: null,
     err: false,
     role: null,
+    dataFetched: false
 };
 
 const userSlice = createSlice({
@@ -21,6 +22,26 @@ const userSlice = createSlice({
             state.err = false;
             state.user = null;
         },
+        removeExperience: (state, { payload }) => {
+            const output = state.user.data.experiences
+            const filteredItems = output.filter((_: any, index: number) => index !== payload)
+            state.user.data.experiences = filteredItems
+            return state
+        },
+        removeEducations: (state, { payload }) => {
+            const output = state.user.data.education
+            const filteredItems = output.filter((_: any, index: number) => index !== payload)
+            state.user.data.education = filteredItems
+            return state
+        },
+        removeResumes: (state, { payload }) => {
+            const output = state.user.data.resumes
+            const filteredItems = output.filter((_: any, index: number) => index !== payload)
+            state.user.data.resumes = filteredItems
+            return state
+        }
+        
+        
     },
     extraReducers: (builder) => {
         builder
@@ -109,6 +130,7 @@ const userSlice = createSlice({
                     state.user = null,
                     state.role = null,
                     state.err = false
+                state.dataFetched = false
             })
             .addCase(logOut.rejected, (state, action) => {
                 if (action.payload) {
@@ -147,9 +169,9 @@ const userSlice = createSlice({
                 state.err = false;
                 state.user = null
             })
-            .addCase(updateSocialLinks.pending,(state)=>{
-                state.loading=true;
-                state.err=false;
+            .addCase(updateSocialLinks.pending, (state) => {
+                state.loading = true;
+                state.err = false;
             })
             .addCase(updateSocialLinks.fulfilled, (state, { payload }) => {
                 state.loading = false;
@@ -161,34 +183,55 @@ const userSlice = createSlice({
                 state.err = false;
                 state.user = null;
             })
-            .addCase(sendRequest.pending,(state)=>{
-                state.loading=true;
-                state.err=false;
-            })
-            .addCase(sendRequest.fulfilled,(state)=>{
-                state.loading=false;
-                state.err=false;
-            })
-            .addCase(sendRequest.rejected,(state)=>{
-                state.loading=false;
+            .addCase(sendRequest.pending, (state) => {
+                state.loading = true;
                 state.err = false;
             })
-            .addCase(updateProfile.pending,(state)=>{
-                state.loading=true;
-                state.err=false;
+            .addCase(sendRequest.fulfilled, (state) => {
+                state.loading = false;
+                state.err = false;
             })
-            .addCase(updateProfile.fulfilled,(state,{payload})=>{
-                state.loading=false;
-                state.err=false;
-                state.user=payload
+            .addCase(sendRequest.rejected, (state) => {
+                state.loading = false;
+                state.err = false;
+                state.user = null;
             })
-            
+            .addCase(updateProfile.pending, (state) => {
+                state.loading = true;
+                state.err = false;
+            })
+            .addCase(updateProfile.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.err = false;
+                state.user = payload
+            })
+            .addCase(updateProfile.rejected, (state) => {
+                state.loading = false;
+                state.err = true
+                state.user = null
+            })
+            .addCase(getUserData.pending, (state) => {
+                state.loading = true;
+                state.err = false;
+            })
+            .addCase(getUserData.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.err = false;
+                state.user = payload;
+                state.dataFetched = true
+            })
+            .addCase(getUserData.rejected, (state, { payload }) => {
+                state.loading = false;
+                state.err = payload as string;
+                state.user = null
+            })
+
 
 
 
     },
 });
 
-export const { } = userSlice.actions;
+export const { removeExperience,removeEducations,removeResumes, resetState } = userSlice.actions;
 
 export default userSlice.reducer;

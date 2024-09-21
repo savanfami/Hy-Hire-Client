@@ -1,0 +1,65 @@
+[33mcommit 0fac994fbdea725bfa8ce9b1d361187889da32c8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/feature[m[33m, [m[1;32mfeature[m[33m)[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Wed Sep 18 16:30:25 2024 +0530
+
+    added location api and partially completed userprofile
+
+[33mcommit 68f4fa06dbc992f1ee3fdc907d6e872df54605e8[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Mon Sep 9 15:20:55 2024 +0530
+
+    added job posting and job list with search and debouncer
+
+[33mcommit 44fbf9c409933e922e000d796058fecda6ff9e2e[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Thu Aug 29 12:06:33 2024 +0530
+
+    completed company settings
+
+[33mcommit aba86af9bd2dfe1676c73e9063881f67bcd9ae2d[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Tue Aug 20 22:39:34 2024 +0530
+
+    configured google auth
+
+[33mcommit d82db5041a6143c79d5014a0f78534c7acb8c7db[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Sun Aug 18 12:11:34 2024 +0530
+
+    completed forgot password in authentication
+
+[33mcommit 1d48c716f401de00f2a989b2a6ec0bfec1e8cfd2[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Fri Aug 16 18:32:25 2024 +0530
+
+    setup protected route and fixed bugs
+
+[33mcommit e20d347c1046ced9e859d9f566396388a4fb32e0[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Tue Aug 13 17:39:53 2024 +0530
+
+    setup admin page and company pages
+
+[33mcommit b0d24f30214d9f97c53ea5d3f23f750cb7dc6656[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Tue Jul 23 16:40:50 2024 +0530
+
+    fixed bugs
+
+[33mcommit 887229bf9f85dd2a67a3a829ca8847fcc9081dff[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Mon Jul 22 14:30:24 2024 +0530
+
+    completed up login signup homepage front end
+
+[33mcommit 7dc62868c9b79c6bae76d4867ff0ca27cbaa6f02[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Sat Jul 20 17:00:37 2024 +0530
+
+    setup chadcn and created homepage
+
+[33mcommit 5cae3a802dabef999bcd0daf1648a7ed92c53900[m
+Author: Savan Fami <savanfami1239@gmail.com>
+Date:   Wed Jul 17 22:50:15 2024 +0530
+
+    initial commit

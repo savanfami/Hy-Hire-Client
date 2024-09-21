@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { getUserData } from "../../redux/action/userActions";
 export const Navbar = () => {
 
   const navigate = useNavigate()
   const { user: { data } } = useSelector((state: RootState) => state.user)
   console.log(data, '')
-
-
+  
   return (
     <>
       <ToastContainer position='top-center' />

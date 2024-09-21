@@ -26,7 +26,6 @@ export const JobCard = ({job,value}:any) => {
   }
   const createdTime=moment(job?.createdAt)
   const timeAgo=createdTime?.fromNow()
- console.log(job)
   return (
     <>
  

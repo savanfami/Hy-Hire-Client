@@ -25,7 +25,7 @@ const JoinAs = () => {
 
   return (
     <div className='h-1'>
-      <div className="flex flex-col h-screen bg-gray-200 ">
+      <div className="flex flex-col h-screen  ">
         <div className="p-4">
           <Link to='/'>  <img  src={logo} className='w-52 h-auto' alt="Logo" /></Link>
         </div>
@@ -37,7 +37,7 @@ const JoinAs = () => {
             <div className="w-full flex flex-col md:flex-row gap-5 mb-8">
               <div
                 className={`flex flex-col border border-black grow pt-3 pr-3 pb-8 pl-6 w-full md:w-1/2 rounded shadow-sm cursor-pointer transition-colors duration-300 ${
-                  selected === 'jobseeker' ? 'bg-stone-50' : 'bg-white'
+                  selected === 'jobseeker' ? 'bg-maincolr' : 'bg-white'
                 }`}
                 onClick={() => handleSelect('jobseeker')}
               >
@@ -48,14 +48,14 @@ const JoinAs = () => {
                     className="shrink-0 mt-3.5 w-6 aspect-square"
                   />
                 </div>
-                <div className="mt-7 text-xl leading-6 text-zinc-900">
+                <div className={`${selected==='jobseeker'?'mt-7 text-xl leading-6 text-white ':'mt-7 text-xl leading-6 text-zinc-900'}`}>
                   I'm a jobseeker, looking <br />
                   for a job
                 </div>
               </div>
               <div
                 className={`flex flex-colborder border border-black grow pt-3 pr-3 pb-8 pl-6 w-full md:w-1/2 rounded shadow-sm cursor-pointer transition-colors duration-300 ${
-                  selected === 'hiringteam' ? 'bg-stone-50' : 'bg-white'
+                  selected === 'hiringteam' ? 'bg-maincolr ' : 'bg-white'
                 }`}
                 onClick={() => handleSelect('hiringteam')}
               >
@@ -63,10 +63,10 @@ const JoinAs = () => {
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/08cffa300d7472b59ca61f9ec63f9b3c54438769d4fd7e385ce772721f001c6a?apiKey=8f24705e21204f2584dbbee4857097d3&"
-                    className="shrink-0 mt-3.5 w-6 aspect-square"
+                    className="shrink-0 mt-3.5 w-6 aspect-square "
                   />
                 </div>
-                <div className="mt-7 text-xl leading-6 text-zinc-900">
+                <div className={`${selected==='hiringteam'?'mt-7 text-xl leading-6 text-white ':'mt-7 text-xl leading-6 text-zinc-900'}`}>
                   I'm a HiringManager,
                   <br />
                   looking for candidates
@@ -75,7 +75,7 @@ const JoinAs = () => {
             </div>
             <button onClick={handleJoinAs} 
               className={`px-7 py-3 text-sm leading-5 rounded-2xl transition-colors duration-300 ${
-                selected ? 'bg-green-700 text-white' : 'bg-gray-300 text-gray-600'
+                selected ? 'bg-maincolr text-white' : 'bg-gray-300 text-gray-600'
               }`}
             >
               Join as a {selected || 'user'}

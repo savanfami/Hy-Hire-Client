@@ -4,6 +4,8 @@ import { FormikValues } from "formik";
 import { URL } from "../../common/axiosInstance";
 import { GoogleCredential, GoogleSignupResponse, loginPayload, loginResponse, verifyOtpPayload, verifyOtpResponse } from "../../types/Alltypes";
 import { config } from "../../common/configurations";
+import {removeExperience,removeEducations,removeResumes} from '../reducers/userSlice'
+import { RootState } from "../store";
 export type User = {
   data?: any;
   email: string;
@@ -136,3 +138,70 @@ export const updateProfile = createAsyncThunk<any, any>(
     }
   }
 );
+
+
+export const getUserData = createAsyncThunk(
+  'user/get-data',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`${URL}/user/get-data`, config)
+      return data
+    } catch (error) {
+      console.log(error)
+      return rejectWithValue(error)
+    }
+  }
+)
+
+
+export const removeExperienceandUpdateProfile=createAsyncThunk(
+  'user/remove-experience',
+  async(index:number,{dispatch,getState})=>{
+    try {  
+      dispatch (removeExperience(index))
+      const updatedUserState=getState() as RootState
+      // console.log(updatedUserState)
+      console.log(updatedUserState?.user?.user) 
+      await dispatch(updateProfile(updatedUserState?.user?.user?.data))
+      // console.log(updatedUserState)
+    } catch (error) {
+      console.log(error)
+      
+  }
+}
+)
+
+
+export const removeResumeandUpdateProfile=createAsyncThunk(
+  'user/remove-resume',
+  async(index:number,{dispatch,getState})=>{
+    try {  
+      dispatch (removeResumes(index))
+      const updatedUserState=getState() as RootState
+      // console.log(updatedUserState)
+      console.log(updatedUserState?.user?.user) 
+      await dispatch(updateProfile(updatedUserState?.user?.user?.data))
+      // console.log(updatedUserState)
+    } catch (error) {
+      console.log(error)
+      
+  }
+}
+)
+
+export const removeEducationandUpdateProfile=createAsyncThunk(
+  'user/remove-education',
+  async(index:number,{dispatch,getState})=>{
+    try {  
+      dispatch (removeEducations(index))
+      const updatedUserState=getState() as RootState
+      // console.log(updatedUserState)
+      // console.log(updatedUserState?.user?.user) 
+      await dispatch(updateProfile(updatedUserState?.user?.user?.data))
+      // console.log(updatedUserState)
+    } catch (error) {
+      console.log(error)
+      
+  }
+}
+)

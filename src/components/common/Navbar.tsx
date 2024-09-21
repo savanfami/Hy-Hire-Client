@@ -1,23 +1,43 @@
 import logo from '../../assets/images/logo.jpg'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa'
 import { Link, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
 import React from 'react';
+import { getUserData } from '../../redux/action/userActions';
 
 
-const Navbar = () => {
+const Navbar = React.memo(() => {
+  const dispatch:AppDispatch=useDispatch()
   const [isHoveredLogin, setIsHoveredLogin] = useState(false);
   const [isHoveredRegister, setIsHoveredRegister] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const state = useSelector((state: RootState) => state.user)
-  console.log(state)
+   console.log(state)
+  
+   const fetchData = async () => {
+      
+    try {
+      await dispatch(getUserData()).unwrap();
+       
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (state?.role === 'user'&&!state?.dataFetched) {
+      console.log('user effect called')
+      fetchData();
+    }
+  }, []);
+
+  
 
   const NavButton = ({ text, isHovered, setIsHovered }: any) => (
     <button
@@ -110,6 +130,6 @@ const Navbar = () => {
       )}
     </nav>
   )
-}
+})
 
 export default Navbar

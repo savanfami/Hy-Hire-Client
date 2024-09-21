@@ -14,6 +14,7 @@ export type userReducer = {
   err: boolean | string
   role: "user" | "admin" | "company" | null | string
   user: null | any;
+  dataFetched?:boolean
 };
 
 

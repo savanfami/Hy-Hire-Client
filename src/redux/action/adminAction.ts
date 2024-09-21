@@ -2,13 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { URL } from "../../common/axiosInstance";
 import { requestType } from "../../types/Admin";
+import { config } from "../../common/configurations";
 
 
 export const listRequest = createAsyncThunk(
     'admin/list-request',
     async (_, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get(`${URL}/company/list-request`)
+            const { data } = await axios.get(`${URL}/company/list-request`,config)
             return data
         } catch (error) {
             return rejectWithValue(error)
