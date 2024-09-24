@@ -65,7 +65,7 @@ const menuItems = [
     { text: 'dashboard', icon: <DashboardIcon /> },
     { text: 'messages', icon: <MailIcon /> },
     { text: 'my applications', icon: <ApartmentIcon /> },
-    { text: 'find jobs', icon: <WorkIcon /> },
+    { text: 'findJobs', icon: <WorkIcon /> },
     { text: 'browse companies', icon: <TravelExploreIcon /> },
     { text: 'profile', icon: <PersonIcon /> },
 ]

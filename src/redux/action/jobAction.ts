@@ -5,7 +5,7 @@ import { URL } from "../../common/axiosInstance";
 // import { IJobpost } from "../../types/companyTypes";
 import { FormikValues } from "formik";
 import { config } from "../../common/configurations";
-
+import {IApplyJobPayload} from '../../types/jobTypes'
 
 export const postJob = createAsyncThunk<any, FormikValues>(
     'company/post-job',
@@ -36,3 +36,17 @@ export const getAllJob = createAsyncThunk(
     }
 )
 
+
+export const applyJob=createAsyncThunk<any,IApplyJobPayload>(
+    'user/apply-job',
+    async(payload,{rejectWithValue})=>{
+        try {
+            const {data}=await axios.post(`${URL}/job/apply-job`,payload,config)
+            console.log(data)
+            return data
+        } catch (error:any) {
+            console.log(error)
+            return rejectWithValue(error)
+        }
+    }
+)

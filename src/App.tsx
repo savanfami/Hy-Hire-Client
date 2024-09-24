@@ -31,6 +31,8 @@ import { CompanyDetail } from './pages/user/CompanyDetails'
 import { UserSideJobListing } from './pages/user/UserSideJobListing'
 import JobDetailsPage from './pages/user/JobDetailsPage'
 import { UserProfile } from './pages/user/UserProfile'
+import { DashboardJobListing } from './pages/user/DashboardJobListing'
+import { UserSideCompanyListing } from './pages/user/CompanyListing'
 function App() {
 
 
@@ -53,9 +55,10 @@ function App() {
 
         <Route path='/' element={<UserLayout />} >
           <Route path='' element={<Homepage />} />
-          <Route path='companydetails' element={<CompanyDetail/>}/>
+          <Route path='companydetails/:id' element={<CompanyDetail/>}/>
           <Route path='joblisting' element={<UserSideJobListing/>}/>
           <Route path='/jobdetails/:id' element={<JobDetailsPage/>}/>
+          <Route path='companyListing' element={<UserSideCompanyListing/>}/>
         </Route>
 
         {/* User Routes */}
@@ -67,6 +70,7 @@ function App() {
           <Route path='' element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='messages' element={<Messages />} />
+          <Route path='findJobs' element={<DashboardJobListing/>}/>
           <Route path='profile' element={<UserProfile/>}/>
         </Route>
 

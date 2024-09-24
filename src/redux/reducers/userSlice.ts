@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { errorPayload, userReducer } from "../../types/Alltypes";
-import { getUserData, googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
+import { getAllCompany, getUserData, googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
 import { sendRequest, updateCompany, updateSocialLinks } from "../action/companyAction";
 import { getCompany } from "../action/companyAction";
 
@@ -10,7 +10,9 @@ const initialState: userReducer = {
     user: null,
     err: false,
     role: null,
-    dataFetched: false
+    CompanydataFetched: false,
+    dataFetched: false,
+    companyData: [],
 };
 
 const userSlice = createSlice({
@@ -40,8 +42,8 @@ const userSlice = createSlice({
             state.user.data.resumes = filteredItems
             return state
         }
-        
-        
+
+
     },
     extraReducers: (builder) => {
         builder
@@ -131,6 +133,7 @@ const userSlice = createSlice({
                     state.role = null,
                     state.err = false
                 state.dataFetched = false
+                state.CompanydataFetched = false
             })
             .addCase(logOut.rejected, (state, action) => {
                 if (action.payload) {
@@ -213,6 +216,7 @@ const userSlice = createSlice({
             .addCase(getUserData.pending, (state) => {
                 state.loading = true;
                 state.err = false;
+                state.dataFetched = false
             })
             .addCase(getUserData.fulfilled, (state, { payload }) => {
                 state.loading = false;
@@ -224,6 +228,24 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.err = payload as string;
                 state.user = null
+                state.dataFetched = false
+            })
+            .addCase(getAllCompany.pending, (state) => {
+                state.loading = true;
+                state.err = false
+                state.CompanydataFetched = false
+            })
+            .addCase(getAllCompany.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.err = false;
+                state.companyData = payload
+                state.CompanydataFetched = true
+            })
+            .addCase(getAllCompany.rejected, (state, { payload }) => {
+                state.loading = false;
+                state.err = payload as string;
+                state.CompanydataFetched = false;
+                state.companyData = []
             })
 
 
@@ -232,6 +254,6 @@ const userSlice = createSlice({
     },
 });
 
-export const { removeExperience,removeEducations,removeResumes, resetState } = userSlice.actions;
+export const { removeExperience, removeEducations, removeResumes, resetState } = userSlice.actions;
 
 export default userSlice.reducer;

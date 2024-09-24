@@ -205,3 +205,17 @@ export const removeEducationandUpdateProfile=createAsyncThunk(
   }
 }
 )
+
+
+export const getAllCompany=createAsyncThunk(
+  'get/allcompany',
+  async(_,{rejectWithValue})=>{
+    try {
+      const { data } = await axios.get(`${URL}/company/get-allcompany`);
+      console.log(data.data)
+      return data?.data;
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)

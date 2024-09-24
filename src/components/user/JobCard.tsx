@@ -1,6 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 // interface JobCardProps {
 //     _id: string;
@@ -17,18 +19,25 @@ import { Link } from 'react-router-dom';
 //     };
 // }
 
-export const JobCard = ({job,value}:any) => {
+interface IJobCardProps{
+  job:any;
+  value:string;
+  onApply?:()=>void;
+}
+
+export const JobCard = ({job,value,onApply}:IJobCardProps) => {
+  
   let linkTo
   if(value==='job Details'){
     linkTo=`/jobdetails/${job._id}`
-  }else if(value==='Apply Job'){
-    linkTo='jobapply'
+  }else if(value==='Apply'){
+    // linkTo='jobapply'
   }
   const createdTime=moment(job?.createdAt)
   const timeAgo=createdTime?.fromNow()
+
   return (
     <>
- 
   <div className="flex mb-5  border border-gray-200 flex-col p-10 bg-white rounded-md w-full shadow-[0px_3px_8px_rgba(48,150,137,0.08)] max-md:px-5">
       <div className="flex flex-col w-full max-md:max-w-full">
         <div className="flex flex-wrap gap-10 justify-between items-start w-full text-base text-teal-600 max-md:max-w-full">
@@ -88,9 +97,9 @@ export const JobCard = ({job,value}:any) => {
             <div className="self-stretch my-auto italic">{job?.joblocation}</div>
           </div>
         </div>
-       <Link to={linkTo as string}> <p className="overflow-hidden gap-2.5 self-stretch p-2  italic text-white capitalize bg-teal-600 rounded-lg min-h-[40px]">
+       <Link to={linkTo as string}> <button onClick={onApply} className="overflow-hidden gap-2.5 self-stretch p-2  italic text-white capitalize bg-teal-600 rounded-lg min-h-[40px]">
           {value}
-        </p></Link>
+        </button></Link>
       </div>
     </div>
 

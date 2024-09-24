@@ -18,13 +18,6 @@ function Request() {
     dispatch(listRequest()).unwrap()
   }, [dispatch])
 
-
-
-
-
-
-
-
   const handleStatusChange = async (companyId: string, status: string) => {
     const req = {
       companyId,

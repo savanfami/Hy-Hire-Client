@@ -63,7 +63,7 @@ const Navbar = React.memo(() => {
           <div className='hidden md:flex md:items-center md:space-x-4 font-serif'>
             <NavLink to='' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Home</NavLink>
             <NavLink to="joblisting" className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Find jobs</NavLink>
-            <NavLink to='haha' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Browse Companies</NavLink>
+            <NavLink to='companyListing' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Browse Companies</NavLink>
             <NavLink to='hehe' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Contact Us</NavLink>
           </div>
 

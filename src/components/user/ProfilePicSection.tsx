@@ -15,7 +15,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 const validationSchema = Yup.object().shape({
     name: Yup.string()
         .matches(/^[A-Za-z]+(?: [A-Za-z]+)*$/, "Invalid name format")
-        .min(3, "min 3 characters required !"),
+        .min(3, "min 3 characters required !")
+        .required('name is required'),
     location: Yup.string().required('Location is required').matches(/^(?!\s*$).+/, 'Location cannot be empty or contain only spaces'),
     aboutMe: Yup.string().max(500, 'About Me must be 500 characters or less').required('About Me is required'),
     image: Yup.mixed()
@@ -37,6 +38,7 @@ export const ProfilePicSection: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const { user: { data } } = useSelector((state: RootState) => state?.user);
+    console.log(data)
     const fileInputRef = useRef<HTMLInputElement>(null);
     const dispatch: AppDispatch = useDispatch()
 
@@ -44,7 +46,7 @@ export const ProfilePicSection: React.FC = () => {
         name: data?.name || '',
         location: data.location || '',
         aboutMe: data.aboutMe || '',
-        image: data.image || "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        image: data.image || "https://cdn-icons-png.flaticon.com/512/149/149071.png",
     };
 
     const handleEditClick = () => {

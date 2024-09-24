@@ -21,6 +21,7 @@ import {
 } from "../../components/ui/accordion"
 import { uploadToCloudinary } from '../../utils/common/cloudinaryUpload'
 import { CustomButton } from '../../components/common/Button'
+import { AddSkills } from '../../components/user/AddSkills'
 
 export const UserProfile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,32 +29,31 @@ export const UserProfile = () => {
   const [pdf, setPdf] = useState<any>()
   const [pdfUrl, setPdfUrl] = useState<any>()
   const [modal, setModal] = useState<boolean>(false)
-  console.log(data)
   const dispatch: AppDispatch = useDispatch()
   const removeExperience = async (index: number) => {
     try {
       await dispatch(removeExperienceandUpdateProfile(index)).unwrap()
-    } catch (error:any) {
-   console.log(error)
-    }
-  }
-
-
-  const removeResume=async(index:number)=>{
-    try {
-      await dispatch(removeResumeandUpdateProfile(index)).unwrap()
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error)
     }
   }
 
-  const removeEducation=async(index:number)=>{
-   try {
-    await dispatch(removeEducationandUpdateProfile(index)).unwrap()
-   } catch (error:any) {
-    console.log(error)
 
-   }
+  const removeResume = async (index: number) => {
+    try {
+      await dispatch(removeResumeandUpdateProfile(index)).unwrap()
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
+
+  const removeEducation = async (index: number) => {
+    try {
+      await dispatch(removeEducationandUpdateProfile(index)).unwrap()
+    } catch (error: any) {
+      console.log(error)
+
+    }
   }
 
   function handleClick() {
@@ -198,6 +198,23 @@ export const UserProfile = () => {
                 </div>
               ))
             }
+            <div className="skills-list ml-10">
+              <h3 className='font-semibold text-lg underline mt-4'>Your Skills</h3>
+              {data?.skills && data.skills.length > 0 ? (
+                <textarea
+                  className="w-full p-2 border rounded"
+                  value={data?.skills}
+                  readOnly
+                  rows={1}
+                />
+              ) : (
+                <p>No skills found.</p>
+              )}
+            </div>
+            <div className='flex justify-end'>
+
+              <AddSkills />
+            </div>
           </div>
 
         </div>
@@ -225,7 +242,7 @@ export const UserProfile = () => {
                         <iframe height={400} src={data} className='w-full sm:w-auto'>
                         </iframe>
                         <Trash2 className='text-maincolr' onClick={() => removeResume(index)} />
-                        </AccordionContent>
+                      </AccordionContent>
                     </AccordionItem>
                   ))
                 }
@@ -248,7 +265,7 @@ export const UserProfile = () => {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel onClick={() => setModal(false)} className="">Cancel</AlertDialogCancel>
-                        <CustomButton type="submit" onClick={handleResume}  text='Submt'/>
+                        <CustomButton type="submit" onClick={handleResume} text='Submt' />
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog >

@@ -22,3 +22,11 @@ export interface jobs{
     status?:boolean;
     _id?:string;
 }
+
+
+
+export interface IApplyJobPayload{
+    jobId:string;
+    resume:string,
+    companyId:string;
+}

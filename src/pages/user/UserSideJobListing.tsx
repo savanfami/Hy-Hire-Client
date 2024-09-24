@@ -18,12 +18,11 @@ export const UserSideJobListing = () => {
   const dispatch: AppDispatch = useDispatch()
 
 
-  const {jobs}=useSelector((state:RootState)=>state?.job)
-  console.log(jobs)
+  const { jobs } = useSelector((state: RootState) => state?.job)
 
   const fetchData = async () => {
     try {
-       await dispatch(getAllJob()).unwrap()
+      await dispatch(getAllJob()).unwrap()
     } catch (error: any) {
       console.log(error)
     } finally {
@@ -175,13 +174,13 @@ export const UserSideJobListing = () => {
         </div>
         <div className='col-span-12 md:col-span-9 xl:col-span-9 p-4 '>
 
-        {jobs && jobs.length>0?(
-          jobs.map((job: any)=>(
-            <JobCard key={job._id} job={job} value='job Details' />
-          ))
-        ):(
-          <p>no jobs found</p>
-        )}
+          {jobs && jobs.length > 0 ? (
+            jobs.map((job: any) => (
+              <JobCard key={job._id} job={job} value='job Details' />
+            ))
+          ) : (
+            <p>no jobs found</p>
+          )}
         </div>
       </div>
     </div >
