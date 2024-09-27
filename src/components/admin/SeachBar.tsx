@@ -14,8 +14,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({ values, onSearch }) => {
 
   const handleSubmit = (e: any) => {
     setSearch(e.target.value)
-
-
   };
 
   return (

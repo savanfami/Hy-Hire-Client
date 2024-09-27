@@ -33,6 +33,9 @@ import JobDetailsPage from './pages/user/JobDetailsPage'
 import { UserProfile } from './pages/user/UserProfile'
 import { DashboardJobListing } from './pages/user/DashboardJobListing'
 import { UserSideCompanyListing } from './pages/user/CompanyListing'
+import { TryPremiumUser } from './pages/user/TryPremiumUser'
+import { LoggedinUserLayout } from './layouts/LoggedinUserLayout'
+import { ListUsers } from './pages/company/ListUsers'
 function App() {
 
 
@@ -41,8 +44,6 @@ function App() {
 
   return (
     <ErrorBoundary>
-
-
       <Routes>
         {/* Public Routes */}
         <Route path='login' element={<SignIn />} />
@@ -55,13 +56,22 @@ function App() {
 
         <Route path='/' element={<UserLayout />} >
           <Route path='' element={<Homepage />} />
-          <Route path='companydetails/:id' element={<CompanyDetail/>}/>
-          <Route path='joblisting' element={<UserSideJobListing/>}/>
-          <Route path='/jobdetails/:id' element={<JobDetailsPage/>}/>
-          <Route path='companyListing' element={<UserSideCompanyListing/>}/>
+          <Route path='companydetails/:id' element={<CompanyDetail />} />
+          <Route path='joblisting' element={<UserSideJobListing />} />
+          <Route path='/jobdetails/:id' element={<JobDetailsPage />} />
+          <Route path='companyListing' element={<UserSideCompanyListing />} />
         </Route>
 
         {/* User Routes */}
+        <Route
+          path="trypremium" element={
+            <UserPrivateRoute >
+              <LoggedinUserLayout />
+            </UserPrivateRoute>
+          }>
+          <Route index element={<TryPremiumUser />} />
+        </Route>
+        
         <Route path='profile' element={
           <UserPrivateRoute>
             <UserProfileLayout />
@@ -70,8 +80,8 @@ function App() {
           <Route path='' element={<Dashboard />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='messages' element={<Messages />} />
-          <Route path='findJobs' element={<DashboardJobListing/>}/>
-          <Route path='profile' element={<UserProfile/>}/>
+          <Route path='findJobs' element={<DashboardJobListing />} />
+          <Route path='profile' element={<UserProfile />} />
         </Route>
 
 
@@ -108,13 +118,12 @@ function App() {
             <Route path='settings' element={<Settings />} />
             <Route path='jobpost' element={<JobPost />} />
             <Route path='jobs' element={<JobList />} />
-
-
+            <Route path='hire' element={<ListUsers/>}/>
           </Route>
         </Route>
 
 
- 
+
       </Routes>
 
 

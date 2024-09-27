@@ -27,9 +27,7 @@ export const JobList = () => {
 
 
     const { user: { data } } = useSelector((state: RootState) => state?.user)
-
-
-
+    
     useEffect(() => {
         fetchJobs()
     }, [searchQuery, currentPage])
@@ -38,7 +36,6 @@ export const JobList = () => {
         
         setSearchQuery(query)
         setCurrentPage(1)
-        setIsInitialLoad(false)
 
     }
 
@@ -99,11 +96,11 @@ export const JobList = () => {
                             <thead className="bg-gray-50">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Title</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th> */}
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Posted</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End Date</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Type</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th> */}
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applicants</th>
                                 </tr>
                             </thead>
@@ -112,11 +109,10 @@ export const JobList = () => {
                                 {currentItems.map((job) => (
                                     <tr key={job._id}>
                                         <td className='px-6 py-4 whitespace-nowrap'>{job.jobTitle}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{job.status}</td>
+                                        {/* <td className='px-6 py-4 whitespace-nowrap'>{job.status}</td> */}
                                         <td className='px-6 py-4 whitespace-nowrap'>{formatDate(job.createdAt as string)}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{formatDate(job.endDate as string)}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{job.employmentType}</td>
-
                                     </tr>
                                 ))}
                             </tbody>

@@ -21,7 +21,7 @@ const JobDetailsPage = () => {
     const { user } = useSelector((state: RootState) => state?.user)
     const isLoggedIn = !!user?.data // Check if user is logged in
 
-    const findJobById = jobs.find((job: any) => job?._id === id)
+    const findJobById = jobs?.jobsWithDetails?.find((job: any) => job?._id === id)
 
     const handleResumeSelection = (resumeUrl: string) => {
         setSelectedResume(resumeUrl);
@@ -31,7 +31,7 @@ const JobDetailsPage = () => {
         try {
             if (!isLoggedIn) {
                 toast.info('Please log in to apply for this job.');
-                navigate('/login'); // Redirect to login page
+                // navigate('/login'); 
                 return;
             }
 
@@ -42,11 +42,9 @@ const JobDetailsPage = () => {
                     companyId: findJobById?.companyDetails?._id
                 }
                 let result = await dispatch(applyJob(payload)).unwrap()
-
                 setModalOpen(false);
                 if(result){
                     toast.success('Application submitted successfully!')
-
                 }else{
                     console.log('failed to submit application')
                 }

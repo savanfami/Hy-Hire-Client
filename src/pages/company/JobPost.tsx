@@ -8,28 +8,26 @@ import { AppDispatch, RootState } from '../../redux/store';
 import { postJob } from '../../redux/action/jobAction';
 import { useNavigate } from 'react-router-dom';
 import { PlacesAutocomplete } from '../../components/common/LocationFetch';
+import { SkillSelector } from '../../components/common/SkillsFetchingComponent';
 
 export const JobPost = () => {
 
-    const [aiError, setAiError] = useState('');
-    // const [loading, setLoading] = useState(false)
+    const [aiError, setAiError] = useState<string>('');
     const [genaiLoading, setgenaiLoading] = useState<boolean>(false)
     const dispatch: AppDispatch = useDispatch()
-    // const state=useSelector((state:RootState)=>state.job)
-    // console.log(state)
-    // console.log(loading,err)
+    const [skillInput,setSkills]=useState<string[]>([])
+    const [skillError, setSkillError] = useState<string>('');
     const {user:{data}}=useSelector((state:RootState)=>state.user)
-    console.log(data._id)
     const navigate=useNavigate()
 
-
+console.log(skillInput)
     const initialValues = {
         jobTitle: '',
         employmentType: '',
         joblocation: '',
         salaryMin: '',
         salaryMax: '',
-        skillInput: [''],
+        // skillInput: [''],
         responsibilityInput: [''],
         qualificationInput: [''],
         endDate: '',
@@ -38,10 +36,10 @@ export const JobPost = () => {
         companyId:data?._id||''
     }
 
-    const validateAiGeneration = (values: FormikValues) => {
+    const validateAiGeneration = (values: FormikValues,skills:string[]) => {
         if (!values.jobTitle.trim() ||
             !values.experience.trim() ||
-            values.skillInput.some((skill: string) => !skill.trim()) ||
+            skills.length ===0 ||
             values.responsibilityInput.some((resp: string) => !resp.trim()) ||
             values.qualificationInput.some((qual: string) => !qual.trim())) {
             setAiError('Please fill out job title, skills, experience , responsibilities, and qualifications to generate AI description.');
@@ -50,9 +48,17 @@ export const JobPost = () => {
         return true;
     };
 
+    const handleSkillChange=(skills:string[])=>{
+        setSkills(skills)
+        if (skills.length > 0) {
+            setSkillError('');
+        }
+    }
+    
 
-    async function generateSummaryFromai(title: string, skills: string[], responsibility: string[], qualification: string[], experience: string, setFieldValue: (field: string, value: any) => void) {
-        const prompt = `create a detailed job description for a ${title} position . The ideal candidate will possess the following skills: ${skills}. The responsibilities for this role include: ${responsibility} and the qualification for this role ${qualification} with minimum experience of ${experience} all these in to one paragraph `
+
+    async function generateSummaryFromai(title: string, skills:string[],responsibility: string[], qualification: string[], experience: string, setFieldValue: (field: string, value: any) => void) {
+        const prompt = `create a detailed job description for a ${title} position . The ideal candidate will possess the following skills ${skills}. The responsibilities for this role include: ${responsibility} and the qualification for this role ${qualification} with minimum experience of ${experience} all these in to one paragraph `
         try {
             setAiError('')
             setgenaiLoading(true)
@@ -72,7 +78,15 @@ export const JobPost = () => {
     }
 
     const handlesubmit = async (values: FormikValues) => {
-        const data = await dispatch(postJob(values)).unwrap()
+        if (skillInput.length === 0) {
+            setSkillError('Skills are required');
+            return;
+        }
+        const formvalues={
+            ...values,
+            skillInput
+        }
+        const data = await dispatch(postJob(formvalues)).unwrap()
         if(data){
             navigate('/company/jobs')
         }else{
@@ -148,41 +162,11 @@ export const JobPost = () => {
                             <label className="text-lg pl-3 font-gg mb-4">Required Skills</label>
 
                             <div>
-                                <div className="flex space-x-2">
-                                    <FieldArray name='skillInput'>
-                                        {
-                                            props => {
-                                                const { push, remove, form } = props
-                                                const { values } = form
-                                                const { skillInput } = values
-
-                                                return (<div>
-                                                    {skillInput.map((_: any, index: any) => (
-                                                        <div key={index}>
-                                                            <Field className=' border rounded px-2 py-1' name={`skillInput[${index}]`} />
-                                                            {index > 0 && (
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={() => remove(index)}
-                                                                    className=" w-10 h-9   text-white rounded-md    bg-maincolr"                                                                >-
-
-                                                                </button>
-                                                            )}
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => push('')}
-                                                                className=" w-10 h-9   text-white rounded-md    bg-maincolr"
-                                                            >
-                                                                +
-                                                            </button>
-                                                            <ErrorMessage name="skillInput" component="div" className="text-red-600 text-sm" />
-                                                        </div>
-                                                    ))}
-                                                </div>)
-                                            }
-                                        }
-                                    </FieldArray>
-                                </div>
+                                
+                                    <SkillSelector onSkillsChange={handleSkillChange}/>
+                                    {skillError && <div className="text-red-600 text-sm">{skillError}</div>}
+                                   
+                            
                             </div>
                         </div>
 
@@ -245,7 +229,7 @@ export const JobPost = () => {
                                                             <button
                                                                 type="button"
                                                                 onClick={() => remove(index)}
-                                                                className=" w-10 h-9   text-white rounded-md    bg-maincolr"                                                                >-
+                                                                className=" w-10 h-9   text-white rounded-md    bg-maincolr">-
 
                                                             </button>
                                                         )}
@@ -284,10 +268,10 @@ export const JobPost = () => {
                                     type="button"
                                     className="mt-2 bg-maincolr text-white p-2 rounded"
                                     onClick={() => {
-                                        if (validateAiGeneration(values)) {
+                                        if (validateAiGeneration(values,skillInput)) {
                                             generateSummaryFromai(
                                                 values.jobTitle,
-                                                values.skillInput,
+                                                skillInput,
                                                 values.responsibilityInput,
                                                 values.qualificationInput,
                                                 values.experience,

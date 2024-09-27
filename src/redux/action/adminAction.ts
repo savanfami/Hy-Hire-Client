@@ -18,12 +18,12 @@ export const listRequest = createAsyncThunk(
 )
 
 
-export const updateRequest = createAsyncThunk<requestType, requestType>(
+export const updateRequest = createAsyncThunk<any, requestType>(
     'admin/update-request',
     async (req, { rejectWithValue }) => {
         try {
-            const response = await axios.patch(`${URL}/company/update-request`, req)
-            console.log(response.data)
+            const response = await axios.patch(`${URL}/company/update-request`, req,config)
+            console.log(response)
            return await response.data.data
         } catch (error) {
             return rejectWithValue(error)

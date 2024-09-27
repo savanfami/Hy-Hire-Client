@@ -32,8 +32,7 @@ export interface SocialLinks {
   
 
   export interface requestType{
-    email?: any;
-    // _id: any;
+    reason?:string;
     companyId:string;
     status:string;
   }

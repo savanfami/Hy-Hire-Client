@@ -70,7 +70,7 @@ const Navbar = React.memo(() => {
           <div className='hidden md:flex font-serif'>
             {state&&state?.role==='user' ? (
               <>
-              <NavLink to='/TryPremium'>
+              <NavLink to='trypremium'>
                 <NavButton text="TryPremium" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
               </NavLink>
               <NavLink to='profile'>

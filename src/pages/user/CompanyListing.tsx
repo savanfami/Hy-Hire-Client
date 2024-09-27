@@ -11,7 +11,7 @@ import {
 } from "../../components/ui/card";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { CompanyData, ICompanyData } from "../../types/userTypes";
+import { ICompanyData } from "../../types/userTypes";
 import { Link } from "react-router-dom";
 import { getAllCompany } from "../../redux/action/userActions";
 
@@ -67,7 +67,7 @@ export const UserSideCompanyListing = () => {
                     <div className="flex flex-col space-y-1.5 items-center">
                       <img src={data?.icon} className="h-16 mt-2 rounded-md w-16" alt="companylogo" />
                       <h1 className="font-bold font-gg ml-1">{data?.name}</h1>
-                      <h2 className="font-semibold shadow-md  text-yellow-400 p-1  border rounded-full border-yellow-300 text-center whitespace-nowrap">{data?.sector}</h2>
+                      <h2 className="font-semibold    text-maincolr p-1 px-3 border rounded-full border-maincolr text-center whitespace-nowrap">{data?.sector}</h2>
                       <Link to={`/companyDetails/${data?._id}`}>
                         <button className="bg-maincolr p-1 text-white w-[200px] rounded-full mt-3">Details</button>
                       </Link>

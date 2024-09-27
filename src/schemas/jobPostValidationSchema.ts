@@ -58,7 +58,7 @@ export const jobPostingValidationSchema = () =>
   ),
       endDate: yup
       .date()
-      .min(new Date(), 'End date must be today or a future date')
+      .min(new Date(), 'End date must be an upcoming date')
       .required('End date is required'),
       responsibilityInput: yup.array()
       .of(
@@ -81,14 +81,14 @@ export const jobPostingValidationSchema = () =>
           .required('qualification is required')
       )
       .min(1,'At least one qualification is required'),
-      skillInput: yup.array()
-      .of(
-        yup.string()
-          .trim()
-          .strict(true)
-          .required('skills is required')
+      // skillInput: yup.array()
+      // .of(
+      //   yup.string()
+      //     .trim()
+      //     .strict(true)
+      //     .required('skills is required')
 
-      )
-      .min(1, 'At least one skill is required')
-      .required('skills are required'),
+      // )
+      // .min(1, 'At least one skill is required')
+      // .required('skills are required'),
   });

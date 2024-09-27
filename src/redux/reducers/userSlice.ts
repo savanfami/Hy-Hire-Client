@@ -204,6 +204,7 @@ const userSlice = createSlice({
                 state.err = false;
             })
             .addCase(updateProfile.fulfilled, (state, { payload }) => {
+                console.log(payload)
                 state.loading = false;
                 state.err = false;
                 state.user = payload

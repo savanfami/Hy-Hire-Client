@@ -1,15 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import { SearchBar } from '../../components/admin/SeachBar'
-import { useDispatch, useSelector } from 'react-redux'
+import { AnyIfEmpty, useDispatch, useSelector } from 'react-redux'
 import { listRequest, updateRequest } from '../../redux/action/adminAction'
 import { AppDispatch, RootState } from '../../redux/store'
 import { Link } from 'react-router-dom'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTrigger,
+  AlertDialogTitle,
+} from "../../components/ui/alert-dialog"
+import { CustomButton } from '../../components/common/Button'
 
-function Request() {
+const Request: React.FC = () => {
   // const [company, requestCompany] = useState<User[]>([]);
   const dispatch: AppDispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [selectedReason, setSelectedReason] = useState<string>('');
+  const [customReason, setCustomReason] = useState<string>('');
+  const [selectedcompanyId, setSelectedCompanyId] = useState<string>('')
+  const [error, setError] = useState<string>('');
+  const [open, setOpen] = useState<boolean>(false)
 
+  // List of predefined rejection reasons
+  const rejectionReasons = [
+    'Invalid Business Information',
+    'Not Meeting Required Standards',
+    'Suspected Fraud'
+  ];
+
+  const handleReasonChange = (e: any) => {
+    setSelectedReason(e.target.value);
+    setError('');
+  };
+
+  const handleCustomReasonChange = (e: any) => {
+    setCustomReason(e.target.value);
+    setError('');
+  };
 
   const state = useSelector((state: RootState) => state?.admin)
 
@@ -19,12 +52,17 @@ function Request() {
   }, [dispatch])
 
   const handleStatusChange = async (companyId: string, status: string) => {
-    const req = {
-      companyId,
-      status
+    if (status === 'Rejected') {
+      setOpen(true)
+      setSelectedCompanyId(companyId)
+    } else {
+      const req = {
+        companyId,
+        status
+      }
+      await dispatch(updateRequest(req)).unwrap()
+
     }
-    const data = await dispatch(updateRequest(req)).unwrap()
-    console.log(data)
     // dispatch(listRequest()).unwrap();
   }
 
@@ -32,11 +70,80 @@ function Request() {
     setSearchQuery(query)
     console.log(searchQuery)
   }
+  
+  const handleSubmit = async () => {
+    console.log('Reason:', selectedReason || customReason);
+    console.log('submit called')
+    if (!selectedReason && !customReason.trim()) {
+      setError('Please select a reason or provide a custom reason for rejection.');
+      return;
+    }
+    const req = {
+      companyId: selectedcompanyId,
+      status: 'Rejected',
+      reason: selectedReason || customReason
+    }
+    console.log(req)
+   const data= await dispatch(updateRequest(req)).unwrap();
+   if(data){
+     setOpen(false);
+     setSelectedReason('');
+     setCustomReason('');
+
+   }
+  };
 
   return (
-
-
     <>
+
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogTrigger>
+
+        </AlertDialogTrigger>
+        <AlertDialogContent className='bg-white'>
+          <AlertDialogHeader>
+            <AlertDialogTitle className='text-center'>Reason </AlertDialogTitle>
+          </AlertDialogHeader>
+
+          <div className="p-4">
+            {/* Predefined reasons */}
+            <div>
+              <p className="font-bold mb-2">Select a reason:</p>
+              {rejectionReasons.map((reason, index) => (
+                <label key={index} className="block mb-2">
+                  <input
+                    type="radio"
+                    name="rejectionReason"
+                    value={reason}
+                    onChange={handleReasonChange}
+                    className="mr-2"
+                  />
+                  {reason}
+                </label>
+              ))}
+            </div>
+
+            {/* Custom reason textarea */}
+            <div className="mt-4">
+              <p className="font-bold mb-2">Or provide a custom reason:</p>
+              <textarea
+                className="w-full border rounded p-2"
+                rows={4}
+                value={customReason}
+                onChange={handleCustomReasonChange}
+                placeholder="Write your custom reason here..."
+              ></textarea>
+            </div>
+
+            {error && <p className="text-red-500 mt-2">{error}</p>}
+          </div>
+
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <CustomButton onClick={handleSubmit}  text='Submit'/>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <SearchBar values={`Total requests: ${state.request.length}`} onSearch={handleSearch} />
 

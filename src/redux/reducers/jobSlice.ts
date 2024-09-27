@@ -40,6 +40,7 @@ const jobSlice = createSlice({
                 state.err = null
             })
             .addCase(getAllJob.fulfilled, (state, { payload }) => {
+                console.log(payload)
                 state.loading = false;
                 state.err = null;
                 state.jobs = payload

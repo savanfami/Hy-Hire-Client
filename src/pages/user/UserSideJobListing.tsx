@@ -1,38 +1,98 @@
 import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { Slider } from '../../components/ui/slider';
-import { Button } from '../../components/ui/button';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import { JobCard } from '../../components/user/JobCard';
 import { getAllJob } from '../../redux/action/jobAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "../../components/ui/pagination"
+import { IJobFilterParams } from '../../types/jobTypes';
 
 
-export const UserSideJobListing = () => {
-  // const [showMoreCategories, setShowMoreCategories] = useState(false);
-  const [salary, setSalary] = useState([0, 100000]);
+
+export const UserSideJobListing: React.FC = () => {
+  const [salaryUpto, setSalary] = useState<string>('0');
+  const [jobType, setJobType] = useState<string[]>([])
+  const [page, setPage] = useState<number>(1);
+  const [datePostedd, setDatePosted] = useState<string | null>(null)
   // const categories = ['Commerce', 'Technology', 'Healthcare', 'Education', 'Finance'];
-  const jobTypes = ['Full-time', 'Part-time', 'Intern', 'Remote', 'Contract'];
-  const datePosted = ['24 hours', 'This week', 'This month', 'All time'];
+  const jobTypes = ['fulltime', 'parttime', 'intern', 'remote', 'contract'];
+  const datePosted = ['last 24 hours', 'This week', 'This month', 'All time'];
+  const [jobs,setJobs]=useState<any>(null)
+  const [totalJobs, setTotalJobs] = useState<number>(0);
+  const jobsPerPage = 4;
+  const totalPages = Math.ceil(totalJobs / jobsPerPage);
   const dispatch: AppDispatch = useDispatch()
 
+  const handleSalaryChange = (value: any) => {
+    setSalary(value);
+  };
 
-  const { jobs } = useSelector((state: RootState) => state?.job)
-
-  const fetchData = async () => {
-    try {
-      await dispatch(getAllJob()).unwrap()
-    } catch (error: any) {
-      console.log(error)
-    } finally {
-
-    }
+  const handleClearFilter = () => {
+    setDatePosted(null)
+    setJobType([])
+    setSalary('0')
+    setPage(1);
+    fetchData({ salaryUpto: '0', jobType: [], datePostedd: null, page: 1 })
   }
 
+  const handleJobTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const type = event.target.value;
+    setJobType((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    );
+
+  };
+
+  const handleDatePostedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedOption = event.target.id;
+    setDatePosted(selectedOption)
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    fetchData({ salaryUpto, jobType, datePostedd, page: newPage });
+  };
+
+  const handleApplyFilter = () => {
+    const filteredData = {
+      salaryUpto,
+      jobType,
+      datePostedd,
+      page: 1
+    }
+    setPage(1);
+    fetchData(filteredData);
+  };
+  
+   
+console.log(jobs)
+
+  const fetchData = async (filterData: IJobFilterParams = { salaryUpto, jobType: [], datePostedd: null, page: 1 }) => {
+    try {
+      const res = await dispatch(getAllJob(filterData)).unwrap()
+      console.log(res)
+      setJobs(res)
+      console.log(res)
+      if (res) {
+        setTotalJobs(res?.count)
+      }
+    } catch (error: any) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     fetchData()
+    console.log('fsdlfjdsljds')
   }, [])
+
   return (
     <div>
       <div className="flex overflow-hidden  flex-col md:h-[310px] items-center px-20 pt-11 pb-36 font-black bg-black max-md:px-5 max-md:pb-24">
@@ -78,52 +138,20 @@ export const UserSideJobListing = () => {
       </div>
       <div className='grid grid-cols-12'>
 
-        <div className="col-span-12 md:col-span-3 xl:col-span-3 p-16 bg-teal-700 bg-opacity-10  shadow-md rounded-lg overflow-hidden">
-          <div className="p-6 space-y-6">
-            {/* <div>
-              <h2 className="text-2xl italic font-semibold mb-4">Category</h2>
-              <div className="space-y-2">
-                {categories.slice(0, showMoreCategories ? categories.length : 3).map((category) => (
-                  <div key={category} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={category.toLowerCase()}
-                      className="rounded text-blue-500 focus:ring-blue-500"
-                    />
-                    <label htmlFor={category.toLowerCase()} className="ml-2 text-gray-700">
-                      {category}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <Button
-                variant="ghost"
-                className="mt-2 hover:text-maincolr"
-                onClick={() => setShowMoreCategories(!showMoreCategories)}
-              >
-                {showMoreCategories ? (
-                  <>
-                    Show Less <ChevronUp className="ml-1 h-4 w-4" />
-                  </>
-                ) : (
-                  <>
-                    Show More <ChevronDown className="ml-1 h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </div> */}
-
+        <div className="col-span-12 md:col-span-3 xl:col-span-3 p-16    shadow-md rounded-lg ">
+          <div className="p-4 space-y-6 bg-neutral-300 rounded-lg ">
             <div>
-              <h2 className="text-2xl italic font-semibold mb-4">Job Type</h2>
+              <h2 className="text-2xl font-semibold mb-4">Job Type</h2>
               <div className="space-y-2">
                 {jobTypes.map((type) => (
                   <div key={type} className="flex items-center">
                     <input
                       type="checkbox"
                       id={type.toLowerCase()}
-                      className="rounded text-blue-500 focus:ring-blue-500"
+                      value={type}
+                      onChange={handleJobTypeChange}
                     />
-                    <label htmlFor={type.toLowerCase()} className="ml-2 text-gray-700">
+                    <label htmlFor={type.toLowerCase()} className="ml-2 text-gray-800 font-semibold">
                       {type}
                     </label>
                   </div>
@@ -132,7 +160,7 @@ export const UserSideJobListing = () => {
             </div>
 
             <div>
-              <h2 className="text-2xl italic font-semibold mb-4">Date Posted</h2>
+              <h2 className="text-2xl  font-semibold mb-4">Date Posted</h2>
               <div className="space-y-2">
                 {datePosted.map((option) => (
                   <div key={option} className="flex items-center">
@@ -140,11 +168,12 @@ export const UserSideJobListing = () => {
                       type="radio"
                       id={option.toLowerCase().replace(' ', '-')}
                       name="date-posted"
-                      className="text-blue-500 focus:ring-blue-500"
+                      onChange={handleDatePostedChange}
+
                     />
                     <label
                       htmlFor={option.toLowerCase().replace(' ', '-')}
-                      className="ml-2 text-gray-700"
+                      className="ml-2 text-gray-800 font-semibold"
                     >
                       {option}
                     </label>
@@ -154,33 +183,59 @@ export const UserSideJobListing = () => {
             </div>
 
             <div>
-              <h2 className="text-2xl italic font-semibold mb-4">Salary Range</h2>
+              <h2 className="text-2xl font-semibold mb-4">Salary Range</h2>
               <Slider
-                defaultValue={[0, 100000]}
-                max={200000}
-                step={1000}
-                onValueChange={setSalary}
+                defaultValue={[0]}
+                max={5000000}
+                step={5000}
+                min={0}
+                onValueChange={handleSalaryChange}
               />
-              <div className="flex justify-between mt-2 text-sm text-gray-600">
-                <span>${salary[0].toLocaleString()}</span>
-                <span>${salary[1].toLocaleString()}</span>
+              <div className="flex justify-between mt-2 font-semibold text-black">
+                <span>₹{salaryUpto.toLocaleString()}</span>
+                <span>₹5000000</span>
               </div>
             </div>
-
-            <button className="w-full bg-maincolr font-gg italic text-white font-bold py-2 px-4 rounded-md">
+            <button onClick={handleApplyFilter} className="w-full bg-maincolr   text-white  py-2 px-4 rounded-md">
               Apply Filters
             </button>
+            <button onClick={handleClearFilter} className="w-full bg-maincolr   text-white  py-2 px-4 rounded-md">
+              Clear Filters
+            </button>
+
           </div>
         </div>
         <div className='col-span-12 md:col-span-9 xl:col-span-9 p-4 '>
-
-          {jobs && jobs.length > 0 ? (
-            jobs.map((job: any) => (
+          { jobs?jobs.jobsWithDetails?.length>0 &&(
+            jobs?.jobsWithDetails?.map((job: any) => (
               <JobCard key={job._id} job={job} value='job Details' />
             ))
           ) : (
-            <p>no jobs found</p>
+            <>
+              <div className='flex justify-center items-center'>
+                <img src="https://static.vecteezy.com/system/resources/previews/010/856/652/non_2x/no-result-data-document-or-file-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-etc-vector.jpg" className='h-[500px] mt-20 w-auto' alt="no data found icon" />
+              </div>
+            </>
           )}
+          {
+            jobs&& jobs?.jobsWithDetails?.length > 0 ? (
+              <Pagination className='-ml-32'>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious href='#' className={`cursor-pointer ${page === 1 ? 'opacity-50 pointer-events-none' : ''}`} onClick={() => handlePageChange(page - 1)} />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink onClick={() => handlePageChange(1)} isActive>{page} </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext href='#' className={`cursor-pointer ${page === totalPages ? 'opacity-50 pointer-events-none' : ''}`} onClick={() => handlePageChange(page + 1)} />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            ) : (
+              <p>sdffsd</p>
+            )
+          }
         </div>
       </div>
     </div >

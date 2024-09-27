@@ -94,7 +94,7 @@ export const JobCard = ({job,value,onApply}:IJobCardProps) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/9fed9d01b7d67bff1eb3d9eb90ff4a2d0a29dd287357695e0234b2b324370a08?placeholderIfAbsent=true&apiKey=c721d257b1b04fddbe0f725293ce8048"
               className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
             />
-            <div className="self-stretch my-auto italic">{job?.joblocation}</div>
+            <div className="self-stretch my-auto italic whitespace-nowrap">{job?.joblocation}</div>
           </div>
         </div>
        <Link to={linkTo as string}> <button onClick={onApply} className="overflow-hidden gap-2.5 self-stretch p-2  italic text-white capitalize bg-teal-600 rounded-lg min-h-[40px]">
