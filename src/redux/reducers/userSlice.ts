@@ -3,6 +3,7 @@ import { errorPayload, userReducer } from "../../types/Alltypes";
 import { getAllCompany, getUserData, googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
 import { sendRequest, updateCompany, updateSocialLinks } from "../action/companyAction";
 import { getCompany } from "../action/companyAction";
+import { IPaginatedCompaniesResponse } from "../../types/userTypes";
 
 
 const initialState: userReducer = {
@@ -12,7 +13,11 @@ const initialState: userReducer = {
     role: null,
     CompanydataFetched: false,
     dataFetched: false,
-    companyData: [],
+    companyData: {
+        totalCompanies: 0,
+        totalPages: 0,        
+        companies: []      
+    },
 };
 
 const userSlice = createSlice({
@@ -246,7 +251,11 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.err = payload as string;
                 state.CompanydataFetched = false;
-                state.companyData = []
+                state.companyData = {
+                    totalCompanies: 0, 
+                    totalPages: 0,
+                    companies: [], 
+                };
             })
 
 

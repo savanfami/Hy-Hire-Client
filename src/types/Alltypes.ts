@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import { FormikValues } from "formik";
 import { ReactNode } from "react";
-import { ICompanyData } from "./userTypes";
+import {  IPaginatedCompaniesResponse } from "./userTypes";
 
 export interface formValues {
   name: string;
@@ -16,7 +16,7 @@ export type userReducer = {
   role: "user" | "admin" | "company" | null | string
   user: null | any;
   dataFetched?:boolean
-  companyData:ICompanyData[]
+  companyData:IPaginatedCompaniesResponse
   CompanydataFetched:boolean
 };
 

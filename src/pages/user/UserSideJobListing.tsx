@@ -3,29 +3,26 @@ import { FaSearch } from 'react-icons/fa'
 import { Slider } from '../../components/ui/slider';
 import { JobCard } from '../../components/user/JobCard';
 import { getAllJob } from '../../redux/action/jobAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "../../components/ui/pagination"
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+
 import { IJobFilterParams } from '../../types/jobTypes';
+import { PaginationComponent } from '../../components/common/PaginationComponent';
+import { InfinitySpin } from 'react-loader-spinner';
 
 
 
 export const UserSideJobListing: React.FC = () => {
+  console.log('frendred')
   const [salaryUpto, setSalary] = useState<string>('0');
   const [jobType, setJobType] = useState<string[]>([])
   const [page, setPage] = useState<number>(1);
+  const [loading,setLoading]=useState<boolean>(false)
   const [datePostedd, setDatePosted] = useState<string | null>(null)
   // const categories = ['Commerce', 'Technology', 'Healthcare', 'Education', 'Finance'];
   const jobTypes = ['fulltime', 'parttime', 'intern', 'remote', 'contract'];
   const datePosted = ['last 24 hours', 'This week', 'This month', 'All time'];
-  const [jobs,setJobs]=useState<any>(null)
+  const [jobs, setJobs] = useState<any>(null)
   const [totalJobs, setTotalJobs] = useState<number>(0);
   const jobsPerPage = 4;
   const totalPages = Math.ceil(totalJobs / jobsPerPage);
@@ -71,29 +68,38 @@ export const UserSideJobListing: React.FC = () => {
     setPage(1);
     fetchData(filteredData);
   };
-  
-   
-console.log(jobs)
+
+
 
   const fetchData = async (filterData: IJobFilterParams = { salaryUpto, jobType: [], datePostedd: null, page: 1 }) => {
     try {
+      setLoading(true)
       const res = await dispatch(getAllJob(filterData)).unwrap()
-      console.log(res)
-      setJobs(res)
-      console.log(res)
+      setLoading(false)
       if (res) {
+        setJobs(res)
         setTotalJobs(res?.count)
       }
     } catch (error: any) {
       console.log(error)
+    }finally{
+      setLoading(false)
     }
   }
   useEffect(() => {
     fetchData()
-    console.log('fsdlfjdsljds')
   }, [])
 
   return (
+    <>
+    {loading?(
+       <div className="flex justify-center items-center h-screen">
+       <InfinitySpin
+         width="200"
+         color="#4fa94d"
+       />
+     </div>
+    ):(
     <div>
       <div className="flex overflow-hidden  flex-col md:h-[310px] items-center px-20 pt-11 pb-36 font-black bg-black max-md:px-5 max-md:pb-24">
         <div className="flex flex-col items-center max-w-full w-[829px]">
@@ -138,7 +144,7 @@ console.log(jobs)
       </div>
       <div className='grid grid-cols-12'>
 
-        <div className="col-span-12 md:col-span-3 xl:col-span-3 p-16    shadow-md rounded-lg ">
+        <div className="col-span-12 md:col-span-3 xl:col-span-3 p-16 shadow-md rounded-lg ">
           <div className="p-4 space-y-6 bg-neutral-300 rounded-lg ">
             <div>
               <h2 className="text-2xl font-semibold mb-4">Job Type</h2>
@@ -206,7 +212,7 @@ console.log(jobs)
           </div>
         </div>
         <div className='col-span-12 md:col-span-9 xl:col-span-9 p-4 '>
-          { jobs?jobs.jobsWithDetails?.length>0 &&(
+          {jobs && jobs.jobsWithDetails?.length > 0 ? (
             jobs?.jobsWithDetails?.map((job: any) => (
               <JobCard key={job._id} job={job} value='job Details' />
             ))
@@ -218,27 +224,14 @@ console.log(jobs)
             </>
           )}
           {
-            jobs&& jobs?.jobsWithDetails?.length > 0 ? (
-              <Pagination className='-ml-32'>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious href='#' className={`cursor-pointer ${page === 1 ? 'opacity-50 pointer-events-none' : ''}`} onClick={() => handlePageChange(page - 1)} />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink onClick={() => handlePageChange(1)} isActive>{page} </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationNext href='#' className={`cursor-pointer ${page === totalPages ? 'opacity-50 pointer-events-none' : ''}`} onClick={() => handlePageChange(page + 1)} />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            ) : (
-              <p>sdffsd</p>
-            )
+            jobs && jobs?.jobsWithDetails?.length > 0 &&
+            <PaginationComponent onPageChange={handlePageChange} page={page} className='-ml-32' totalPages={totalPages} />
           }
         </div>
       </div>
     </div >
+    )}
+    </>
   )
 }
 

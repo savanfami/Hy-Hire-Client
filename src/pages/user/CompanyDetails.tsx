@@ -3,13 +3,13 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
+import LocationOn from '@mui/icons-material/LocationOn';
 
 export const CompanyDetail = () => {
   const { id } = useParams()
-  const { companyData } = useSelector((state: RootState) => state?.user)
-  const companyDetails = companyData.find((data: any) => data?._id === id);
+  const  state  = useSelector((state: RootState) => state?.user)
+  const companyDetails = state?.companyData?.companies?.find((data: any) => data?._id === id);
 
-  console.log(companyDetails)
   return (
     <>
       {
@@ -38,6 +38,9 @@ export const CompanyDetail = () => {
                     </a>
                   )}
                 </div>
+                <div className="mt-3   text-gray-400 leading-none ">
+                  <LocationOn/> {companyDetails.location}
+                  </div>
               </div>
               <div className="flex flex-wrap justify-center md:justify-start gap-6 md:gap-10 items-start mt-6">
                 {[

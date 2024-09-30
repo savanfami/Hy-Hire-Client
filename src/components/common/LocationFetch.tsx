@@ -16,6 +16,7 @@ interface PlacesAutocompleteProps {
 export const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({ onSelect, initialValue,componentType }) => {
   const [inputValue, setInputValue] = useState(initialValue);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  
   useEffect(() => {
     setInputValue(initialValue);
   }, [initialValue]);
@@ -28,13 +29,12 @@ export const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({ onSelect
      
       try {
         const response = await axios.get(url);
-        console.log(response,'response')
         setSuggestions(response.data.features);
       } catch (error) {
         console.error('Error fetching place suggestions:', error);
       }
     } else {
-      setSuggestions([]); // Clear suggestions if input is too short
+      setSuggestions([]); 
     }
   };
 
@@ -57,7 +57,7 @@ export const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({ onSelect
         placeholder="Enter location"
         value={inputValue}
         onChange={handleInputChange}
-        className={`${componentType==='postjob'?'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3':'border w-full border-black ml-6 rounded-md p-1 mt-2'}`}
+        className={`${componentType==='postjob'?'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3':'border w-full border-gray-200 ml-6 rounded-md p-1 mt-2'}`}
       />
       {suggestions.length > 0 && (
         <ul>

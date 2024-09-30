@@ -29,6 +29,7 @@ export const UserProfile = () => {
   const [pdf, setPdf] = useState<any>()
   const [pdfUrl, setPdfUrl] = useState<any>()
   const [modal, setModal] = useState<boolean>(false)
+  console.log(data.skills)
   const dispatch: AppDispatch = useDispatch()
   const removeExperience = async (index: number) => {
     try {
@@ -199,7 +200,7 @@ export const UserProfile = () => {
               ))
             }
             <div className="skills-list ml-10">
-              <h3 className='font-semibold text-lg underline mt-4'>Your Skills</h3>
+              <h3 className='font-semibold text-lg underline'>Your Skills</h3>
               {data?.skills && data.skills.length > 0 ? (
                 <textarea
                   className="w-full p-2 border rounded"

@@ -17,8 +17,8 @@ const validationSchema = Yup.object().shape({
         .matches(/^[A-Za-z]+(?: [A-Za-z]+)*$/, "Invalid name format")
         .min(3, "min 3 characters required !")
         .required('name is required'),
-    location: Yup.string().required('Location is required').matches(/^(?!\s*$).+/, 'Location cannot be empty or contain only spaces'),
-    aboutMe: Yup.string().max(500, 'About Me must be 500 characters or less').required('About Me is required'),
+    location: Yup.string().matches(/^(?!\s*$).+/, 'Location cannot be empty or contain only spaces').nullable(),
+    aboutMe: Yup.string().max(500, 'About Me must be 500 characters or less').nullable() ,
     image: Yup.mixed()
         .test('fileSize', 'File size must not exceed 5 MB', (value) => {
             if (value && value instanceof File) {
@@ -85,7 +85,7 @@ export const ProfilePicSection: React.FC = () => {
         const file = event.target.files?.[0];
         if (file) {
             setFieldTouched('image', true, true);
-            setFieldValue('image', file, true);  // This will trigger validation
+            setFieldValue('image', file, true);  
         }
     };
 
@@ -98,7 +98,6 @@ export const ProfilePicSection: React.FC = () => {
             {({ values, errors, touched, isSubmitting, setFieldValue, resetForm, setFieldTouched, setErrors }) => (
                 <Form>
                     {/* Cover Image */}
-                   
 
                     <img
                         src="https://img.freepik.com/free-photo/plain-smooth-green-wall-texture_53876-129746.jpg"

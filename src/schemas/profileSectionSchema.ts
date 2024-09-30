@@ -4,8 +4,7 @@ import * as Yup from 'yup';
 
 export const validationSchema:any = Yup.object({
     phone: Yup.string()
-      .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
-      .required('Phone is Required'),
+      .matches(/^[0-9]{10}$/,'enter valid mobile number'),
       Instagram: Yup
       .string()
       .matches(

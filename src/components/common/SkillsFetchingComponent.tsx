@@ -23,7 +23,6 @@ export const SkillSelector: React.FC <SkillSelectorProps>= ({onSkillsChange}) =>
             apikey: 'pF2SSFabdHpepJeuDEV5oPgkmfWkoZk4'
           }
         });
-        console.log(response.data)
         setSkills(response.data || []);
       } catch (error) {
         console.error('Error fetching skills:', error);

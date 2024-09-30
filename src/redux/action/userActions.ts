@@ -6,6 +6,8 @@ import { GoogleCredential, GoogleSignupResponse, loginPayload, loginResponse, ve
 import { config } from "../../common/configurations";
 import {removeExperience,removeEducations,removeResumes} from '../reducers/userSlice'
 import { RootState } from "../store";
+import { ICompanySearchParams } from "../../types/companyTypes";
+import { IPaginatedCompaniesResponse } from "../../types/userTypes";
 export type User = {
   data?: any;
   email: string;
@@ -207,11 +209,18 @@ export const removeEducationandUpdateProfile=createAsyncThunk(
 )
 
 
-export const getAllCompany=createAsyncThunk(
+export const getAllCompany=createAsyncThunk<IPaginatedCompaniesResponse,any>(
   'get/allcompany',
-  async(_,{rejectWithValue})=>{
+  async(payload:ICompanySearchParams,{rejectWithValue})=>{
     try {
-      const { data } = await axios.get(`${URL}/company/get-allcompany`);
+      const { data } = await axios.get(`${URL}/company/get-allcompany`,{
+          params:{
+            page:payload.page,
+            location:payload.location,
+            name:payload.companyName,
+            industry:payload.industry
+          },
+      });
       console.log(data.data)
       return data?.data;
     } catch (error) {

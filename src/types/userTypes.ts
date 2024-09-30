@@ -47,3 +47,10 @@ interface SocialLinks {
     companyId: ICompanyData;
     __v: number;
   }
+
+
+  export interface IPaginatedCompaniesResponse {
+    totalCompanies: number;         
+    totalPages: number;             
+    companies: ICompanyData[];     
+}

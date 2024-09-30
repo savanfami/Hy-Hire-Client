@@ -121,7 +121,6 @@ console.log(skillInput)
                             <label htmlFor="joblocation" className="text-lg pl-3 font-gg mb-4">joblocation</label>
                             <div>
                             <PlacesAutocomplete  onSelect={(location)=>setFieldValue('joblocation',location)} componentType='postjob' />
-                                {/* <Field name="joblocation" type="text" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 " placeholder="Enter job joblocation" /> */}
                                 <ErrorMessage name="joblocation" component="div" className="text-red-600 text-sm " />
                             </div>
                         </div>
@@ -165,8 +164,7 @@ console.log(skillInput)
                                 
                                     <SkillSelector onSkillsChange={handleSkillChange}/>
                                     {skillError && <div className="text-red-600 text-sm">{skillError}</div>}
-                                   
-                            
+
                             </div>
                         </div>
 

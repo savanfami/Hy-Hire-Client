@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { JobCard } from '../../components/user/JobCard'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../redux/store'
 import DoneIcon from '@mui/icons-material/Done';
@@ -19,7 +19,8 @@ const JobDetailsPage = () => {
     const [selectedResume, setSelectedResume] = useState<string | null>(null);
     
     const { user } = useSelector((state: RootState) => state?.user)
-    const isLoggedIn = !!user?.data // Check if user is logged in
+    
+    const isLoggedIn = !!user?.data 
 
     const findJobById = jobs?.jobsWithDetails?.find((job: any) => job?._id === id)
 
@@ -31,7 +32,9 @@ const JobDetailsPage = () => {
         try {
             if (!isLoggedIn) {
                 toast.info('Please log in to apply for this job.');
-                // navigate('/login'); 
+                console.log('lfjdsl')
+                navigate('login'); 
+                console.log('jdslfds')
                 return;
             }
 
@@ -64,14 +67,15 @@ const JobDetailsPage = () => {
     const handleApplyButtonClick = () => {
         if (!isLoggedIn) {
             toast.info('Please login to apply for the job.');
+                // navigate('/login')
             return;
         }
 
-        if (user.data?.profileCompleted) {
+        // if (user.data?.resumes && user.data?.resumes.length>0) {
             setModalOpen(true);
-        } else {
-            toast.info('Please complete your profile before applying');
-        }
+        // } else {
+        //     toast.info('Please add resume before applying');
+        // }
     };
 
     return (
@@ -115,12 +119,17 @@ const JobDetailsPage = () => {
                                     ))}
                                 </ul>
                             ) : (
-                                <p className='text-center text-gray-500'>No resumes available. Please upload a resume to apply for the job.</p>
+                                <>
+                                <p className='text-center text-red-600 '>No resumes available<br></br>
+                                Please upload a resume to apply for the job</p>
+                               <br></br>
+                             <Link to='/profile/profile'>  <p className='text-center text-maincolr font-semibold  underline'>click here to add</p></Link>
+                                </>
                             )}
                         </div>
                         <AlertDialogFooter>
                             <AlertDialogCancel onClick={() => setModalOpen(false)}>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={applyForJob}>
+                            <AlertDialogAction className='bg-maincolr text-white ' onClick={applyForJob}>
                                 Apply
                             </AlertDialogAction>
                         </AlertDialogFooter>

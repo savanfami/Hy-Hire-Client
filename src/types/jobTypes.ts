@@ -34,7 +34,7 @@ export interface IApplyJobPayload {
 
 export interface IJobFilterParams {
     page: number;
-    salaryUpto: string;
-    jobType: string[];
-    datePostedd: string | null;
+    salaryUpto?: string;
+    jobType?: string[];
+    datePostedd?: string | null;
 }
