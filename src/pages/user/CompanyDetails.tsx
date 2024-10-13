@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import LocationOn from '@mui/icons-material/LocationOn';
 
 export const CompanyDetail = () => {
   const { id } = useParams()
   const  state  = useSelector((state: RootState) => state?.user)
+  const [loading, setLoading] = useState<boolean>(true)
   const companyDetails = state?.companyData?.companies?.find((data: any) => data?._id === id);
 
   return (
@@ -91,10 +92,7 @@ export const CompanyDetail = () => {
               ))}
             </div>
           </div>
-          <div className='flex justify-between'>
-            <h1 className='mt-6 flex justify-center md:justify-start text-3xl italic font-gg md:ml-44'>Open Positions</h1>
-            <h1 className='text-maincolr font-gg mt-8 md:mt-6'>show all jobs <ArrowForwardIcon className='text-maincolr' /></h1>
-          </div>
+         
 
           {/* <div className="flex   gap-2.5 my-auto text-base font-semibold leading-6  mr-44 md:mr-44 justify-end">
         <div className="my-auto  cursor-pointer text-maincolr">Show all jobs</div>  

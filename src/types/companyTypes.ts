@@ -1,14 +1,11 @@
+import { IApplicantDetails } from "./jobTypes";
 
 
 export type JobReducer = {
     loading: boolean,
     err: null | any,
     jobs:any
-    // // jobs: getAllJobsEntity | any
-    // job: getAllJobsEntity | null,
-    // applicant: JobApplication | null
-    // applicants: JobApplication[]
-    // applications: JobApplication[]
+    applicantDetails:IApplicantDetails[]
 }
 
 export interface ICompanySearchParams{
@@ -17,3 +14,20 @@ export interface ICompanySearchParams{
     page:number;
     industry:string
 }
+
+export interface IApplicantProfileProps {
+    userId: string; 
+}
+
+export interface IUpdateApplicationStatusPayload{
+    applicationId: string;
+    hiringStatus: string;
+    interviewDate?: Date | null 
+    interviewTime?: string 
+}
+export interface IUpdateApplicationStatusResponse{
+    _id: string;
+    hiringStatus: string;
+}
+
+

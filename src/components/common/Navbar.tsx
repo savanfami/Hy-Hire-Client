@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import React from 'react';
 import { getUserData } from '../../redux/action/userActions';
+import { getAllData } from '../../redux/action/commonAction';
 
 
 const Navbar = React.memo(() => {
@@ -17,11 +18,12 @@ const Navbar = React.memo(() => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+ 
+
+
   const state = useSelector((state: RootState) => state.user)
-   console.log(state)
   
    const fetchData = async () => {
-      
     try {
       await dispatch(getUserData()).unwrap();
        

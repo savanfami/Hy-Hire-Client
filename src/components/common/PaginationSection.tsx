@@ -37,17 +37,17 @@ export const PaginationSection = ({currentPage,itemPerPage,totalJobs,setCurrentP
             <Pagination>
                 <PaginationContent>
                    <PaginationItem>
-                    <PaginationPrevious  className='cursor-pointer' onClick={()=>handlePrevPage()}/>
+                    <PaginationPrevious  className='cursor-pointer font-semibold ' onClick={()=>handlePrevPage()}/>
                    </PaginationItem>
                     {pages.map((page,idx)=>(
                         <PaginationItem key={idx}
-                        className={currentPage===page?'bg-neutral-100 rounded-md':''}>
+                        className={currentPage===page?'bg-maincolr text-white rounded-md':''}>
                             <PaginationLink  className='cursor-pointer' onClick={()=>setCurrentPage(page)}>{page}</PaginationLink>
                         </PaginationItem>
                     ))}
     
                    <PaginationItem>
-                   <PaginationNext className='cursor-pointer' onClick={()=>handlenextPage()}/>
+                   <PaginationNext className='cursor-pointer font-semibold ' onClick={()=>handlenextPage()}/>
                   </PaginationItem>
                 </PaginationContent>
             </Pagination>

@@ -20,7 +20,7 @@ export const PaginationComponent:React.FC<IPaginationProps> = ({page,totalPages,
                         <PaginationPrevious href='#' className={`cursor-pointer ${page === 1 ? 'opacity-50 pointer-events-none' : ''}`} onClick={() => onPageChange(page - 1)} />
                     </PaginationItem>
                     <PaginationItem>
-                        <PaginationLink onClick={() => onPageChange(1)} isActive>{page} </PaginationLink>
+                        <PaginationLink className='bg-maincolr text-white' onClick={() => onPageChange(1)} isActive>{page} </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationNext href='#' className={`cursor-pointer ${page === totalPages ? 'opacity-50 pointer-events-none' : ''}`} onClick={() => onPageChange(page + 1)} />

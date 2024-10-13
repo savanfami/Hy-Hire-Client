@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "../../components/ui/button";
 import { InfinitySpin } from "react-loader-spinner";
 import industryData from "../../assets/jsonData/Industry.json";
 
@@ -72,7 +71,6 @@ export const UserSideCompanyListing = () => {
       const result = await dispatch(
         getAllCompany(searchParams)
       ).unwrap();
-
       if (result) {
         setLoading(false);
       }
@@ -95,13 +93,18 @@ export const UserSideCompanyListing = () => {
   }, [searchParams.page]);
 
 
+  const handleClear = (field:string) => {
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      [field]: ""
+    }));
+  };
 
 
   const handlePageChange = (page: number) => {
     setSearchParams(prev => ({ ...prev, page }))
   }
 
-  console.log(searchParams,'search params')
   return (
     <div>
       {loading ? (
@@ -117,77 +120,108 @@ export const UserSideCompanyListing = () => {
               </div>
             </div>
             <div className="bg-white max-sm:w-full w-[899px] mt-10 rounded-2xl shadow-lg p-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-black">
-                <input
-                  type="text"
-                  name="companyName"
-                  placeholder="Company name"
-                  value={searchParams.companyName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 outline-none"
-                />
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="Enter location"
-                    value={searchParams.location}
-                    onChange={handleInputChange}
-                    className="w-[70%] ml-6 rounded-md p-1 mt-2"
-                  />
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-black">
+    
+    {/* Company Name Input */}
+    <div className="relative">
+      <input
+        type="text"
+        name="companyName"
+        placeholder="Company name"
+        value={searchParams.companyName}
+        onChange={handleInputChange}
+        className="w-full px-4 py-2 outline-none"
+      />
+      {searchParams.companyName && (
+        <button
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          onClick={() => handleClear("companyName")}
+        >
+          &times;
+        </button>
+      )}
+    </div>
 
-                  {suggestions.length > 0 && (
-                    <ul
-                      className="absolute border border-black mt-1 w-[70%] ml-6 rounded-md bg-white z-10"
-                      style={{ maxHeight: "100px", overflowY: "auto" }}
-                    >
-                      {suggestions.map((suggestion, index) => (
-                        <li
-                          className="border-b border-gray-300 p-2 hover:bg-gray-100"
-                          key={index}
-                          onClick={() => handleSuggestionClick(suggestion)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {suggestion.properties.formatted}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+    <div className="relative">
+      <input
+        type="text"
+        name="location"
+        placeholder="Enter location"
+        value={searchParams.location}
+        onChange={handleInputChange}
+        className="w-[70%] ml-6 rounded-md p-1 mt-2"
+      />
+      {searchParams.location && (
+        <button
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          onClick={() => handleClear("location")}
+        >
+          &times;
+        </button>
+      )}
+      
+      {suggestions.length > 0 && (
+        <ul
+          className="absolute border border-black mt-1 w-[70%] ml-6 rounded-md bg-white z-10"
+          style={{ maxHeight: "100px", overflowY: "auto" }}
+        >
+          {suggestions.map((suggestion, index) => (
+            <li
+              className="border-b border-gray-300 p-2 hover:bg-gray-100"
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              style={{ cursor: "pointer" }}
+            >
+              {suggestion.properties.formatted}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
 
-                <select
-                  name="industry"
-                  className="w-full px-4 py-2 outline-none text-black"
-                  value={searchParams.industry}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Category</option>
-                  {industryData.industries.map((industry) => (
-                    <option key={industry.sector} value={industry.sector}>
-                      {industry.sector}
-                    </option>
-                  ))}
-                </select>
+    <div className="relative">
+      <select
+        name="industry"
+        className="w-full px-4 py-2 outline-none text-black"
+        value={searchParams.industry}
+        onChange={handleInputChange}
+      >
+        <option value="">Select Category</option>
+        {industryData.industries.map((industry) => (
+          <option key={industry.sector} value={industry.sector}>
+            {industry.sector}
+          </option>
+        ))}
+      </select>
+      {searchParams.industry && (
+        <button
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          onClick={() => handleClear("industry")}
+        >
+          &times;
+        </button>
+      )}
+    </div>
 
-                <button
-                  onClick={fetchCompanies}
-                  className="w-full bg-maincolr text-white px-4 py-2 rounded-md flex items-center justify-center"
-                >
-                  <FaSearch className="mr-2" />
-                  Search
-                </button>
-              </div>
-            </div>
+    <button
+      onClick={fetchCompanies}
+      className="w-full bg-maincolr text-white px-4 py-2 rounded-md flex items-center justify-center"
+    >
+      <FaSearch className="mr-2" />
+      Search
+    </button>
+  </div>
+</div>
+
           </div>
-
           <div>
             {state.companyData && state.companyData.companies.length > 0 ? (
-              <div className="grid lg:grid-cols-4 gap-4 m-4">
+              <div data-aos="fade-up" className="grid lg:grid-cols-4 gap-4 m-4">
                 {state.companyData.companies.map((data: ICompanyData, index: number) => (
                   <Card
                     key={index}
                     className="md:w-[350px] m-2 border md:h-[230px] border-gray-200 shadow-md"
-                  >
+                     >
                     <CardContent>
                       <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5 items-center">
@@ -225,7 +259,6 @@ export const UserSideCompanyListing = () => {
           {state.companyData && state.companyData.companies.length > 0 &&
             <PaginationComponent onPageChange={handlePageChange} page={searchParams.page} totalPages={state?.companyData?.totalPages} />
           }
-
         </>
       )}
     </div>

@@ -3,6 +3,8 @@ import axios, { AxiosError } from "axios";
 import { URL } from "../../common/axiosInstance";
 import { config } from "../../common/configurations";
 import { FormDatas, SocialLinks } from "../../types/Alltypes";
+import { handleAxiosError } from "../../utils/customError";
+import { IUpdateApplicationStatusPayload, IUpdateApplicationStatusResponse } from "../../types/companyTypes";
 
 
 
@@ -61,6 +63,38 @@ export const sendRequest = createAsyncThunk(
     } catch (error: any) {
       console.log(error)
       return rejectWithValue(error)
+    }
+  }
+)
+
+
+
+export const getCompanyDataByCategory = createAsyncThunk(
+  'company/getcompanycategory-data',
+  async (id:string, { rejectWithValue }) => {
+    try {
+      const {data}=await axios.get(`${URL}/company/getcompanydata/`,{
+        params:{
+            name:id
+        }
+    })
+    return {data}
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+
+export const updateApplicationStatus=createAsyncThunk<IUpdateApplicationStatusResponse,IUpdateApplicationStatusPayload>(
+  'company/updatestatus',
+  async(payload,{rejectWithValue})=>{
+    try {
+       const {data} = await axios.put(`${URL}/job/update-status`, payload,config)
+       console.log(data)
+       return data
+    } catch (error) {
+       return rejectWithValue(handleAxiosError(error))
     }
   }
 )

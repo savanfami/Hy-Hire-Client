@@ -1,5 +1,4 @@
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../../components/ui/alert-dialog'
-import { Button } from '../../components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../components/ui/form'
 import { Input } from '../../components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -52,7 +51,6 @@ function AddEducation() {
                 <AlertDialogHeader>
                     <AlertDialogTitle>Add Education </AlertDialogTitle>
 
-                    {/* ////! Here is the form component that is under this component */}
                     <AddEducationForm setOpen={setOpen} />
 
                 </AlertDialogHeader>
@@ -96,7 +94,6 @@ function AddEducationForm({setOpen}:UserAddEducation) {
                 }
             }));
         
-            // Merge with existing education data
             const payload:any = {
                 education: [
                     ...data.education,
@@ -104,7 +101,6 @@ function AddEducationForm({setOpen}:UserAddEducation) {
                 ]
             };
 
-            console.log('Payload:', payload);
             dispatch(updateProfile(payload)).unwrap()
             setOpen(false)
         } catch (error) {

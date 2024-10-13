@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { errorPayload, userReducer } from "../../types/Alltypes";
-import { getAllCompany, getUserData, googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
-import { sendRequest, updateCompany, updateSocialLinks } from "../action/companyAction";
+import { fetchSavedJobs, getAllCompany, getUserData, googleSignup, login, logOut, signupUser, updateProfile, verifyOtp } from "../action/userActions";
+import { getCompanyDataByCategory, sendRequest, updateCompany, updateSocialLinks } from "../action/companyAction";
 import { getCompany } from "../action/companyAction";
 import { IPaginatedCompaniesResponse } from "../../types/userTypes";
 
@@ -18,6 +18,7 @@ const initialState: userReducer = {
         totalPages: 0,        
         companies: []      
     },
+    savedJobs:[]
 };
 
 const userSlice = createSlice({
@@ -39,6 +40,12 @@ const userSlice = createSlice({
             const output = state.user.data.education
             const filteredItems = output.filter((_: any, index: number) => index !== payload)
             state.user.data.education = filteredItems
+            return state
+        },
+        removeCertificates: (state, { payload }) => {
+            const output = state.user.data.certificates
+            const filteredItems = output.filter((_: any, index: number) => index !== payload)
+            state.user.data.certificates = filteredItems
             return state
         },
         removeResumes: (state, { payload }) => {
@@ -257,13 +264,39 @@ const userSlice = createSlice({
                     companies: [], 
                 };
             })
-
-
-
-
+            .addCase(getCompanyDataByCategory.pending,(state)=>{
+                state.loading = true;
+                state.err = false
+            })
+            .addCase(getCompanyDataByCategory.fulfilled,(state,{payload})=>{
+                state.loading=false;
+                state.companyData={
+                    companies:payload?.data
+                } as any
+            })
+            .addCase(getCompanyDataByCategory.rejected,(state,{payload})=>{
+                state.loading=false
+                state.err=payload as string
+                state.companyData.companies=[]
+            })
+            .addCase(fetchSavedJobs.pending,(state)=>{
+               state.loading=true;
+               state.err=false;
+            })
+            .addCase(fetchSavedJobs.fulfilled,(state,{payload})=>{
+                state.loading=false 
+                state.err=false
+                state.savedJobs=payload.data
+            })
+            .addCase(fetchSavedJobs.rejected,(state,{payload})=>{
+                state.loading=false
+                state.err = (payload as errorPayload).message
+            })
     },
+
 });
 
-export const { removeExperience, removeEducations, removeResumes, resetState } = userSlice.actions;
+export const { removeExperience, removeEducations, removeResumes, resetState ,removeCertificates} = userSlice.actions;
 
 export default userSlice.reducer;
+

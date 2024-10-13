@@ -12,9 +12,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({ values, onSearch }) => {
     onSearch(debounceSearch);
   }, [debounceSearch]);
 
-  const handleSubmit = (e: any) => {
-    setSearch(e.target.value)
-  };
+  // const handleSubmit = (e: any) => {
+  //   setSearch(e.target.value)
+  // };
 
   return (
     <>
@@ -23,7 +23,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ values, onSearch }) => {
           <h1 className="text-black text-lg font-serif">{values} </h1>
         </div>
         <div className="flex-grow">
-          <form className="max-w-md ml-auto " onChange={handleSubmit}>
+          <form className="max-w-md ml-auto " >
             <label
               htmlFor="default-search"
               className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

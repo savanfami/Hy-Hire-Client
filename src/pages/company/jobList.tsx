@@ -10,6 +10,7 @@ import { jobs } from '../../types/jobTypes'
 import { formatDate } from '../admin/UserListing'
 import { PaginationSection } from '../../components/common/PaginationSection'
 import { FadeLoader } from 'react-spinners'
+import { useNavigate } from 'react-router-dom';
 
 export const JobList = () => {
 
@@ -24,7 +25,7 @@ export const JobList = () => {
     const lastItemIndex = currentPage * itemPerPage
     const firstItemIndex = lastItemIndex - itemPerPage
     const currentItems = jobs.slice(firstItemIndex, lastItemIndex)
-
+    const navigate = useNavigate()
 
     const { user: { data } } = useSelector((state: RootState) => state?.user)
 
@@ -43,7 +44,7 @@ export const JobList = () => {
         try {
             setLoading(true)
             setError(null)
-          const res=  await axios.delete(`${URL}/job/list-jobs`, {
+            const res = await axios.delete(`${URL}/job/list-jobs`, {
                 params: {
                     jobId
                 },
@@ -118,7 +119,6 @@ export const JobList = () => {
                             <thead className="bg-gray-50">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Title</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Posted</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End Date</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Type</th>
@@ -127,15 +127,14 @@ export const JobList = () => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-
                                 {currentItems.map((job) => (
                                     <tr key={job._id}>
                                         <td className='px-6 py-4 whitespace-nowrap'>{job.jobTitle}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{job.status}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{formatDate(job.createdAt as string)}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{formatDate(job.endDate as string)}</td>
+                                        <td><button onClick={() => handleDeleteJobs(job._id as string)} className='px-8 py-4 whitespace-nowrap text-red-600'><DeleteIcon /></button></td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{job.employmentType}</td>
-                                        <button onClick={() => handleDeleteJobs(job._id as string)} className='px-8 py-4 whitespace-nowrap text-red-600'><DeleteIcon /></button>
+                                        <td><button onClick={() => navigate(`applicants/${job._id}`)} className='bg-gray-200 p-2 border rounded-md border-maincolr text-maincolr font-bold'>applicants</button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -145,8 +144,7 @@ export const JobList = () => {
             )}
 
             <PaginationSection totalJobs={totalJobs} itemPerPage={itemPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-
-
+            
         </>
     )
 }

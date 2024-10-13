@@ -1,14 +1,16 @@
 import { createSlice, ActionReducerMapBuilder } from "@reduxjs/toolkit";
-import { applyJob, getAllJob, postJob } from "../action/jobAction";
+import { applyJob, getAllJob, listUsersByJobId, postJob } from "../action/jobAction";
 import { JobReducer } from "../../types/companyTypes";
+import { getAllData } from "../action/commonAction";
+import { errorPayload } from "../../types/Alltypes";
+import { updateApplicationStatus } from "../action/companyAction";
 
 
 const initialState: JobReducer = {
     loading: false,
     err: null,
     jobs: [],
-    // applicants:[],
-    // applications:[]
+    applicantDetails:[]
 }
 
 
@@ -40,7 +42,6 @@ const jobSlice = createSlice({
                 state.err = null
             })
             .addCase(getAllJob.fulfilled, (state, { payload }) => {
-                console.log(payload)
                 state.loading = false;
                 state.err = null;
                 state.jobs = payload
@@ -60,6 +61,48 @@ const jobSlice = createSlice({
             .addCase(applyJob.rejected,(state,{payload})=>{
                 state.loading=false;
                 state.err=payload
+            })
+            .addCase(getAllData.pending,(state)=>{
+                state.loading=true;
+                state.err=false;
+            })
+            .addCase(getAllData.fulfilled,(state,{payload})=>{
+                state.loading=false;
+                state.jobs=payload;
+                state.err=false
+            })
+            .addCase(getAllData.rejected,(state,{payload})=>{
+                state.loading=false;
+                state.jobs=payload as any ;
+            })
+            .addCase(listUsersByJobId.pending,(state)=>{
+                state.loading=true;
+                state.err=false;
+            })
+            .addCase(listUsersByJobId.fulfilled,(state,{payload})=>{
+                state.loading=false;
+                state.err=false;
+                state.applicantDetails=payload
+            })
+            .addCase(listUsersByJobId.rejected,(state,{payload})=>{
+                state.loading=false;
+                state.err= (payload as errorPayload).message
+            })
+            .addCase(updateApplicationStatus.pending,(state)=>{
+                state.loading=true;
+                state.err=false
+            })
+            .addCase(updateApplicationStatus.fulfilled,(state,{payload})=>{
+                state.loading=false;
+                state.err=false;
+               const applicantdata= state.applicantDetails.find((data)=>data._id===payload._id)
+               if(applicantdata){
+                   applicantdata.hiringStatus=payload.hiringStatus
+               }
+            })
+            .addCase(updateApplicationStatus.rejected,(state,{payload})=>{
+                state.loading=false;
+                state.err=(payload as errorPayload).message
             })
     }
 

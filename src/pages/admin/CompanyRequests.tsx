@@ -6,28 +6,31 @@ import { AppDispatch, RootState } from '../../redux/store'
 import { Link } from 'react-router-dom'
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTrigger,
   AlertDialogTitle,
 } from "../../components/ui/alert-dialog"
 import { CustomButton } from '../../components/common/Button'
+import { PaginationSection } from '../../components/common/PaginationSection'
 
 const Request: React.FC = () => {
   // const [company, requestCompany] = useState<User[]>([]);
   const dispatch: AppDispatch = useDispatch()
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>(''); 
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemPerPage = 5;
+  const lastItemIndex = currentPage * itemPerPage;
+  const firstItemIndex = lastItemIndex - itemPerPage;
   const [selectedReason, setSelectedReason] = useState<string>('');
   const [customReason, setCustomReason] = useState<string>('');
   const [selectedcompanyId, setSelectedCompanyId] = useState<string>('')
   const [error, setError] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false)
 
-  // List of predefined rejection reasons
+  const state = useSelector((state: RootState) => state?.admin)
   const rejectionReasons = [
     'Invalid Business Information',
     'Not Meeting Required Standards',
@@ -44,7 +47,6 @@ const Request: React.FC = () => {
     setError('');
   };
 
-  const state = useSelector((state: RootState) => state?.admin)
 
 
   useEffect(() => {
@@ -63,17 +65,15 @@ const Request: React.FC = () => {
       await dispatch(updateRequest(req)).unwrap()
 
     }
-    // dispatch(listRequest()).unwrap();
   }
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
-    console.log(searchQuery)
   }
+
   
   const handleSubmit = async () => {
     console.log('Reason:', selectedReason || customReason);
-    console.log('submit called')
     if (!selectedReason && !customReason.trim()) {
       setError('Please select a reason or provide a custom reason for rejection.');
       return;
@@ -83,19 +83,22 @@ const Request: React.FC = () => {
       status: 'Rejected',
       reason: selectedReason || customReason
     }
-    console.log(req)
    const data= await dispatch(updateRequest(req)).unwrap();
    if(data){
      setOpen(false);
      setSelectedReason('');
      setCustomReason('');
-
    }
   };
+  
+  const filteredCompanies = state.request.filter((company) =>
+    company?.companyId?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    company?.companyId?.approvalStatus.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const currentItems = filteredCompanies.slice(firstItemIndex, lastItemIndex);
 
   return (
     <>
-
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger>
 
@@ -145,24 +148,20 @@ const Request: React.FC = () => {
         </AlertDialogContent>
       </AlertDialog>
 
-      <SearchBar values={`Total requests: ${state.request.length}`} onSearch={handleSearch} />
+      <SearchBar values={`Total requests: ${filteredCompanies?.length}`} onSearch={handleSearch} />
 
-      <table className="min-w-full bg-white border border-gray-300 shadow-sm rounded-lg overflow-hidden font-serif font-medium">
-        <thead className="bg-gray-50">
+      <table className="min-w-full   shadow-sm rounded-lg overflow-hidden font-serif font-medium">
+        <thead className="bg-maincolr text-white">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">icon</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-            {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined at</th> */}
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+            <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">icon</th>
+            <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Name</th>
+            <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Application</th>
+            <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Action</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {state.request.map((item) => {
+          {currentItems?.map((item) => {
             const company = item.companyId
-
-
-            // console.log(company._id)
             return (
               <tr key={company._id}>
                 <td> <img src={company.icon} className='w-12 h-12 ml-4 rounded-xl' alt="icon" /></td>
@@ -189,8 +188,16 @@ const Request: React.FC = () => {
 
         </tbody>
       </table>
-
-
+      
+      <div className='mt-5'>
+        <PaginationSection
+          currentPage={currentPage}
+          itemPerPage={itemPerPage}
+          totalJobs={state?.request?.length} 
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
+     
 
 
     </>

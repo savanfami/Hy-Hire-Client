@@ -66,9 +66,8 @@ const menuItems = [
   { text: 'request', icon: <MailIcon /> },
   { text: 'company', icon: <ApartmentIcon /> },
   { text: 'user', icon: <GroupIcon /> },
-  { text: 'reviews', icon: <ReviewsIcon /> },
-  { text: 'skills', icon: <CategoryIcon /> },
-  { text: 'jobs', icon: <WorkIcon /> },
+  // { text: 'reviews', icon: <ReviewsIcon /> },
+  // { text: 'jobs', icon: <WorkIcon /> },
 ]
 
 const AppBar = styled(MuiAppBar, {
@@ -203,7 +202,7 @@ export default function Sidebar() {
           ))}
         </List> */}
         <List>
-          <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
+          {/* <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
             <ListItem disablePadding className='capitalize'>
               <ListItemButton>
                 <ListItemIcon>
@@ -212,7 +211,7 @@ export default function Sidebar() {
                 <ListItemText primary="settings" className='text-maincolr ' />
               </ListItemButton>
             </ListItem>
-          </Link>
+          </Link> */}
           <ListItem disablePadding className='capitalize' onClick={handleLogoutClick}>
             <ListItemButton>
               <ListItemIcon>

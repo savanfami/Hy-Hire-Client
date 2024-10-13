@@ -2,6 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { FormikValues } from "formik";
 import { ReactNode } from "react";
 import {  IPaginatedCompaniesResponse } from "./userTypes";
+import { String } from "lodash";
 
 export interface formValues {
   name: string;
@@ -17,8 +18,11 @@ export type userReducer = {
   user: null | any;
   dataFetched?:boolean
   companyData:IPaginatedCompaniesResponse
-  CompanydataFetched:boolean
+  CompanydataFetched:boolean;
+  savedJobs:any
 };
+
+
 
 
 
@@ -39,7 +43,10 @@ export type commonRequest = {
 
 export type errorPayload = {
   message: string
+  statusCode?:number
 }
+
+
 
 export type verifyOtpPayload = {
   otp: string;

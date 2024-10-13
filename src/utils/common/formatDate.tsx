@@ -5,7 +5,7 @@ export const formateDatetotwo=(date:Date):string=>{
 }
 
 
-export const formateDatetoThree=(date:Date):string=>{
+export const formateDatetoThree=(date:Date|string):string=>{
     return moment(date).format('DD MMMM YYYY')
   }
   

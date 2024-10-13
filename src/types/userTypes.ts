@@ -54,3 +54,13 @@ interface SocialLinks {
     totalPages: number;             
     companies: ICompanyData[];     
 }
+
+
+
+export interface IGetUserApplicationResponse{
+    _id?:string;
+    companyName:string;
+    jobTitle:string;
+    appliedDate:string;
+    hiringStatus:string
+}

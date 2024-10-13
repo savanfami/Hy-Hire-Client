@@ -41,14 +41,12 @@ const SkillsSection = () => {
     const [error, setError] = useState<string>('');
     const { user: { data } } = useSelector((state: RootState) => state.user);
 
-    // Load existing skills from Redux state
     useEffect(() => {
         if (data?.skills) {
             setSelectedSkills(data.skills);  // Set previously added skills when modal opens
         }
     }, [data]);
 
-    // API call to fetch skills with debounce
     const fetchSkills = useCallback(
         debounce(async (query: string) => {
             if (!query) return;

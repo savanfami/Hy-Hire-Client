@@ -5,7 +5,8 @@ import { URL } from "../../common/axiosInstance";
 // import { IJobpost } from "../../types/companyTypes";
 import { FormikValues } from "formik";
 import { config } from "../../common/configurations";
-import {IApplyJobPayload, IJobFilterParams} from '../../types/jobTypes'
+import {IApplicantDetails, IApplyJobPayload, IJobFilterParams} from '../../types/jobTypes'
+import { handleAxiosError } from "../../utils/customError";
 
 export const postJob = createAsyncThunk<any, FormikValues>(
     'company/post-job',
@@ -40,7 +41,6 @@ export const postJob = createAsyncThunk<any, FormikValues>(
 export const getAllJob = createAsyncThunk(
     'jobs/getAllJob',
     async (payload: IJobFilterParams, { rejectWithValue }) => {
-        console.log(payload,'payload')
       try {
         const {data} = await axios.get(`${URL}/job/get-alljobs`, {
           params: {
@@ -48,6 +48,8 @@ export const getAllJob = createAsyncThunk(
             salaryUpto: payload.salaryUpto,
             jobTypes: payload.jobType,
             datePosted: payload.datePostedd,
+            jobname: payload.jobname,
+            location:payload.location
           },
         });
         return data; 
@@ -70,4 +72,17 @@ export const applyJob=createAsyncThunk<any,IApplyJobPayload>(
             return rejectWithValue(error)
         }
     }
+)
+
+
+export const listUsersByJobId = createAsyncThunk<IApplicantDetails[],string>(
+  'company/list-users',
+  async (jobId:string, { rejectWithValue }) => {
+      try {
+          const { data } = await axios.get(`${URL}/job/${jobId}/listusers`,config)
+          return data
+      } catch (error) {
+          return rejectWithValue(handleAxiosError(error))
+      }
+  }
 )

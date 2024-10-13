@@ -5,35 +5,48 @@ import { URL } from '../../common/axiosInstance'
 import { config } from '../../common/configurations';
 import moment from 'moment'
 import Swal from 'sweetalert2';
+import { PaginationComponent } from '../../components/common/PaginationComponent';
 
-interface User {
-    createdAt: string;
-    _id: number ;
-    name: string;
-    email: string;
-    role: string;
-    isBlocked: Boolean
-}
+
 
  export const formatDate = (dateString: string): string => {
     return moment(dateString).format('MMMM Do, YYYY');
   };
 
 const UserListing = () => {
-    const [users, setUsers] = useState<User[]>([]);
+    const [users, setUsers] = useState<any[]>([]);
+    const [searchQuery,setSearchQuery]=useState<string>('')
+    const [currentPage,setCurrentPage]=useState<number>(1)
+    const [totalPages,setTotalPages]=useState<number>(1)
+    const [totalCount,setTotalCount]=useState(null)
     const fetchUsers = async () => {
         try {
-            const { data } = await axios.get(`${URL}/user/get-alluser`, config);
-            return data;
-        } catch (error) {
+            const  {data}  = await axios.get(`${URL}/user/get-alluser`, {
+                ...config,
+                params: {
+                  search: searchQuery,
+                  page: currentPage,
+                }
+              })
+           if(data){
+               setUsers(data?.data?.data)
+               setTotalPages(data?.data?.totalPages)
+               setTotalCount(data?.data?.totalItems)
+           }
+           
+        } catch (error:any) {
             console.error('Error fetching users:', error);
             return [];
         }
     };
 
+    
+    const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+      };
     useEffect(() => {
-        fetchUsers().then(data => setUsers(data.data));
-    }, []);
+        fetchUsers()
+    }, [currentPage,searchQuery]);
 
 
     const onBlockUnblock = async (userId: number, currentBlockStatus: Boolean) => {
@@ -53,8 +66,6 @@ const UserListing = () => {
         if (result.isConfirmed) {
             try {
                 await axios.put(`${URL}/auth/block-unblock/${userId}`);
-                
-             
                 setUsers(prevUsers => prevUsers.map(user => 
                     user._id === userId ? { ...user, isBlocked: !user.isBlocked } : user
                 ));
@@ -77,23 +88,25 @@ const UserListing = () => {
         }
     };
 
-    const handleSearch=()=>{
-        
+    const handleSearch=(search:string)=>{
+        setSearchQuery(search)
+        setCurrentPage(1)
     }
 
     return (
         <>
 
-            <SearchBar onSearch={handleSearch}  values={`Total Users: ${users.length}`} />
-
+            <SearchBar onSearch={handleSearch}  values={`Total Users: ${totalCount}`} />
+            {totalCount!==0?(
+                <>
             <table className="min-w-full bg-white border border-gray-300 shadow-sm rounded-lg overflow-hidden font-serif font-medium">
-                <thead className="bg-gray-50">
+                <thead className="bg-maincolr text-white">
                     <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined at</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Email</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Joined at</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -119,8 +132,12 @@ const UserListing = () => {
                     ))}
                 </tbody>
             </table>
+                <PaginationComponent className='mt-5' onPageChange={handlePageChange} page={currentPage} totalPages={totalPages}/>
+                </>
+            ):(
+                <p className='text-red-600 font-semibold '>no data found</p>
+            )}
           
-
 
         </>
 

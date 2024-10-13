@@ -38,13 +38,11 @@ const adminSlice = createSlice({
                 state.err = null;
             })
             .addCase(updateRequest.fulfilled, (state,{payload}) => {
-                console.log(state)
                 state.request = state.request.map(item =>
                    item.companyId.email === payload.email
             ? { ...item, companyId: { ...item.companyId, approvalStatus: payload.status } }
             : item
         );
-                console.log(state.request)
                 state.loading = false;
                 state.err = null;
             })

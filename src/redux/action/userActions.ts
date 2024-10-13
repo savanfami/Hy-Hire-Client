@@ -4,10 +4,11 @@ import { FormikValues } from "formik";
 import { URL } from "../../common/axiosInstance";
 import { GoogleCredential, GoogleSignupResponse, loginPayload, loginResponse, verifyOtpPayload, verifyOtpResponse } from "../../types/Alltypes";
 import { config } from "../../common/configurations";
-import {removeExperience,removeEducations,removeResumes} from '../reducers/userSlice'
+import {removeExperience,removeEducations,removeResumes, removeCertificates} from '../reducers/userSlice'
 import { RootState } from "../store";
 import { ICompanySearchParams } from "../../types/companyTypes";
 import { IPaginatedCompaniesResponse } from "../../types/userTypes";
+import { handleAxiosError } from "../../utils/customError";
 export type User = {
   data?: any;
   email: string;
@@ -21,13 +22,11 @@ export type User = {
 
 
 
-
 export const signupUser = createAsyncThunk<User, FormikValues>(
   "user/signup",
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`${URL}/auth/signup`, userData, config);
-      // console.log(data,'dattatatatatattattattat')
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -41,13 +40,10 @@ export const signupUser = createAsyncThunk<User, FormikValues>(
 export const verifyOtp = createAsyncThunk<verifyOtpResponse, verifyOtpPayload>("verify/otp",
   async (signupData, { rejectWithValue }) => {
     try {
-
       const { data } = await axios.post(`${URL}/auth/verify-otp`, signupData, config)
-      console.log(data, '=======reponse')
       return data
     } catch (error) {
       if (error instanceof AxiosError) {
-        // console.log(error)
         return rejectWithValue(error.response?.data)
       }
 
@@ -61,10 +57,8 @@ export const login = createAsyncThunk<loginResponse, loginPayload>(
   async (loginData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`${URL}/auth/login`, loginData, config);
-      console.log(data, 'from login')
       return data;
     } catch (error) {
-      // console.log(error)
       if (error instanceof AxiosError) {
         return rejectWithValue(error.response?.data);
       }
@@ -74,19 +68,7 @@ export const login = createAsyncThunk<loginResponse, loginPayload>(
 );
 
 
-// export const getUserData=createAsyncThunk('user/getData',async(_,{rejectWithValue})=>{
-//   try{
-//    const {data}=await axios.get(`${URL}/auth/`,config)
-//    console.log(data,'data fetched successfully')
-//    return data
-//   }catch(error){
-//     if(error instanceof AxiosError){
-//       return rejectWithValue(error.response?.data)
-//     }
-//     return rejectWithValue({message:'unknown error occured'})
 
-//   }
-// })
 
 
 export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
@@ -94,7 +76,6 @@ export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValu
     const { data } = await axios.get(`${URL}/auth/logout`, config)
     try {
       localStorage.removeItem('persist:root');
-      // console.log('Item removed successfully');
       return data
     } catch (error) {
       console.error('Error removing item:', error);
@@ -112,9 +93,7 @@ export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValu
 
 export const googleSignup = createAsyncThunk<GoogleSignupResponse, GoogleCredential>('auth/googlesingup', async (userCredentials, { rejectWithValue }) => {
   try {
-    console.log('req to back end')
     const { data } = await axios.post(`${URL}/auth/googleauth`, userCredentials, config);
-    console.log(data, 'afldsfasdfldsfsdafdsf')
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -132,7 +111,6 @@ export const updateProfile = createAsyncThunk<any, any>(
       const { data } = await axios.post(`${URL}/user/profile`, profileData, config);
       return data;
     } catch (error) {
-      // console.log(error)
       if (error instanceof AxiosError) {
         return rejectWithValue(error.response?.data);
       }
@@ -149,7 +127,6 @@ export const getUserData = createAsyncThunk(
       const { data } = await axios.get(`${URL}/user/get-data`, config)
       return data
     } catch (error) {
-      console.log(error)
       return rejectWithValue(error)
     }
   }
@@ -162,10 +139,7 @@ export const removeExperienceandUpdateProfile=createAsyncThunk(
     try {  
       dispatch (removeExperience(index))
       const updatedUserState=getState() as RootState
-      // console.log(updatedUserState)
-      console.log(updatedUserState?.user?.user) 
       await dispatch(updateProfile(updatedUserState?.user?.user?.data))
-      // console.log(updatedUserState)
     } catch (error) {
       console.log(error)
       
@@ -180,10 +154,7 @@ export const removeResumeandUpdateProfile=createAsyncThunk(
     try {  
       dispatch (removeResumes(index))
       const updatedUserState=getState() as RootState
-      // console.log(updatedUserState)
-      console.log(updatedUserState?.user?.user) 
       await dispatch(updateProfile(updatedUserState?.user?.user?.data))
-      // console.log(updatedUserState)
     } catch (error) {
       console.log(error)
       
@@ -197,10 +168,21 @@ export const removeEducationandUpdateProfile=createAsyncThunk(
     try {  
       dispatch (removeEducations(index))
       const updatedUserState=getState() as RootState
-      // console.log(updatedUserState)
-      // console.log(updatedUserState?.user?.user) 
       await dispatch(updateProfile(updatedUserState?.user?.user?.data))
-      // console.log(updatedUserState)
+    } catch (error) {
+      console.log(error)
+      
+  }
+}
+)
+
+export const removeCertificateandUpdateProfile=createAsyncThunk(
+  'user/remove-certificate',
+  async(index:number,{dispatch,getState})=>{
+    try {  
+      dispatch (removeCertificates(index))
+      const updatedUserState=getState() as RootState
+      await dispatch(updateProfile(updatedUserState?.user?.user?.data))
     } catch (error) {
       console.log(error)
       
@@ -221,10 +203,24 @@ export const getAllCompany=createAsyncThunk<IPaginatedCompaniesResponse,any>(
             industry:payload.industry
           },
       });
-      console.log(data.data)
       return data?.data;
     } catch (error) {
       return rejectWithValue(error)
     }
   }
 )
+
+
+export const fetchSavedJobs=createAsyncThunk<any>(
+  'get/saved-jobs',
+  async(_,{rejectWithValue})=>{
+    try {
+      const { data } = await axios.get(`${URL}/job/savedjobs`,config);
+       return {data}
+    } catch (error) {
+      return rejectWithValue(handleAxiosError(error))
+    }
+  }
+)
+
+

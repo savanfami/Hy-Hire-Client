@@ -65,10 +65,10 @@ interface AppBarProps extends MuiAppBarProps {
 const menuItems = [
     { text: 'dashboard', icon: <DashboardIcon /> },
     { text: 'messages', icon: <MailIcon /> },
-    { text: 'All Applicants', icon: <ApartmentIcon /> },
+    // { text: 'All Applicants', icon: <ApartmentIcon /> },
     { text: 'jobs', icon: <ListIcon /> },
     { text: 'schedule', icon: <ScheduleIcon /> },
-    { text: 'hire', icon: <PersonIcon /> },
+    // { text: 'hire', icon: <PersonIcon /> },
     //   { text: 'jobs', icon: <WorkIcon /> },
 ]
 
@@ -249,7 +249,6 @@ export default function Sidebar() {
                         </Button>
                     </DialogActions>
                 </Dialog>
-
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />

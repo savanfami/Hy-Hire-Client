@@ -10,6 +10,7 @@ export const CompanyDetails = () => {
     const {companyId}=location.state||{} 
     const {request} = useSelector((state: RootState) => state?.admin);
     const companyData=request.find(item=>item.companyId._id === companyId);
+    console.log(companyData,'company')
 const company=companyData.companyId 
 if (!company) return <p>Companys not found.</p>;
 // console.log(companyData,'company')                                                                                                                                                                                                                                                                                                                                                                                                                                                   )
@@ -31,6 +32,10 @@ if (!company) return <p>Companys not found.</p>;
           <p className="text-gray-700 font-gg mt-2"><span className="font-semibold">Description:</span> {company.description}</p>
           <p className="text-gray-700 font-gg mt-2"><span className="font-semibold">Industry:</span> {company.sector}</p>
           <p className="text-gray-700 font-gg mt-2"><span className="font-semibold">Subindustry:</span> {company.subIndustry}</p>
+          {company.rejectionReason!==null &&
+          
+          <p className="text-red-600 font-gg mt-2 border border-dashed border-red-600 rounded-xl p-2"><span className="font-bold ">Rejection Reason:</span> {company.rejectionReason}</p>
+          }
         </div>
       </div>
       <div className="mb-6 font-gg">

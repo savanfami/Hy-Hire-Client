@@ -20,10 +20,9 @@ const Dashboard = () => {
     fetchData()
   }, [])
   return (
-    <div>
-      <h1>dashborad</h1>
-     
-    </div>
+    <div className='flex  justify-center '>
+    <h1 className='font-gg text-2xl'> WELCOME TO DASHBOARD</h1>
+  </div>
   )
 }
 

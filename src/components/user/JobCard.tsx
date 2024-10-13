@@ -1,23 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import axios from 'axios';
+import { URL } from '../../common/axiosInstance';
+import { config } from '../../common/configurations';
+import { fetchSavedJobs } from '../../redux/action/userActions';
+import {  toast } from 'react-toastify';
 
-// interface JobCardProps {
-//     _id: string;
-//     jobTitle: string;
-//     employmentType: string;
-//     salaryMin: string;
-//     salaryMax: string;
-//     endDate: string;
-//     experience: string;
-//     companyDetails: {
-//       name: string;
-//       location: string;
-//       icon: string;
-//     };
-// }
 
 interface IJobCardProps{
   job:any;
@@ -26,16 +19,54 @@ interface IJobCardProps{
 }
 
 export const JobCard = ({job,value,onApply}:IJobCardProps) => {
+  const dispatch:AppDispatch=useDispatch()
+
+
+  const state=useSelector((state:RootState)=>state?.user?.savedJobs)
+  const {user}=useSelector((state:RootState)=>state?.user)
+
   
+  const savedJobs:any=state.jobsWithDetails
+  const isJobSaved = savedJobs?.some((savedJob: any) => savedJob._id === job._id);
   let linkTo
   if(value==='job Details'){
     linkTo=`/jobdetails/${job._id}`
   }else if(value==='Apply'){
     // linkTo='jobapply'
+  }else if(value==='job details'){
+    linkTo=`/savedjobdetails/${job._id}`
   }
+
+
   const createdTime=moment(job?.createdAt)
   const timeAgo=createdTime?.fromNow()
 
+  const handleToggleSave=async(jobId:string)=>{
+    console.log('called')
+    try {
+      if (!user) {
+        toast.info('Please log in to save  this job.');
+        return;
+      }
+      await axios.post(`${URL}/job/savejob`,{},
+        {
+          ...config,
+          params:{
+            jobId
+          },
+        }
+      )
+      dispatch(fetchSavedJobs());
+    } catch (error) {
+      console.error('error saving/unsaving job',error)
+    }
+  }
+
+
+  
+   
+ 
+  
   return (
     <>
   <div className="flex mb-5  border border-gray-200 flex-col p-10 bg-white rounded-md w-full shadow-[0px_3px_8px_rgba(48,150,137,0.08)] max-md:px-5">
@@ -44,11 +75,11 @@ export const JobCard = ({job,value,onApply}:IJobCardProps) => {
           <div className="px-2 py-2 rounded-lg bg-teal-600 bg-opacity-10 min-h-[28px]">
            {timeAgo}
           </div>
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/19c397e228a66e1ec886be42efa8eaa06d56b6af19093963256cb3a4f31d3d9b?placeholderIfAbsent=true&apiKey=c721d257b1b04fddbe0f725293ce8048"
-            className="object-contain shrink-0 w-6 aspect-square"
-          />
+          {isJobSaved  ? (
+              <p className='cursor-pointer' onClick={() => handleToggleSave(job._id)}><TurnedInIcon fontSize='large' /></p>
+            ) : (
+              <p className='cursor-pointer' onClick={() => handleToggleSave(job._id)}><TurnedInNotIcon fontSize='large' /></p>
+            )}
         </div>
         <div className="flex gap-5 items-start self-start mt-4 text-black">
           <img

@@ -1,4 +1,6 @@
 import SignUp from './pages/auth/SignUp'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { Homepage } from './components/user/HomePage'
 import SignIn from './pages/auth/SignIn'
 import RoutePage from './components/common/RoutePage'
@@ -15,7 +17,7 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import { UserProfileLayout } from './layouts/UserProfileLayout'
 import { Messages } from './pages/user/Messages'
 import { Dashboard } from './pages/user/Dashboard'
-import React from 'react'
+import React, { useEffect } from 'react'
 import UserListing from './pages/admin/UserListing'
 import { ForgetPassword } from './pages/auth/ForgetPassword'
 import { ResetPassword } from './pages/auth/ResetPassword'
@@ -36,9 +38,22 @@ import { UserSideCompanyListing } from './pages/user/CompanyListing'
 import { TryPremiumUser } from './pages/user/TryPremiumUser'
 import { LoggedinUserLayout } from './layouts/LoggedinUserLayout'
 import { ListUsers } from './pages/company/ListUsers'
+import { CategoryWiseCompanyListing } from './pages/user/categoryWiseJobListing'
+import { PaymentSuccessPage } from './pages/common/paymentSuccessPage'
+import { SubscriptionPaymentFailed } from './pages/common/PaymentFailurePage'
+import { SavedJobs } from './pages/user/SavedJobsPage'
+import { SavedJobDetailsPage } from './pages/user/SavedJobDetails'
+import { ListApplicants } from './pages/company/Applicants';
+import { ApplicantDetails } from './pages/company/ApplicantDetails';
+import { UserJobApplications } from './pages/user/UserJobApplications';
 function App() {
 
-
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, 
+      once: false
+    });
+  }, []);
 
 
 
@@ -53,13 +68,17 @@ function App() {
         <Route path='joinas' element={<RoutePage />} />
         <Route path='forgetPassword' element={<ForgetPassword />} />
         <Route path='resetPassword' element={<ResetPassword />} />
+        <Route path='payment-success' element={<PaymentSuccessPage/>}/>
+        <Route path='payment-failed' element={<SubscriptionPaymentFailed/>}/>
 
         <Route path='/' element={<UserLayout />} >
           <Route path='' element={<Homepage />} />
           <Route path='companydetails/:id' element={<CompanyDetail />} />
           <Route path='joblisting' element={<UserSideJobListing />} />
           <Route path='/jobdetails/:id' element={<JobDetailsPage />} />
+          <Route path='/savedjobdetails/:id' element={<SavedJobDetailsPage />} />
           <Route path='companyListing' element={<UserSideCompanyListing />} />
+          <Route path='joblistingbycategory/:id' element={<CategoryWiseCompanyListing/>} />
         </Route>
 
         {/* User Routes */}
@@ -82,6 +101,8 @@ function App() {
           <Route path='messages' element={<Messages />} />
           <Route path='findJobs' element={<DashboardJobListing />} />
           <Route path='profile' element={<UserProfile />} />
+          <Route path='savedjobs' element={<SavedJobs />} />
+          <Route path='applications' element={<UserJobApplications/>}/>
         </Route>
 
 
@@ -99,7 +120,6 @@ function App() {
             <Route path='company' element={<CompanyListing />} />
             <Route path='user' element={<UserListing />} />
             <Route path='request/companyDetails' element={<CompanyDetails />} />
-
           </Route>
         </Route>
 
@@ -119,16 +139,12 @@ function App() {
             <Route path='jobpost' element={<JobPost />} />
             <Route path='jobs' element={<JobList />} />
             <Route path='hire' element={<ListUsers/>}/>
+            <Route path='jobs/applicants/:id' element={<ListApplicants/>}/>
+            <Route path='jobs/applicant-details/:id' element={<ApplicantDetails/>}/>
           </Route>
         </Route>
-
-
-
       </Routes>
-
-
     </ErrorBoundary>
-
   )
 }
 

@@ -64,9 +64,8 @@ interface AppBarProps extends MuiAppBarProps {
 const menuItems = [
     { text: 'dashboard', icon: <DashboardIcon /> },
     { text: 'messages', icon: <MailIcon /> },
-    { text: 'my applications', icon: <ApartmentIcon /> },
+    { text: 'applications', icon: <ApartmentIcon /> },
     { text: 'findJobs', icon: <WorkIcon /> },
-    { text: 'browse companies', icon: <TravelExploreIcon /> },
     { text: 'profile', icon: <PersonIcon /> },
 ]
 
@@ -185,13 +184,13 @@ export default function Sidebar() {
                 </List>
                 <Divider />
                 <List>
-                    <Link to="/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="savedjobs" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <ListItem disablePadding className='capitalize'>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <SettingsIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="settings" className='text-maincolr ' />
+                                <ListItemText primary="saved jobs" className='text-maincolr ' />
                             </ListItemButton>
                         </ListItem>
                     </Link>

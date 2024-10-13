@@ -37,3 +37,8 @@ export interface PlacesAutocompleteProps {
   initialValue?: string;
   componentType?:string
 }
+
+export enum ResponseStatus {
+  SUCCESS = 'Success',
+  ERROR = 'Error',
+}

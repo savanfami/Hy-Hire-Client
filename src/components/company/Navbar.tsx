@@ -20,17 +20,18 @@ export const Navbar = () => {
         <div className="">
           <div>
             {data?.name && (
+                <Link to='/company/dashboard'>
               <div className="flex items-center">
-
                 <img
                   className="w-10 h-10 rounded-xl  p-1 mr-2"
                   src={data.icon ? data.icon : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBg9zkf0PWdFupdiDjLIkF1rWzE_oC76dNaQ&s"}
                   alt="company image"
                 />
-
                 <h1 className="text-maincolr font-gg font-bold text-md md:text-xl">{data.name}</h1>
-                <KeyboardArrowDownIcon className="text-gray-500" />
+
+                {/* <KeyboardArrowDownIcon className="text-gray-500" /> */}
               </div>
+                </Link>
             )}
           </div>
         </div>
