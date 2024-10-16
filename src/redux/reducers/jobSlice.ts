@@ -60,7 +60,7 @@ const jobSlice = createSlice({
             })
             .addCase(applyJob.rejected,(state,{payload})=>{
                 state.loading=false;
-                state.err=payload
+                state.err=payload as string
             })
             .addCase(getAllData.pending,(state)=>{
                 state.loading=true;

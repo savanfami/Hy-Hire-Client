@@ -27,7 +27,6 @@ const SignUp = () => {
   const [confirmpasswordVisible, confirmsetpasswordVisible] = useState(false)
   const [otpPage, setOtpPage] = useState(false)
   const [userType, setUserType] = useState<string | undefined>(location.state?.userType || 'user');
-  console.log(userType, 'typeof user')
 
   const [loading, setLoading] = useState(false)
 

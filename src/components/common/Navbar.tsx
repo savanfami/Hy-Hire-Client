@@ -1,45 +1,54 @@
-import logo from '../../assets/images/logo.jpg'
-import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa'
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { FaBars } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
-import React from 'react';
 import { getUserData } from '../../redux/action/userActions';
-import { getAllData } from '../../redux/action/commonAction';
-
+import axios from 'axios';
+import { URL } from '../../common/axiosInstance';
+import { config } from '../../common/configurations';
+import logo from '../../assets/images/logo.jpg';
 
 const Navbar = React.memo(() => {
-  const dispatch:AppDispatch=useDispatch()
+  const dispatch: AppDispatch = useDispatch();
   const [isHoveredLogin, setIsHoveredLogin] = useState(false);
   const [isHoveredRegister, setIsHoveredRegister] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false); 
+
+  const state = useSelector((state: RootState) => state.user);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
- 
-
-
-  const state = useSelector((state: RootState) => state.user)
-  
-   const fetchData = async () => {
+  const fetchData = async () => {
     try {
       await dispatch(getUserData()).unwrap();
-       
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Fetch subscription status
+  const checkSubscriptionStatus = async () => {
+    try {
+      const response = await axios.get(`${URL}/user/subscription-status`, config);
+      setIsSubscribed(response.data?.isSubscribed);
+    } catch (error) {
+      console.error('Error checking subscription status:', error);
+    }
+  };
+
   useEffect(() => {
-    if (state?.role === 'user'&&!state?.dataFetched) {
-      console.log('user effect called')
+    if (state?.role === 'user' && !state?.dataFetched) {
       fetchData();
     }
-  }, []);
+    if (state?.role === 'user') {
+      checkSubscriptionStatus(); 
 
-  
+    }
+  }, []);
 
   const NavButton = ({ text, isHovered, setIsHovered }: any) => (
     <button
@@ -52,9 +61,19 @@ const Navbar = React.memo(() => {
     </button>
   );
 
+  const handleManageSubscription = async () => {
+        try {
+          const response = await axios.post(`${URL}/user/create-portal-session`,{},config);
+          console.log(response)
+          window.location = response.data.url; // Redirect to Stripe Customer Portal
+        } catch (error) {
+          console.error('Error creating customer portal session:', error);
+        }
+      };
+
   return (
-    <nav className='bg-white head overflow-x-hidden '>
-      <div className=' mx-auto px-4 ms-2'>
+    <nav className='bg-white head overflow-x-hidden'>
+      <div className='mx-auto px-4 ms-2'>
         <div className='flex justify-between items-center h-16'>
           <div className='flex-shrink-0'>
             <NavLink to='/'>
@@ -63,21 +82,27 @@ const Navbar = React.memo(() => {
           </div>
 
           <div className='hidden md:flex md:items-center md:space-x-4 font-serif'>
-            <NavLink to='' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Home</NavLink>
-            <NavLink to="joblisting" className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Find jobs</NavLink>
-            <NavLink to='companyListing' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Browse Companies</NavLink>
-            <NavLink to='hehe' className={({isActive})=>isActive?'text-black underline px-3 py-2':'block px-3 py-2 text-gray-500 hover:text-black'}>Contact Us</NavLink>
+            <NavLink to='' className={({ isActive }) => isActive ? 'text-black underline px-3 py-2' : 'block px-3 py-2 text-gray-500 hover:text-black'}>Home</NavLink>
+            <NavLink to="joblisting" className={({ isActive }) => isActive ? 'text-black underline px-3 py-2' : 'block px-3 py-2 text-gray-500 hover:text-black'}>Find jobs</NavLink>
+            <NavLink to='companyListing' className={({ isActive }) => isActive ? 'text-black underline px-3 py-2' : 'block px-3 py-2 text-gray-500 hover:text-black'}>Browse Companies</NavLink>
+            <NavLink to='hehe' className={({ isActive }) => isActive ? 'text-black underline px-3 py-2' : 'block px-3 py-2 text-gray-500 hover:text-black'}>Contact Us</NavLink>
           </div>
 
           <div className='hidden md:flex font-serif'>
-            {state&&state?.role==='user' ? (
+            {state && state?.role === 'user' ? (
               <>
-              <NavLink to='trypremium'>
-                <NavButton text="TryPremium" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
-              </NavLink>
-              <NavLink to='profile'>
-                <NavButton text="Dashboard" isHovered={isHoveredLogin} setIsHovered={setIsHoveredLogin} />
-              </NavLink>
+                {isSubscribed ? (
+                  <button  onClick={handleManageSubscription} className='px-4 py-2 gap-2 text-black rounded-sm hover:bg-maincolr hover:text-white'>
+                    Manage Subscription
+                  </button>
+                ) : (
+                  <NavLink to='trypremium'>
+                    <NavButton text="Try Premium" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
+                  </NavLink>
+                )}
+                <NavLink to='profile'>
+                  <NavButton text="Dashboard" isHovered={isHoveredLogin} setIsHovered={setIsHoveredLogin} />
+                </NavLink>
               </>
             ) : (
               <>
@@ -101,37 +126,16 @@ const Navbar = React.memo(() => {
 
       {isMenuOpen && (
         <div className='md:hidden'>
-          <div className=' text-center px-2 pt-2 pb-3 space-y-1 sm:px-3 font-serif'>
+          <div className='text-center px-2 pt-2 pb-3 space-y-1 sm:px-3 font-serif'>
             <NavLink to='' className='block px-3 py-2 text-gray-500 hover:text-black'>Home</NavLink>
-            <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Find jobs</a>
-            <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Browse Companies</a>
-            <a href="#" className='block px-3 py-2 text-gray-500 hover:text-black'>Contact Us</a>
-          </div>
-          <div className='pt-4 pb-3 border-t border-gray-200 font-serif'>
-            {state && state?.role==='user' ? (
-              <>
-               <Link to='/TryPremium'>
-               <NavButton text="TryPremium" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
-             </Link>
-              <Link to='profile'>
-                <NavButton text="Dashboard" isHovered={false} setIsHovered={() => {}} />
-              </Link>
-              </>
-            ) : (
-              <>
-                <Link to='/login'>
-                  <NavButton text="Login" isHovered={isHoveredLogin} setIsHovered={setIsHoveredLogin} />
-                </Link>
-                <Link to="/nav">
-                  <NavButton text="Register" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
-                </Link>
-              </>
-            )}
+            <NavLink to="joblisting" className='block px-3 py-2 text-gray-500 hover:text-black'>Find jobs</NavLink>
+            <NavLink to="companyListing" className='block px-3 py-2 text-gray-500 hover:text-black'>Browse Companies</NavLink>
+            <NavLink to="hehe" className='block px-3 py-2 text-gray-500 hover:text-black'>Contact Us</NavLink>
           </div>
         </div>
       )}
     </nav>
-  )
-})
+  );
+});
 
-export default Navbar
+export default Navbar;

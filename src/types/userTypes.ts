@@ -64,3 +64,41 @@ export interface IGetUserApplicationResponse{
     appliedDate:string;
     hiringStatus:string
 }
+
+
+interface SubscriptionDetails {
+  _id: string;
+  userId: string;
+  stripeSubscriptionId: string;
+  stripeCustomerId: string;
+  plan: string;
+  status: string;
+  currentPeriodStart: string;
+  currentPeriodEnd: string;   
+  cancelAtPeriodEnd: boolean;
+  amount: number;
+  isExpired: boolean;
+  createdAt: string; 
+  updatedAt: string; 
+  __v: number;
+}
+
+export interface ISubscriptionResponse {
+  isSubscribed: boolean;
+  subscriptionDetails: SubscriptionDetails;
+}
+
+
+export interface IGetSubscriptionResponse{
+  name:string;
+  email:string;
+  plan:string;
+  status:string;
+  currentPeriodEnd:Date;
+  amount:number;
+  cancellationFeedback?:string;
+  cancelAtPeriodEnd:boolean;
+}
+
+
+

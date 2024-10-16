@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
@@ -20,6 +20,7 @@ interface IJobCardProps{
 
 export const JobCard = ({job,value,onApply}:IJobCardProps) => {
   const dispatch:AppDispatch=useDispatch()
+  const navigate = useNavigate()
 
 
   const state=useSelector((state:RootState)=>state?.user?.savedJobs)
@@ -46,6 +47,9 @@ export const JobCard = ({job,value,onApply}:IJobCardProps) => {
     try {
       if (!user) {
         toast.info('Please log in to save  this job.');
+        setTimeout(() => {
+          navigate('/login');
+      }, 3000); 
         return;
       }
       await axios.post(`${URL}/job/savejob`,{},

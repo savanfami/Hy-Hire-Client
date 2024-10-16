@@ -1,9 +1,14 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { CustomButton } from '../../components/common/Button'
 import { URL } from '../../common/axiosInstance'
 import axios from 'axios'
 import {loadStripe} from '@stripe/stripe-js'
 import { config } from '../../common/configurations'
+import { ISubscriptionResponse } from '../../types/userTypes'
+import { CalendarDays, CreditCard, RefreshCw } from 'lucide-react'
+import { Card, CardContent, CardFooter, CardHeader } from '../../components/ui/card'
+import { Button } from 'react-day-picker'
+// import { formateDatetoThree } from '../../utils/common/formatDate'
 
 
 
@@ -37,8 +42,30 @@ export const TryPremiumUser = () => {
         }
       };
 
+
+
+     
+      
+      
+
     return (
-        <> 
+        <>
+         {/* {subscriptionStatus?.isSubscribed ?(
+            <div className="min-h-screen shadow-md flex items-center justify-center ">
+            <Card className="w-full max-w-md">
+              <CardHeader>
+                <h2 className="text-2xl font-bold text-center uppercase "> Subscription</h2>
+              </CardHeader>
+           
+              <div className='flex items-center justify-center'>
+
+                <button  onClick={handleManageSubscription} className='bg-maincolr text-white p-3 rounded-md mb-10'>Manage Subscription</button>
+              </div>
+        
+            </Card>
+          </div>
+
+        ):( */}
             <div className='bg-gray-200 p-8 lg:p-20 w-full'>
                 <div className='flex justify-center items-center'>
                     <div className="flex flex-col items-start pl-7 rounded-2xl bg-neutral-400 max-w-[619px] shadow-[0px_0px_2px_rgba(23,26,31,0.12)] max-md:px-5">
@@ -93,6 +120,16 @@ export const TryPremiumUser = () => {
                                 />
                                 Diamond (₹ 6000 for 1 year  <span className='text-sky-900 font-semibold'> - Save 1200 </span> )
                             </label>
+                            <label className="flex items-center gap-2 mb-3">
+                                <input
+                                    type="radio"
+                                    value="trail"
+                                    checked={selectedPlan === 'trail'}
+                                    onChange={handlePlanChange}
+                                />
+                                trail (₹ 2 for 1 year  <span className='text-sky-900 font-semibold'> - Save 2 </span> )
+                            </label>
+                            
                         </div>
 
                         {/* Submit Button */}
@@ -102,6 +139,7 @@ export const TryPremiumUser = () => {
                     </div>
                 </div>
             </div>
+        {/* )} */}
         </>
     )
 }

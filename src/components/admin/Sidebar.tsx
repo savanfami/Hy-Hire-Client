@@ -20,10 +20,11 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import GroupIcon from '@mui/icons-material/Group';
-import CategoryIcon from '@mui/icons-material/Category';
-import ReviewsIcon from '@mui/icons-material/Reviews';
-import WorkIcon from '@mui/icons-material/Work';
-import SettingsIcon from '@mui/icons-material/Settings';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+// import CategoryIcon from '@mui/icons-material/Category';
+// import ReviewsIcon from '@mui/icons-material/Reviews';
+// import WorkIcon from '@mui/icons-material/Work';
+// import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AdminNavbar } from './Navbar';
 import { useDispatch } from 'react-redux';
@@ -66,6 +67,7 @@ const menuItems = [
   { text: 'request', icon: <MailIcon /> },
   { text: 'company', icon: <ApartmentIcon /> },
   { text: 'user', icon: <GroupIcon /> },
+  { text: 'Revenue', icon: <AccountBalanceIcon /> },
   // { text: 'reviews', icon: <ReviewsIcon /> },
   // { text: 'jobs', icon: <WorkIcon /> },
 ]

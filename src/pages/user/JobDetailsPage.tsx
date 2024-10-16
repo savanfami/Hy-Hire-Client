@@ -47,11 +47,11 @@ const JobDetailsPage = () => {
 
     const applyForJob = async () => {
         try {
-            if (!isLoggedIn) {
-                toast.info('Please log in to apply for this job.');
-                navigate('login');
-                return;
-            }
+            // if (!isLoggedIn) {
+            //     toast.info('Please log in to apply for this job.');
+            //     navigate('login');
+            //     return;
+            // }
 
             if (selectedResume) {
                 const payload: IApplyJobPayload = {
@@ -70,8 +70,8 @@ const JobDetailsPage = () => {
                 toast.error('Please select a resume to apply for the job.')
             }
         } catch (error: any) {
-            if (error.response) {
-                const errorMessage = error.response?.data?.message || 'Something went wrong';
+            if (error) {
+                const errorMessage = error || 'Something went wrong';
                 toast.info(errorMessage);
             } else {
                 toast.error('An error occurred while applying for the job.');
@@ -82,7 +82,9 @@ const JobDetailsPage = () => {
     const handleApplyButtonClick = () => {
         if (!isLoggedIn) {
             toast.info('Please login to apply for the job.');
-            // navigate('/login')
+            setTimeout(() => {
+                navigate('/login');
+            }, 3000); // Adjust the timeout as needed
             return;
         }
         // if (user.data?.resumes && user.data?.resumes.length>0) {
@@ -181,58 +183,6 @@ const JobDetailsPage = () => {
                     )}
 
                     {/* Related Jobs Section */}
-                    <h1 className='italic text-4xl md:mt-14 mt-4 md:px-10'>Related Jobs</h1>
-                    <div className="grid mt-10  ml-10  mb-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {/* {relatedJobs.slice(0, 3).map((data, index) => {
-                            const companyDetails = getCompanyDetails(data.companyId);
-                            return (
-                                <div key={index} className="flex flex-col" >
-                                    <div className="flex flex-col w-full  cursor-pointer" onClick={() => handleJobClick(data._id)}>
-                                        <div className="flex grow gap-5 justify-center px-6 py-7 w-full rounded-lg border border-solid shadow-sm border-zinc-200 max-md:flex-wrap max-md:px-5 max-md:mt-6 max-md:max-w-full">
-                                            <div className="flex flex-col grow shrink-0 basis-0 w-fit">
-                                                <div className="text-lg font-medium leading-7 text-zinc-900">
-                                                    {data?.jobTitle}
-                                                </div>
-                                                <div className="flex gap-2 mt-2.5">
-                                                    <div className="justify-center px-2 py-1 text-xs font-semibold leading-3 text-green-600 uppercase whitespace-nowrap bg-green-100 rounded">
-                                                        {data?.employmentType}
-                                                    </div>
-                                                    <div className="flex-auto my-auto text-sm leading-5 text-gray-500">
-                                                        Salary: ₹{data?.salaryMin} - ₹{data?.salaryMax}
-                                                    </div>
-                                                </div>
-                                                <div className="flex gap-3 mt-5">
-                                                    <div className="flex flex-col justify-center items-start p-3 bg-gray-100 rounded max-md:pr-5">
-                                                        {/* Display company image */}
-                                                        {/* <img
-                                                            loading="lazy"
-                                                            src={companyDetails.icon}
-                                                            alt={companyDetails.name}
-                                                            className="w-8 aspect-square"
-                                                        />
-                                                    </div>
-                                                    <div className="flex flex-col self-start mt-1.5">
-                                                        {/* Display company name */}
-                                                        {/* <div className="text-base font-medium leading-6 text-zinc-900">
-                                                            {companyDetails?.name}
-                                                        </div>
-                                                        <div className="flex gap-1 mt-2 text-sm leading-5 text-gray-500">
-                                                            <img
-                                                                loading="lazy"
-                                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5752ef17b1e9e46a64fcc8e07a8b95e24827aeca8a9ba7194e220edbc0d45fb?"
-                                                                className="shrink-0 aspect-square w-[18px]"
-                                                            />
-                                                            <div className="flex-auto">{data?.joblocation}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                {/* </div> */} 
-                            {/* ); */}
-                        {/* })} */} 
-                    </div>
                 </div>
             </div>
         </>

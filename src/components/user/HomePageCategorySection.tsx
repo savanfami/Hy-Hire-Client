@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import catergoryData from '../../assets/jsonData/Industry.json'
 import CategoryIcon from '@mui/icons-material/Category';
 import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion"
+import { duration } from 'moment';
 export const HomePageCategorySection: React.FC = () => {
     const [showAll,setShowAll]=useState<boolean>(false)
     const handleToggle=()=>{
@@ -18,7 +20,7 @@ export const HomePageCategorySection: React.FC = () => {
                 </div>
                 <div data-aos="fade-up" className="md:px-4    lg:px-16 xl:px-20 2xl:px-24 md:pb-10 max-md:px-5 grid md:grid-cols-4 md:gap-8 ">
                     {catergoryData.industries.slice(0, showAll?catergoryData.industries.length:8).map((data: any, index: number) => (
-                        <div key={index} className="w-full xl:max-w-[1400px] 2xl:max-w-[1600px] cursor-pointer   max-md:max-w-full" onClick={()=>navigate(`joblistingbycategory/${data.sector}`)}>
+                        <motion.div transition={{duration:'0.3'}} whileHover={{ scale: 1.1 }} key={index} className="w-full xl:max-w-[1400px] 2xl:max-w-[1600px] cursor-pointer   max-md:max-w-full" onClick={()=>navigate(`joblistingbycategory/${data.sector}`)}>
                             <div className="md:mt-16 max-md:mt-10 max-md:max-w-full ">
                                 <div className="flex md:gap-5 max-md:flex-col max-md:gap-0 md:h-[230px]  rounded-md">
                                     <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
@@ -40,7 +42,7 @@ export const HomePageCategorySection: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
                 

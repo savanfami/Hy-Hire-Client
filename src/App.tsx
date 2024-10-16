@@ -46,6 +46,7 @@ import { SavedJobDetailsPage } from './pages/user/SavedJobDetails'
 import { ListApplicants } from './pages/company/Applicants';
 import { ApplicantDetails } from './pages/company/ApplicantDetails';
 import { UserJobApplications } from './pages/user/UserJobApplications';
+import { TotalRevenuePage } from './pages/admin/TotalRevenuePage';
 function App() {
 
   useEffect(() => {
@@ -120,6 +121,7 @@ function App() {
             <Route path='company' element={<CompanyListing />} />
             <Route path='user' element={<UserListing />} />
             <Route path='request/companyDetails' element={<CompanyDetails />} />
+            <Route path='revenue' element={<TotalRevenuePage/>}/>
           </Route>
         </Route>
 

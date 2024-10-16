@@ -24,7 +24,7 @@ export type User = {
 
 export const signupUser = createAsyncThunk<User, FormikValues>(
   "user/signup",
-  async (userData, { rejectWithValue }) => {
+  async (userData, { rejectWithValue }) => {  
     try {
       const { data } = await axios.post(`${URL}/auth/signup`, userData, config);
       return data;

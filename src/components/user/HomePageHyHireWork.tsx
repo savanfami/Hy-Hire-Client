@@ -1,71 +1,98 @@
-import React from 'react'
+import React from 'react';
 
-export const HomePageHyHireWork = () => {
-  return (
-   <>
-    <div className="flex flex-col justify-center px-16  bg-white max-md:px-5">
-        <div className="self-center mt-3 text-2xl font-semibold font-sans text-center text-teal-600 leading-[52.8px] max-md:text-4xl">
-          <span className="text-maincolr ">How HyHire</span>{" "}
-          <span className="text-black ">Work</span>
-        </div>
-        <div data-aos="fade-up" className="mt-14 max-md:mt-10 max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-            <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-center items-center px-9 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/fbcb510b63933f010cc4a0c6c499b1e6296764c936652f7bb4c652cfb5157f27?"
-                  className="aspect-square w-[72px]"
-                />
-                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                  Create account
-                </div>
-
-              </div>
-            </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-center items-center px-7 py-7 w-full text-center bg-white rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/66addd84685eace00e556fb605dff727bb6176520586a5aa4cd0efa63f9d9458?"
-                  className="aspect-square w-[72px]"
-                />
-                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                  Upload CV/Resume
-                </div>
-
-              </div>
-            </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-center items-center px-9 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f2e83618ab83abd9a531d81bb01bad4e0602150b10d5edc9203e8eed3c7efa4?"
-                  className="aspect-square w-[72px]"
-                />
-                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                  Find suitable job
-                </div>
-
-              </div>
-            </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-center items-center px-7 py-6 text-center rounded-xl border border-teal-600 border-solid max-md:px-5 max-md:mt-6">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/d8e93b3adbcfa6e0f7c2dffd0f9a6fdf02512fd1f66dbe71ec3b35067e798b25?"
-                  className="aspect-square w-[72px]"
-                />
-                <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
-                  Apply job
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-   </>
-  )
+interface SlideData {
+  image: string;
+  title: string;
 }
 
+const sliderData: SlideData[] = [
+  {
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/fbcb510b63933f010cc4a0c6c499b1e6296764c936652f7bb4c652cfb5157f27?",
+    title: "Create account"
+  },
+  {
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/66addd84685eace00e556fb605dff727bb6176520586a5aa4cd0efa63f9d9458?",
+    title: "Upload CV/Resume"
+  },
+  {
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/4f2e83618ab83abd9a531d81bb01bad4e0602150b10d5edc9203e8eed3c7efa4?",
+    title: "Find suitable job"
+  },
+  {
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/d8e93b3adbcfa6e0f7c2dffd0f9a6fdf02512fd1f66dbe71ec3b35067e798b25?",
+    title: "Apply job"
+  }
+];
+
+export const HomePageHyHireWork: React.FC = () => {
+  return (
+    <div className="flex flex-col justify-center px-16 bg-white max-md:px-5">
+      <div className="self-center mt-3 text-2xl font-semibold font-sans text-center text-teal-600 leading-[52.8px] max-md:text-4xl">
+        <span className="text-maincolr">How HyHire</span>{" "}
+        <span className="text-black">Work</span>
+      </div>
+      <div className="slider-container  mt-14  max-md:mt-10 max-md:max-w-full">
+        <div className="slider">
+          {[...sliderData, ...sliderData].map((slide, index) => (
+            <div key={index} className="slide">
+              <img
+                loading="lazy"
+                src={slide.image}
+                className="aspect-square  w-[72px]"
+                alt={slide.title}
+              />
+              <div className="mt-8 text-lg font-medium leading-7 text-zinc-900">
+                {slide.title}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <></>
+      <style>{`
+        .slider-container {
+          width: 100%;
+          overflow: hidden;
+        }
+        .slider {
+          display: flex;
+          animation: slide 20s linear infinite;
+          gap: 20px; 
+        
+        }
+        .slide {
+          flex: 0 0 25%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          box-sizing: border-box;
+          border: 1px solid #0D9488; /* Teal-600 color */
+          border-radius: 0.75rem; /* Rounded-xl */
+          margin: 0 10px;
+        }
+        @keyframes slide {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-100%);
+          }
+        }
+        @media (max-width: 768px) {
+          .slide {
+            flex: 0 0 50%;
+          }
+        }
+        @media (max-width: 480px) {
+          .slide {
+            flex: 0 0 100%;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default HomePageHyHireWork;

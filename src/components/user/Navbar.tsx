@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../redux/store";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const Navbar = () => {
   const { user: { data } } = useSelector((state: RootState) => state.user)
@@ -19,7 +19,7 @@ export const Navbar = () => {
             />
 
             <h1 className="text-maincolr font-gg font-bold text-xl">{data.name}</h1>
-            <KeyboardArrowDownIcon className="text-gray-500" />
+            {/* <KeyboardArrowDownIcon className="text-gray-500" /> */}
           </div>
         )}
       </div>

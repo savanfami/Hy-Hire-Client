@@ -1,7 +1,7 @@
 import { FaBriefcase, FaBuilding, FaSearch, FaUsers } from "react-icons/fa";
 import image from '../../assets/images/Remote vs On-site Staff Augmentationn.webp';
 import React from 'react'
-
+import { motion } from "framer-motion"
 
 
 export const HomePageBannerSection = () => {
@@ -12,7 +12,7 @@ export const HomePageBannerSection = () => {
                 <div className="absolute inset-0 bg-black h-[600px] bg-opacity-60 sm:h-screen lg:h-screen 2xl:h-screen xl:h-screen md:h-[680px]"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-4">
                     <div className="text-center text-white mb-8">
-                        <h1 className="text-3xl sm:text-4xl font-ff mb-2">Find Your Dream Job Today!</h1>
+                        <motion.h2 initial={{width:0}}  animate={{width:'100%'}} transition={{duration:'2', ease:'easeInOut'}} className="text-3xl   overflow-hidden whitespace-nowrap sm:text-4xl font-ff mb-2">Find Your Dream Job Today!</motion.h2>
                         <p className="text-sm sm:text-md font-serif">Connecting talents with opportunity: Your gateway to career success</p>
                     </div>
                     <div className="bg-white rounded-2xl shadow-lg p-4">

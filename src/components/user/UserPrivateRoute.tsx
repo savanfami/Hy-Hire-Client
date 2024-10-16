@@ -6,7 +6,6 @@ import { Children } from '../../types/Alltypes'
 
 export const UserPrivateRoute = ({ children }: Children) => {
   const state = useSelector((state: RootState) => state.user)
-  console.log(state.user)
 
   if (state &&state?.role==='user' &&state.user) {
     return children
