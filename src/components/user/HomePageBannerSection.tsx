@@ -15,33 +15,73 @@ export const HomePageBannerSection = () => {
                         <motion.h2 initial={{width:0}}  animate={{width:'100%'}} transition={{duration:'2', ease:'easeInOut'}} className="text-3xl   overflow-hidden whitespace-nowrap sm:text-4xl font-ff mb-2">Find Your Dream Job Today!</motion.h2>
                         <p className="text-sm sm:text-md font-serif">Connecting talents with opportunity: Your gateway to career success</p>
                     </div>
-                    <div className="bg-white rounded-2xl shadow-lg p-4">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <input
-                                type="text"
-                                placeholder="Job Title/Company"
-                                className="w-full px-4 py-2 outline-none"
-                            />
-                            <select
-                                className="w-full px-4 py-2 outline-none"
-                            >
-                                <option value="">Select Location</option>
-                                <option value="">mepper</option>
-                                <option value="">perambra</option>
-                            </select>
-                            <select
-                                className="w-full px-4 py-2 outline-none"
-                            >
-                                <option value="">Select Category</option>
-                            </select>
-                            <button
-                                className="w-full bg-maincolr text-white px-4 py-2 rounded-sm flex items-center justify-center"
-                            >
-                                <FaSearch className="mr-2" />
-                                Search
-                            </button>
-                        </div>
-                    </div>
+                    <div className="bg-white font-normal max-sm:w-full md:w-[840px]  mt-5 rounded-2xl shadow-lg px-4 py-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="jobname"
+                    placeholder="Job name"
+                    // value={searchParams.jobname}
+                    // onChange={handleInputChange}
+                    className="w-full px-4 py-2 mt-2 outline-none"
+                  />
+                  {/* {searchParams.jobname && (
+                    <button
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                      onClick={() => handleClear("jobname")}
+                    >
+                      &times;
+                    </button>
+                  )} */}
+                </div>
+
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="location"
+                    placeholder="Enter location"
+                    // value={searchParams.location}
+                    // onChange={handleInputChange}
+                    className="md:w-[200px] mt-2 px-4 py-2 outline-none"
+                  />
+                  {/* {searchParams.location && (
+                    <button
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                      onClick={() => handleClear("location")}
+                    >
+                      &times;
+                    </button>
+                  )} */}
+
+                  {/* {suggestions.length > 0 && (
+                    <ul
+                      className="absolute border border-black mt-1 w-full rounded-md bg-white z-10"
+                      style={{ maxHeight: "100px", overflowY: "auto" }}
+                    >
+                      {suggestions.map((suggestion, index) => (
+                        <li
+                          className="border-b border-gray-300 p-2 hover:bg-gray-100"
+                          key={index}
+                          onClick={() => handleSuggestionClick(suggestion)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {suggestion.properties.formatted}
+                        </li>
+                      ))}
+                    </ul>
+                  )} */}
+                </div>
+
+                <button
+                //   onClick={handleApplyFilter}
+                  className="bg-maincolr md:ml-10 text-white px-4 py-2 rounded-md flex items-center justify-center mt-2"
+                >
+                  <FaSearch className="mr-2" />
+                  Search
+                </button>
+              </div>
+            </div>
                     <div className="mt-8 flex flex-wrap justify-center gap-8">
                         <div className="text-center text-white">
                             <div className="bg-maincolr rounded-full p-4 inline-block">
