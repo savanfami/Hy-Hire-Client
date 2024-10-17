@@ -70,7 +70,6 @@ export const applyJob=createAsyncThunk<any,IApplyJobPayload>(
         } catch (error:any) {
             if(error.response){
               return rejectWithValue(error?.response?.data?.message)
-
             }
         }
     }

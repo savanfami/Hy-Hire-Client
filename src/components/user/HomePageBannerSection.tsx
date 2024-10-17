@@ -1,10 +1,34 @@
 import { FaBriefcase, FaBuilding, FaSearch, FaUsers } from "react-icons/fa";
 import image from '../../assets/images/Remote vs On-site Staff Augmentationn.webp';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from "framer-motion"
+import axios from "axios";
+import { URL } from "../../common/axiosInstance";
 
 
 export const HomePageBannerSection = () => {
+    const [count, setCount] = useState({
+        totalUsers: 0,
+        totalCompanies: 0,
+        totalJobs: 0
+    })
+
+    const fetchData = async () => {
+        try {
+            const { data } = await axios.get(`${URL}/job/count`)
+            if (data) {
+                setCount(data)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     return (
         <>
             <div data-aos="fade-up" className='relative w-full'>
@@ -12,100 +36,48 @@ export const HomePageBannerSection = () => {
                 <div className="absolute inset-0 bg-black h-[600px] bg-opacity-60 sm:h-screen lg:h-screen 2xl:h-screen xl:h-screen md:h-[680px]"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-4">
                     <div className="text-center text-white mb-8">
-                        <motion.h2 initial={{width:0}}  animate={{width:'100%'}} transition={{duration:'2', ease:'easeInOut'}} className="text-3xl   overflow-hidden whitespace-nowrap sm:text-4xl font-ff mb-2">Find Your Dream Job Today!</motion.h2>
+                        <motion.h2 initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: '2', ease: 'easeInOut' }} className="text-3xl   overflow-hidden whitespace-nowrap sm:text-4xl font-ff mb-2">Find Your Dream Job Today!</motion.h2>
                         <p className="text-sm sm:text-md font-serif">Connecting talents with opportunity: Your gateway to career success</p>
                     </div>
-                    <div className="bg-white font-normal max-sm:w-full md:w-[840px]  mt-5 rounded-2xl shadow-lg px-4 py-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="jobname"
-                    placeholder="Job name"
-                    // value={searchParams.jobname}
-                    // onChange={handleInputChange}
-                    className="w-full px-4 py-2 mt-2 outline-none"
-                  />
-                  {/* {searchParams.jobname && (
-                    <button
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      onClick={() => handleClear("jobname")}
-                    >
-                      &times;
-                    </button>
-                  )} */}
-                </div>
 
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="Enter location"
-                    // value={searchParams.location}
-                    // onChange={handleInputChange}
-                    className="md:w-[200px] mt-2 px-4 py-2 outline-none"
-                  />
-                  {/* {searchParams.location && (
-                    <button
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      onClick={() => handleClear("location")}
-                    >
-                      &times;
-                    </button>
-                  )} */}
-
-                  {/* {suggestions.length > 0 && (
-                    <ul
-                      className="absolute border border-black mt-1 w-full rounded-md bg-white z-10"
-                      style={{ maxHeight: "100px", overflowY: "auto" }}
-                    >
-                      {suggestions.map((suggestion, index) => (
-                        <li
-                          className="border-b border-gray-300 p-2 hover:bg-gray-100"
-                          key={index}
-                          onClick={() => handleSuggestionClick(suggestion)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {suggestion.properties.formatted}
-                        </li>
-                      ))}
-                    </ul>
-                  )} */}
-                </div>
-
-                <button
-                //   onClick={handleApplyFilter}
-                  className="bg-maincolr md:ml-10 text-white px-4 py-2 rounded-md flex items-center justify-center mt-2"
-                >
-                  <FaSearch className="mr-2" />
-                  Search
-                </button>
-              </div>
-            </div>
                     <div className="mt-8 flex flex-wrap justify-center gap-8">
                         <div className="text-center text-white">
-                            <div className="bg-maincolr rounded-full p-4 inline-block">
+                            <motion.div initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.3 }}
+                                whileHover={{ scale: 1.1 }} className="bg-maincolr rounded-full p-4 inline-block">
                                 <FaBriefcase className="text-2xl sm:text-3xl" />
-                            </div>
-                            <p className="mt-2 text-sm sm:text-base">2000+ Jobs</p>
+                            </motion.div>
+                            <p className="mt-2 text-sm sm:text-base">{count.totalJobs}+ Jobs</p>
                         </div>
                         <div className="text-center text-white">
-                            <div className="bg-maincolr rounded-full p-4 inline-block">
+                            <motion.div initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.3 }}
+                                whileHover={{ scale: 1.1 }} className="bg-maincolr rounded-full p-4 inline-block">
                                 <FaUsers className="text-2xl sm:text-3xl" />
-                            </div>
-                            <p className="mt-2 text-sm sm:text-base">5000+ Candidates</p>
+                            </motion.div>
+                            <p className="mt-2 text-sm sm:text-base">{count.totalUsers}+ Candidates</p>
                         </div>
                         <div className="text-center text-white">
-                            <div className='bg-maincolr rounded-full p-4 inline-block'>
+                            <motion.div initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.3 }}
+                                whileHover={{ scale: 1.1 }} className='bg-maincolr rounded-full p-4 inline-block'>
                                 <FaBuilding className="text-2xl sm:text-3xl" />
-                            </div>
-                            <p className='mt-2 text-sm sm:text-base'>1000+ Companies</p>
+                            </motion.div>
+                            <p className='mt-2 text-sm sm:text-base'>{count.totalCompanies}+ Companies</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-          {/* <div className="flex justify-between max-md:flex-col max-md:items-center gap-5  px-20 py-10 bg-black flex-grow max-md:px-5">
+
+
+                {/* <div className="flex justify-between max-md:flex-col max-md:items-center gap-5  px-20 py-10 bg-black flex-grow max-md:px-5">
             <img
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/770a4e6103f286e94b1d3d1669dc249da07e42502e642d1538cf452a5fe2b921?"
               className=" max-md:mb-5 flex- shrink-0  aspect-[2.94] w-[140px]"
@@ -131,7 +103,7 @@ export const HomePageBannerSection = () => {
               className="max-md:mb-5 shrink-0 max-w-full aspect-[3.13] w-[148px]"
             />
           </div> */}
-        </div>
+            </div>
         </>
     )
 }

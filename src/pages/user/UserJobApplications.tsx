@@ -8,11 +8,14 @@ import Lootie from 'lottie-react'
 import Animation from '../../../src/assets/lottieFiles/Animation - 1728364855202.json'
 import { IGetUserApplicationResponse } from '../../types/userTypes'
 import { formateDatetoThree } from '../../utils/common/formatDate'
+import { useNavigate } from 'react-router-dom'
 export const UserJobApplications: React.FC = () => {
   interface Params {
     page: number;
     search?: string;
   }
+
+  const navigate = useNavigate();
 
   const [applications, setApplications] = useState<IGetUserApplicationResponse[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -34,7 +37,6 @@ export const UserJobApplications: React.FC = () => {
       ...config,
       params,
     })
-    console.log(data)
     if (data) {
       setApplications(data.applications)
       setTotalApplications(data.totalCount)
@@ -75,6 +77,8 @@ export const UserJobApplications: React.FC = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Role</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applied Date</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hiring Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -88,6 +92,7 @@ export const UserJobApplications: React.FC = () => {
                     {data.hiringStatus}
                     </span>
                   </td>
+                  <td><button onClick={()=>navigate(`${data?._id}`)} className='bg-maincolr text-white p-2 rounded-md'>Details</button></td>
                 </tr>
               ))}
             </tbody>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const JoinAs = () => {
-  const [selected, setSelected] = useState<string|null>(null);
+  const [selected, setSelected] = useState<string|null>('jobseeker');
   const navigate=useNavigate()
 
   const handleSelect = (type:string) => {
@@ -27,7 +27,7 @@ const JoinAs = () => {
     <div className='h-1'>
       <div className="flex flex-col h-screen  ">
         <div className="p-4">
-          <Link to='/'>  <img  src={logo} className='w-52 h-auto' alt="Logo" /></Link>
+          <Link to='/'>  <img  src={logo} className='w-36 h-10' alt="Logo" /></Link>
         </div>
         <div className='flex-grow flex justify-center h-screen items-center'>
           <div className="flex flex-col items-center px-5 max-w-[492px] w-full">

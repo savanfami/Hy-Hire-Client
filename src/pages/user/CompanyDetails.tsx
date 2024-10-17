@@ -23,7 +23,7 @@ export const CompanyDetail = () => {
     } catch (error) {
       console.error('Error checking subscription status:', error);
     }
-  };
+  }
 
   useEffect(() => {
     if(state?.user!==null){

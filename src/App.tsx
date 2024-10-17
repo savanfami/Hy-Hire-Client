@@ -47,6 +47,7 @@ import { ListApplicants } from './pages/company/Applicants';
 import { ApplicantDetails } from './pages/company/ApplicantDetails';
 import { UserJobApplications } from './pages/user/UserJobApplications';
 import { TotalRevenuePage } from './pages/admin/TotalRevenuePage';
+import { JobApplicationDetails } from './pages/user/JobApplicationDetails';
 function App() {
 
   useEffect(() => {
@@ -104,6 +105,7 @@ function App() {
           <Route path='profile' element={<UserProfile />} />
           <Route path='savedjobs' element={<SavedJobs />} />
           <Route path='applications' element={<UserJobApplications/>}/>
+          <Route path='applications/:id' element={<JobApplicationDetails/>}/>
         </Route>
 
 

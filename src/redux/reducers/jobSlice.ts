@@ -20,8 +20,10 @@ const jobSlice = createSlice({
     reducers: {
         reset(state) {
             state.jobs = []
-        }
+            
+        },
     },
+
     extraReducers: (builder: ActionReducerMapBuilder<JobReducer>) => {
         builder
             .addCase(postJob.pending, (state) => {

@@ -29,6 +29,7 @@ const userSlice = createSlice({
             state.loading = false;
             state.err = false;
             state.user = null;
+            state.savedJobs=[]
         },
         removeExperience: (state, { payload }) => {
             const output = state.user.data.experiences

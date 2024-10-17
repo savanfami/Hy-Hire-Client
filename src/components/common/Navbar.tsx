@@ -131,6 +131,12 @@ const Navbar = React.memo(() => {
             <NavLink to="joblisting" className='block px-3 py-2 text-gray-500 hover:text-black'>Find jobs</NavLink>
             <NavLink to="companyListing" className='block px-3 py-2 text-gray-500 hover:text-black'>Browse Companies</NavLink>
             <NavLink to="hehe" className='block px-3 py-2 text-gray-500 hover:text-black'>Contact Us</NavLink>
+            <NavLink to='login'>
+                  <NavButton text="Login" isHovered={isHoveredLogin} setIsHovered={setIsHoveredLogin} />
+                </NavLink>
+                <NavLink to="joinas">
+                  <NavButton text="Register" isHovered={isHoveredRegister} setIsHovered={setIsHoveredRegister} />
+                </NavLink>
           </div>
         </div>
       )}

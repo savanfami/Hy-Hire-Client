@@ -4,7 +4,7 @@ import { FormikValues } from "formik";
 import { URL } from "../../common/axiosInstance";
 import { GoogleCredential, GoogleSignupResponse, loginPayload, loginResponse, verifyOtpPayload, verifyOtpResponse } from "../../types/Alltypes";
 import { config } from "../../common/configurations";
-import {removeExperience,removeEducations,removeResumes, removeCertificates} from '../reducers/userSlice'
+import {removeExperience,removeEducations,removeResumes, removeCertificates, resetState} from '../reducers/userSlice'
 import { RootState } from "../store";
 import { ICompanySearchParams } from "../../types/companyTypes";
 import { IPaginatedCompaniesResponse } from "../../types/userTypes";
@@ -71,9 +71,10 @@ export const login = createAsyncThunk<loginResponse, loginPayload>(
 
 
 
-export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
+export const logOut = createAsyncThunk('auth/logout', async (_, {dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(`${URL}/auth/logout`, config)
+    dispatch(resetState())
     try {
       localStorage.removeItem('persist:root');
       return data
